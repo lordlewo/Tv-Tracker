@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="hu.webtown.liferay.tvtracker.model.impl.EpisodeModelImpl">
+		<attributes>
+			<id name="episodeId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="title" />
+			<basic name="airDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="description" />
+			<basic name="imageUrl" />
+			<basic name="imageUuid" />
+			<basic name="imageTitle" />
+			<basic name="imageVersion" />
+			<basic name="seasonId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="hu.webtown.liferay.tvtracker.model.impl.SeasonModelImpl">
+		<attributes>
+			<id name="seasonId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="title" />
+			<basic name="premierDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="seasonNumber" />
+			<basic name="description" />
+			<basic name="imageUrl" />
+			<basic name="imageUuid" />
+			<basic name="imageTitle" />
+			<basic name="imageVersion" />
+			<basic name="tvShowId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="hu.webtown.liferay.tvtracker.model.impl.TvShowModelImpl">
+		<attributes>
+			<id name="tvShowId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="title" />
+			<basic name="premierDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="description" />
+			<basic name="imageUrl" />
+			<basic name="imageUuid" />
+			<basic name="imageTitle" />
+			<basic name="imageVersion" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="hu.webtown.liferay.tvtracker.model.impl.EpisodeImpl" name="Episode">
+		<table name="TvT_Episode" />
+		<attributes />
+	</entity>
+	<entity class="hu.webtown.liferay.tvtracker.model.impl.SeasonImpl" name="Season">
+		<table name="TvT_Season" />
+		<attributes>
+			<transient name="episodeCount" />
+		</attributes>
+	</entity>
+	<entity class="hu.webtown.liferay.tvtracker.model.impl.TvShowImpl" name="TvShow">
+		<table name="TvT_TvShow" />
+		<attributes>
+			<transient name="premierYear" />
+			<transient name="seasonCount" />
+		</attributes>
+	</entity>
+</entity-mappings>

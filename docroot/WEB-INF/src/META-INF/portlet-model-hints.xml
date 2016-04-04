@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="hu.webtown.liferay.tvtracker.model.Episode">
+		<field name="episodeId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="title" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="airDate" type="Date" />
+		<field name="description" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="imageUrl" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="imageUuid" type="String" />
+		<field name="imageTitle" type="String" />
+		<field name="imageVersion" type="String" />
+		<field name="seasonId" type="long" />
+	</model>
+	<model name="hu.webtown.liferay.tvtracker.model.Season">
+		<field name="seasonId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="title" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="premierDate" type="Date">
+			<hint name="show-time">false</hint>
+		</field>
+		<field name="seasonNumber" type="int" />
+		<field name="description" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="imageUrl" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="imageUuid" type="String" />
+		<field name="imageTitle" type="String" />
+		<field name="imageVersion" type="String" />
+		<field name="tvShowId" type="long" />
+	</model>
+	<model name="hu.webtown.liferay.tvtracker.model.TvShow">
+		<field name="tvShowId" type="long" />
+		<field name="groupId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="title" type="String">
+			<hint name="max-length">75</hint>
+		</field>
+		<field name="premierDate" type="Date">
+			<hint name="show-time">false</hint>
+		</field>
+		<field name="description" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="imageUrl" type="String">
+			<hint name="max-length">500</hint>
+		</field>
+		<field name="imageUuid" type="String" />
+		<field name="imageTitle" type="String" />
+		<field name="imageVersion" type="String" />
+	</model>
+</model-hints>

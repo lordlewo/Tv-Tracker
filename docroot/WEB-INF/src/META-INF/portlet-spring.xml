@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="hu.webtown.liferay.tvtracker.service.EpisodeLocalService" class="hu.webtown.liferay.tvtracker.service.impl.EpisodeLocalServiceImpl" />
+	<bean id="hu.webtown.liferay.tvtracker.service.EpisodeService" class="hu.webtown.liferay.tvtracker.service.impl.EpisodeServiceImpl" />
+	<bean id="hu.webtown.liferay.tvtracker.service.persistence.EpisodePersistence" class="hu.webtown.liferay.tvtracker.service.persistence.EpisodePersistenceImpl" parent="basePersistence" />
+	<bean id="hu.webtown.liferay.tvtracker.service.SeasonLocalService" class="hu.webtown.liferay.tvtracker.service.impl.SeasonLocalServiceImpl" />
+	<bean id="hu.webtown.liferay.tvtracker.service.SeasonService" class="hu.webtown.liferay.tvtracker.service.impl.SeasonServiceImpl" />
+	<bean id="hu.webtown.liferay.tvtracker.service.persistence.SeasonPersistence" class="hu.webtown.liferay.tvtracker.service.persistence.SeasonPersistenceImpl" parent="basePersistence" />
+	<bean id="hu.webtown.liferay.tvtracker.service.TvShowLocalService" class="hu.webtown.liferay.tvtracker.service.impl.TvShowLocalServiceImpl" />
+	<bean id="hu.webtown.liferay.tvtracker.service.TvShowService" class="hu.webtown.liferay.tvtracker.service.impl.TvShowServiceImpl" />
+	<bean id="hu.webtown.liferay.tvtracker.service.persistence.TvShowPersistence" class="hu.webtown.liferay.tvtracker.service.persistence.TvShowPersistenceImpl" parent="basePersistence" />
+</beans>

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="hu.webtown.liferay.tvtracker.model.Episode" />
+	<import class="hu.webtown.liferay.tvtracker.model.Season" />
+	<import class="hu.webtown.liferay.tvtracker.model.TvShow" />
+	<class name="hu.webtown.liferay.tvtracker.model.impl.EpisodeImpl" table="TvT_Episode">
+		<cache usage="read-write" />
+		<id name="episodeId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="airDate" type="org.hibernate.type.TimestampType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageUuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageVersion" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="seasonId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="hu.webtown.liferay.tvtracker.model.impl.SeasonImpl" table="TvT_Season">
+		<cache usage="read-write" />
+		<id name="seasonId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="premierDate" type="org.hibernate.type.TimestampType" />
+		<property name="seasonNumber" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageUuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageVersion" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="tvShowId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+	<class name="hu.webtown.liferay.tvtracker.model.impl.TvShowImpl" table="TvT_TvShow">
+		<cache usage="read-write" />
+		<id name="tvShowId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="premierDate" type="org.hibernate.type.TimestampType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageUuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageTitle" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="imageVersion" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+</hibernate-mapping>

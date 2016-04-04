@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+<service-builder package-path="hu.webtown.liferay.tvtracker">
+	<author>czeni</author>
+	<namespace>TvT</namespace>
+
+	<entity name="TvShow" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="tvShowId" type="long" primary="true"></column>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+		<column name="title" type="String"></column>
+		<column name="premierDate" type="Date"></column>
+		<column name="description" type="String"></column>
+        <column name="imageUrl" type="String"></column>
+        <column name="imageUuid" type="String"></column>
+        <column name="imageTitle" type="String"></column>
+        <column name="imageVersion" type="String"></column>
+		<order by="asc">
+			<order-column name="title"></order-column>
+		</order>
+        <finder name="GroupId" return-type="Collection">
+            <finder-column name="groupId"></finder-column>
+        </finder>
+	</entity>
+	<entity name="Season" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="seasonId" type="long" primary="true"></column>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+        <column name="title" type="String"></column>
+        <column name="premierDate" type="Date"></column>
+        <column name="seasonNumber" type="int"></column>
+        <column name="description" type="String"></column>
+        <column name="imageUrl" type="String"></column>
+        <column name="imageUuid" type="String"></column>
+        <column name="imageTitle" type="String"></column>
+        <column name="imageVersion" type="String"></column>
+        <column name="tvShowId" type="long"></column>
+        <order by="asc">
+            <order-column name="seasonNumber"></order-column>
+        </order>
+        <finder name="G_T" return-type="Collection">
+            <finder-column name="groupId"></finder-column>
+            <finder-column name="tvShowId"></finder-column>
+        </finder>
+	</entity>
+	<entity name="Episode" local-service="true">
+
+		<!-- PK fields -->
+
+		<column name="episodeId" type="long" primary="true"></column>
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long"></column>
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long"></column>
+		<column name="userId" type="long"></column>
+		<column name="userName" type="String"></column>
+		<column name="createDate" type="Date"></column>
+		<column name="modifiedDate" type="Date"></column>
+        <column name="title" type="String"></column>
+        <column name="airDate" type="Date"></column>
+        <column name="description" type="String"></column>
+        <column name="imageUrl" type="String"></column>
+        <column name="imageUuid" type="String"></column>
+        <column name="imageTitle" type="String"></column>
+        <column name="imageVersion" type="String"></column>
+        <column name="seasonId" type="long"></column>
+        <order by="asc">
+            <order-column name="airDate"></order-column>
+        </order>
+        <finder name="G_S" return-type="Collection">
+            <finder-column name="groupId"></finder-column>
+            <finder-column name="seasonId"></finder-column>
+        </finder>
+	</entity>
+    <exceptions>
+        <exception>TvShowTitle</exception>
+        <exception>TvShowPremierDate</exception>
+        <exception>TvShowDescription</exception>
+        <exception>TvShowImage</exception>
+        <exception>SeasonTitle</exception>
+        <exception>SeasonPremierDate</exception>
+        <exception>SeasonDescription</exception>
+        <exception>SeasonImage</exception>
+        <exception>EpisodeTitle</exception>
+        <exception>EpisodeAirDate</exception>
+        <exception>EpisodeDescription</exception>
+        <exception>EpisodeImage</exception>
+    </exceptions>
+</service-builder>
