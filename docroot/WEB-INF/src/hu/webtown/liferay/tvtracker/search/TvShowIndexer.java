@@ -68,7 +68,7 @@ public class TvShowIndexer extends BaseIndexer {
 		String view_actionId = ActionKeys.VIEW;
 		
 		
-		// check if owning the nessesery permission (VIEW) 
+		// check if owning the necessary permission (VIEW) 
 		
 		boolean hasPermission = TvShowPermission.contains(permissionChecker, entryClassPK, view_actionId);
 		
@@ -79,7 +79,7 @@ public class TvShowIndexer extends BaseIndexer {
 	@Override
 	protected void doDelete(Object obj) throws Exception {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		TvShow tvShow = (TvShow) obj;
 		
@@ -132,7 +132,7 @@ public class TvShowIndexer extends BaseIndexer {
 	@Override
 	protected Summary doGetSummary(Document document, Locale locale, String snippet, PortletURL portletURL) throws Exception {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		int maxContentLength = 200;
 		
@@ -150,7 +150,7 @@ public class TvShowIndexer extends BaseIndexer {
 	@Override
 	protected void doReindex(Object obj) throws Exception {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		TvShow tvShow = (TvShow) obj;
 		
@@ -172,7 +172,7 @@ public class TvShowIndexer extends BaseIndexer {
 	@Override
 	protected void doReindex(String className, long classPK) throws Exception {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		TvShow tvShow = TvShowLocalServiceUtil.getTvShow(classPK);
 		
@@ -185,7 +185,7 @@ public class TvShowIndexer extends BaseIndexer {
 	@Override
 	protected void doReindex(String[] ids) throws Exception {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		long companyId = GetterUtil.getLong(ids[0]);
 		
@@ -197,7 +197,7 @@ public class TvShowIndexer extends BaseIndexer {
 	
 	protected void reindexTvShowEntries(long companyId) throws SystemException, PortalException {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		String searchEngineId = getSearchEngineId();
 		boolean commitImmediately = true;

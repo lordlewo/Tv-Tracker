@@ -68,7 +68,7 @@ public class SeasonIndexer extends BaseIndexer{
 		String view_actionId = ActionKeys.VIEW;
 		
 		
-		// check if owning the nessesery permission (VIEW) 
+		// check if owning the necessary permission (VIEW) 
 		
 		boolean hasPermission = SeasonPermission.contains(permissionChecker, entryClassPK, view_actionId);
 		
@@ -79,7 +79,7 @@ public class SeasonIndexer extends BaseIndexer{
 	@Override
 	protected void doDelete(Object obj) throws Exception {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		Season season = (Season) obj;
 		
@@ -130,7 +130,7 @@ public class SeasonIndexer extends BaseIndexer{
 	@Override
 	protected Summary doGetSummary(Document document, Locale locale, String snippet, PortletURL portletURL) throws Exception {
 
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		int maxContentLength = 200;
 		
@@ -148,7 +148,7 @@ public class SeasonIndexer extends BaseIndexer{
 	@Override
 	protected void doReindex(Object obj) throws Exception {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		Season season = (Season) obj;
 		
@@ -169,7 +169,7 @@ public class SeasonIndexer extends BaseIndexer{
 	@Override
 	protected void doReindex(String className, long classPK) throws Exception {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		Season season = SeasonLocalServiceUtil.getSeason(classPK);
 		
@@ -182,7 +182,7 @@ public class SeasonIndexer extends BaseIndexer{
 	@Override
 	protected void doReindex(String[] ids) throws Exception {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		long companyId = GetterUtil.getLong(ids[0]);
 		
@@ -194,7 +194,7 @@ public class SeasonIndexer extends BaseIndexer{
 	
 	protected void reindexSeasonEntries(long companyId) throws SystemException, PortalException {
 		
-		// prepare and unbox the nessesery params
+		// prepare and unbox the necessary params
 		
 		String searchEngineId = getSearchEngineId();
 		boolean commitImmediately = true;
