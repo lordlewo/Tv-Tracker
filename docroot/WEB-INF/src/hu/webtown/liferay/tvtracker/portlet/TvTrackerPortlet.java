@@ -45,25 +45,6 @@ public class TvTrackerPortlet extends MVCPortlet {
 			
 			renderRequest.setAttribute(WebKeys.TVSHOWS_PUBLIC_LIST, tvShows);
 			
-			/*****************/
-			
-			List<Indexer> indexers = IndexerRegistryUtil.getIndexers();
-
-			for (Indexer indexer : indexers) {
-
-				System.out.println("portletId: " + indexer.getPortletId() + "\n" + "hash: " + indexer.hashCode());
-
-			    String[] classnames = indexer.getClassNames();
-
-			    for (String classname : classnames) {
-			        System.out.println("classname: " + classname);
-			    }
-			    
-			    System.out.println();
-			}
-			
-			
-			/*****************/
 			
 		} catch (Exception e) {
 			

@@ -34,6 +34,8 @@ import hu.webtown.liferay.tvtracker.service.base.TvShowLocalServiceBaseImpl;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 /**
  * The implementation of the tv show local service.
@@ -56,7 +58,8 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		// unbox and prepare the necessary parameters
 		
 		long groupId = serviceContext.getScopeGroupId();
-		
+		Locale currentLocale = serviceContext.getLocale();
+		TimeZone currentTimeZone = serviceContext.getTimeZone();
 		
 		// using of the finder method to retrive the requested entity instances
 		
@@ -65,7 +68,26 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// producing and setting the necessary custom properties
 		
-		Calendar calendar = Calendar.getInstance();
+		Calendar calendar;
+		
+		if(currentLocale != null && currentTimeZone != null){
+		
+			calendar = Calendar.getInstance(currentTimeZone, currentLocale);
+			
+		} else if(currentLocale != null){
+			
+			calendar = Calendar.getInstance(currentLocale);
+			
+		} else if (currentTimeZone != null){
+			
+			calendar = Calendar.getInstance(currentTimeZone);
+			
+		} else {
+			
+			calendar = Calendar.getInstance();
+			
+		}
+		
 		
 		for (TvShow tvShow : tvShows) {
 			

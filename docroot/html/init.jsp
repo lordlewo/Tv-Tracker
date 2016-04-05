@@ -14,11 +14,26 @@
 <%@ page import="com.liferay.portal.util.PortalUtil" %>
 
 <%@ page import="hu.webtown.liferay.tvtracker.util.ActionKeys" %>
+<%@ page import="hu.webtown.liferay.tvtracker.util.WebKeys" %>
+<%@ page import="hu.webtown.liferay.tvtracker.util.PortletKeys" %>
+
+<%@page import="com.liferay.portal.service.ServiceContextFactory"%>
+<%@page import="com.liferay.portal.service.ServiceContext"%>
+
+<%@page import="hu.webtown.liferay.tvtracker.model.TvShow"%>
+<%@page import="hu.webtown.liferay.tvtracker.model.Season"%>
+<%@page import="hu.webtown.liferay.tvtracker.model.Episode"%>
+
+<%@page import="hu.webtown.liferay.tvtracker.service.TvShowLocalServiceUtil"%>
+<%@page import="hu.webtown.liferay.tvtracker.service.SeasonLocalServiceUtil"%>
+<%@page import="hu.webtown.liferay.tvtracker.service.EpisodeLocalServiceUtil"%>
 
 <%@ page import="hu.webtown.liferay.tvtracker.service.permission.TvTrackerModelPermission" %>
 <%@ page import="hu.webtown.liferay.tvtracker.service.permission.TvShowPermission" %>
 <%@ page import="hu.webtown.liferay.tvtracker.service.permission.SeasonPermission" %>
 <%@ page import="hu.webtown.liferay.tvtracker.service.permission.EpisodePermission" %>
+
+<%@ page import="java.util.*" %>
 
 <portlet:defineObjects />
 <theme:defineObjects />
