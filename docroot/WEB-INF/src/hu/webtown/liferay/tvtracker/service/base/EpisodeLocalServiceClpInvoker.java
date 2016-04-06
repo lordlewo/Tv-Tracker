@@ -106,53 +106,53 @@ public class EpisodeLocalServiceClpInvoker {
 				"hu.webtown.liferay.tvtracker.model.Episode"
 			};
 
-		_methodName46 = "getBeanIdentifier";
+		_methodName56 = "getBeanIdentifier";
 
-		_methodParameterTypes46 = new String[] {  };
+		_methodParameterTypes56 = new String[] {  };
 
-		_methodName47 = "setBeanIdentifier";
+		_methodName57 = "setBeanIdentifier";
 
-		_methodParameterTypes47 = new String[] { "java.lang.String" };
+		_methodParameterTypes57 = new String[] { "java.lang.String" };
 
-		_methodName52 = "getEpisodes";
+		_methodName62 = "getEpisodes";
 
-		_methodParameterTypes52 = new String[] {
+		_methodParameterTypes62 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName53 = "getEpisodes";
+		_methodName63 = "getEpisodes";
 
-		_methodParameterTypes53 = new String[] {
+		_methodParameterTypes63 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext", "int",
 				"int"
 			};
 
-		_methodName54 = "getEpisodesCount";
+		_methodName64 = "getEpisodesCount";
 
-		_methodParameterTypes54 = new String[] {
+		_methodParameterTypes64 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName55 = "addEpisode";
+		_methodName65 = "addEpisode";
 
-		_methodParameterTypes55 = new String[] {
+		_methodParameterTypes65 = new String[] {
 				"long", "java.lang.String", "java.util.Date", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName56 = "updateEpisode";
+		_methodName66 = "updateEpisode";
 
-		_methodParameterTypes56 = new String[] {
+		_methodParameterTypes66 = new String[] {
 				"long", "long", "java.lang.String", "java.util.Date",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName57 = "deleteEpisode";
+		_methodName67 = "deleteEpisode";
 
-		_methodParameterTypes57 = new String[] {
+		_methodParameterTypes67 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -246,40 +246,40 @@ public class EpisodeLocalServiceClpInvoker {
 			return EpisodeLocalServiceUtil.updateEpisode((hu.webtown.liferay.tvtracker.model.Episode)arguments[0]);
 		}
 
-		if (_methodName46.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName47.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			EpisodeLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodes(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName53.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodes(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1],
 				((Integer)arguments[2]).intValue(),
 				((Integer)arguments[3]).intValue());
 		}
 
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodesCount(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			return EpisodeLocalServiceUtil.addEpisode(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.util.Date)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -288,8 +288,8 @@ public class EpisodeLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[8]);
 		}
 
-		if (_methodName56.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+		if (_methodName66.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
 			return EpisodeLocalServiceUtil.updateEpisode(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.util.Date)arguments[3],
@@ -299,8 +299,8 @@ public class EpisodeLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[9]);
 		}
 
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
 			return EpisodeLocalServiceUtil.deleteEpisode(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
@@ -340,20 +340,20 @@ public class EpisodeLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName46;
-	private String[] _methodParameterTypes46;
-	private String _methodName47;
-	private String[] _methodParameterTypes47;
-	private String _methodName52;
-	private String[] _methodParameterTypes52;
-	private String _methodName53;
-	private String[] _methodParameterTypes53;
-	private String _methodName54;
-	private String[] _methodParameterTypes54;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
 	private String _methodName56;
 	private String[] _methodParameterTypes56;
 	private String _methodName57;
 	private String[] _methodParameterTypes57;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
+	private String _methodName63;
+	private String[] _methodParameterTypes63;
+	private String _methodName64;
+	private String[] _methodParameterTypes64;
+	private String _methodName65;
+	private String[] _methodParameterTypes65;
+	private String _methodName66;
+	private String[] _methodParameterTypes66;
+	private String _methodName67;
+	private String[] _methodParameterTypes67;
 }

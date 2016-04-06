@@ -18,10 +18,13 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portlet.asset.model.AssetEntry;
+import com.liferay.portlet.asset.model.AssetLinkConstants;
 
 import hu.webtown.liferay.tvtracker.TvShowDescriptionException;
 import hu.webtown.liferay.tvtracker.TvShowImageException;
@@ -68,7 +71,7 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// producing and setting the necessary custom properties
 		
-		Calendar calendar;
+		Calendar calendar = null;
 		
 		if(currentLocale != null && currentTimeZone != null){
 		
@@ -219,19 +222,45 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// prepare some parameters for permission/resource adding
 		
-		String resourceName = TvShow.class.getName();
+		String className = TvShow.class.getName();
 		boolean portletActions = false;
 		boolean addGroupPermissions = true;
 		boolean addGuestPermissions = true;
 		
 		// permission/resource adding
 		
-		resourceLocalService.addResources(companyId, groupId, userId, resourceName, tvShowId, portletActions, addGroupPermissions, addGuestPermissions);
+		resourceLocalService.addResources(companyId, groupId, userId, className, tvShowId, portletActions, addGroupPermissions, addGuestPermissions);
 		
 		
-		//Todo - asset enabling
+		// prepare some params for the asset config
 		
+		long classTypeId = 0;
+		long[] assetCategoryIds = serviceContext.getAssetCategoryIds();
+		String[] assetTagNames = serviceContext.getAssetTagNames();
+		boolean visible = true;
+		Date startDate = null, endDate = null, expirationDate = null;
+		String mimeType = ContentTypes.TEXT_HTML;
+		String assetTitle = title, assetDescription = null, assetSummary = null, assetUrl = null, assetLayoutUuId = null;
+		int height = 0, width = 0;
+		Integer priority = null;
+		boolean sync = false;
 		
+		// asset creating
+		
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
+				userId, groupId, createDate, modifiedDate, 
+				className, tvShowId, uuid, classTypeId, 
+				assetCategoryIds, assetTagNames, visible, 
+				startDate, endDate, expirationDate, mimeType, 
+				assetTitle, assetDescription, assetSummary, assetUrl, assetLayoutUuId, 
+				height, width, priority, sync);
+		
+	
+		long entryId = assetEntry.getEntryId();
+		long[] assetLinkEntryIds = serviceContext.getAssetLinkEntryIds();
+		int typeId = AssetLinkConstants.TYPE_RELATED;
+		
+		assetLinkLocalService.updateLinks(userId, entryId, assetLinkEntryIds, typeId);
 		
 		
 		// search/indexing
@@ -295,19 +324,45 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// prepare some parameters for permission/resource updating
 		
-		String resourceName = TvShow.class.getName();
+		String className = TvShow.class.getName();
 		String[] groupPermissions = serviceContext.getGroupPermissions();
 		String[] guestPermissions = serviceContext.getGuestPermissions();
 		
 		
 		// permission/resource updating
 
-		resourceLocalService.updateResources(companyId, groupId, resourceName, tvShowId, groupPermissions, guestPermissions);
+		resourceLocalService.updateResources(companyId, groupId, className, tvShowId, groupPermissions, guestPermissions);
 		
 		
-		//Todo - asset enabling
+		// prepare some params for the asset config
 		
+		long classTypeId = 0;
+		long[] assetCategoryIds = serviceContext.getAssetCategoryIds();
+		String[] assetTagNames = serviceContext.getAssetTagNames();
+		boolean visible = true;
+		Date startDate = null, endDate = null, expirationDate = null;
+		String mimeType = ContentTypes.TEXT_HTML;
+		String assetTitle = title, assetDescription = null, assetSummary = null, assetUrl = null, assetLayoutUuId = null;
+		int height = 0, width = 0;
+		Integer priority = null;
+		boolean sync = false;
 		
+		// asset updating
+		
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
+				userId, groupId, createDate, modifiedDate, 
+				className, tvShowId, uuid, classTypeId, 
+				assetCategoryIds, assetTagNames, visible, 
+				startDate, endDate, expirationDate, mimeType, 
+				assetTitle, assetDescription, assetSummary, assetUrl, assetLayoutUuId, 
+				height, width, priority, sync);
+		
+	
+		long entryId = assetEntry.getEntryId();
+		long[] assetLinkEntryIds = serviceContext.getAssetLinkEntryIds();
+		int typeId = AssetLinkConstants.TYPE_RELATED;
+		
+		assetLinkLocalService.updateLinks(userId, entryId, assetLinkEntryIds, typeId);
 		
 		
 		// search/indexing
@@ -334,16 +389,22 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// prepare some parameters for permission/resource deleting
 		
-		String resourceName = TvShow.class.getName();
+		String className = TvShow.class.getName();
 		
 		// permission/resource deleting
 		
-		resourceLocalService.deleteResource(companyId, resourceName, ResourceConstants.SCOPE_INDIVIDUAL, tvShowId);
+		resourceLocalService.deleteResource(companyId, className, ResourceConstants.SCOPE_INDIVIDUAL, tvShowId);
 		
 		
-		//Todo - asset handling
+		// asset deleting
 		
+		AssetEntry assetEntry = assetEntryLocalService.fetchEntry(className, tvShowId);
 		
+		long entryId = assetEntry.getEntryId();
+		
+		assetLinkLocalService.deleteLinks(entryId);
+		
+		assetEntryLocalService.deleteEntry(assetEntry);
 		
 
 		// search/index
@@ -384,16 +445,22 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// prepare some parameters for permission/resource deleting
 		
-		String resourceName = TvShow.class.getName();
+		String className = TvShow.class.getName();
 		
 		// permission/resource deleting
 		
-		resourceLocalService.deleteResource(companyId, resourceName, ResourceConstants.SCOPE_INDIVIDUAL, tvShowId);
+		resourceLocalService.deleteResource(companyId, className, ResourceConstants.SCOPE_INDIVIDUAL, tvShowId);
 		
 		
-		//Todo - asset handling
+		// asset deleting
 		
+		AssetEntry assetEntry = assetEntryLocalService.fetchEntry(className, tvShowId);
 		
+		long entryId = assetEntry.getEntryId();
+		
+		assetLinkLocalService.deleteLinks(entryId);
+		
+		assetEntryLocalService.deleteEntry(assetEntry);
 		
 		
 		// search/index

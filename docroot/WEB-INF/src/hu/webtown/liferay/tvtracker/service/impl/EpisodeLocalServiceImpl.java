@@ -18,10 +18,13 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portlet.asset.model.AssetEntry;
+import com.liferay.portlet.asset.model.AssetLinkConstants;
 
 import hu.webtown.liferay.tvtracker.EpisodeAirDateException;
 import hu.webtown.liferay.tvtracker.EpisodeDescriptionException;
@@ -134,22 +137,48 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		
 		// prepare some parameters for permission/resource adding
 		
-		String resourceName = Episode.class.getName();
+		String className = Episode.class.getName();
 		boolean portletActions = false;
 		boolean addGroupPermissions = true;
 		boolean addGuestPermissions = true;
 		
 		// permission/resource adding
 		
-		resourceLocalService.addResources(companyId, groupId, userId, resourceName, episodeId, portletActions, addGroupPermissions, addGuestPermissions);
+		resourceLocalService.addResources(companyId, groupId, userId, className, episodeId, portletActions, addGroupPermissions, addGuestPermissions);
 		
 		
-		//Todo - asset enabling
+		// prepare some params for the asset config
+		
+		long classTypeId = 0;
+		long[] assetCategoryIds = serviceContext.getAssetCategoryIds();
+		String[] assetTagNames = serviceContext.getAssetTagNames();
+		boolean visible = true;
+		Date startDate = null, endDate = null, expirationDate = null;
+		String mimeType = ContentTypes.TEXT_HTML;
+		String assetTitle = title, assetDescription = null, assetSummary = null, assetUrl = null, assetLayoutUuId = null;
+		int height = 0, width = 0;
+		Integer priority = null;
+		boolean sync = false;
+		
+		// asset creating
+		
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
+				userId, groupId, createDate, modifiedDate, 
+				className, episodeId, uuid, classTypeId, 
+				assetCategoryIds, assetTagNames, visible, 
+				startDate, endDate, expirationDate, mimeType, 
+				assetTitle, assetDescription, assetSummary, assetUrl, assetLayoutUuId, 
+				height, width, priority, sync);
 		
 	
+		long entryId = assetEntry.getEntryId();
+		long[] assetLinkEntryIds = serviceContext.getAssetLinkEntryIds();
+		int typeId = AssetLinkConstants.TYPE_RELATED;
 		
+		assetLinkLocalService.updateLinks(userId, entryId, assetLinkEntryIds, typeId);
+
 		
-		//search/indexing
+		// search/indexing
 		
 		Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(Episode.class);
 		
@@ -212,21 +241,47 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		
 		// prepare some parameters for permission/resource updating
 		
-		String resourceName = Episode.class.getName();
+		String className = Episode.class.getName();
 		String[] groupPermissions = serviceContext.getGroupPermissions();
 		String[] guestPermissions = serviceContext.getGuestPermissions();
 		
 		// permission/resource updating
 
-		resourceLocalService.updateResources(companyId, groupId, resourceName, userId, groupPermissions, guestPermissions);
+		resourceLocalService.updateResources(companyId, groupId, className, userId, groupPermissions, guestPermissions);
 		
 		
-		//Todo - asset enabling
+		// prepare some params for the asset config
+		
+		long classTypeId = 0;
+		long[] assetCategoryIds = serviceContext.getAssetCategoryIds();
+		String[] assetTagNames = serviceContext.getAssetTagNames();
+		boolean visible = true;
+		Date startDate = null, endDate = null, expirationDate = null;
+		String mimeType = ContentTypes.TEXT_HTML;
+		String assetTitle = title, assetDescription = null, assetSummary = null, assetUrl = null, assetLayoutUuId = null;
+		int height = 0, width = 0;
+		Integer priority = null;
+		boolean sync = false;
+		
+		// asset updating
+		
+		AssetEntry assetEntry = assetEntryLocalService.updateEntry(
+				userId, groupId, createDate, modifiedDate, 
+				className, episodeId, uuid, classTypeId, 
+				assetCategoryIds, assetTagNames, visible, 
+				startDate, endDate, expirationDate, mimeType, 
+				assetTitle, assetDescription, assetSummary, assetUrl, assetLayoutUuId, 
+				height, width, priority, sync);
 		
 	
+		long entryId = assetEntry.getEntryId();
+		long[] assetLinkEntryIds = serviceContext.getAssetLinkEntryIds();
+		int typeId = AssetLinkConstants.TYPE_RELATED;
 		
+		assetLinkLocalService.updateLinks(userId, entryId, assetLinkEntryIds, typeId);
 		
-		//search/indexing
+
+		// search/indexing
 		
 		Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(Episode.class);
 		
@@ -250,19 +305,25 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		
 		// prepare some parameters for permission/resource deleting
 		
-		String resourceName = Episode.class.getName();
+		String className = Episode.class.getName();
 		
 		// permission/resource deleting
 		
-		resourceLocalService.deleteResource(companyId, resourceName, ResourceConstants.SCOPE_INDIVIDUAL, episodeId);
+		resourceLocalService.deleteResource(companyId, className, ResourceConstants.SCOPE_INDIVIDUAL, episodeId);
 		
 		
-		//Todo - asset enabling
+		// asset deleting
 		
-	
+		AssetEntry assetEntry = assetEntryLocalService.fetchEntry(className, episodeId);
+		
+		long entryId = assetEntry.getEntryId();
+		
+		assetLinkLocalService.deleteLinks(entryId);
+		
+		assetEntryLocalService.deleteEntry(assetEntry);
 		
 		
-		//search/indexing
+		// search/indexing
 		
 		Indexer indexer = IndexerRegistryUtil.nullSafeGetIndexer(Episode.class);
 		

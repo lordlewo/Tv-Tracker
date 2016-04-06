@@ -34,6 +34,8 @@
         <finder name="GroupId" return-type="Collection">
             <finder-column name="groupId"></finder-column>
         </finder>
+        <reference entity="AssetEntry" package-path="com.liferay.portlet.asset"></reference>
+        <reference entity="AssetLink" package-path="com.liferay.portlet.asset"></reference>
 	</entity>
 	<entity name="Season" local-service="true">
 
@@ -68,6 +70,8 @@
             <finder-column name="groupId"></finder-column>
             <finder-column name="tvShowId"></finder-column>
         </finder>
+        <reference entity="AssetEntry" package-path="com.liferay.portlet.asset"></reference>
+        <reference package-path="com.liferay.portlet.asset" entity="AssetLink"></reference>
 	</entity>
 	<entity name="Episode" local-service="true">
 
@@ -101,6 +105,8 @@
             <finder-column name="groupId"></finder-column>
             <finder-column name="seasonId"></finder-column>
         </finder>
+        <reference package-path="com.liferay.portlet.asset" entity="AssetEntry"></reference>
+        <reference package-path="com.liferay.portlet.asset" entity="AssetLink"></reference>
 	</entity>
     <exceptions>
         <exception>TvShowTitle</exception>
