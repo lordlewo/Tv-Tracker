@@ -114,7 +114,7 @@ public class SeasonLocalServiceClp implements SeasonLocalService {
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
 
-		_methodName19 = "getSeasons";
+		_methodName19 = "getSeason";
 
 		_methodParameterTypes19 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
@@ -123,37 +123,43 @@ public class SeasonLocalServiceClp implements SeasonLocalService {
 		_methodName20 = "getSeasons";
 
 		_methodParameterTypes20 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName21 = "getSeasons";
+
+		_methodParameterTypes21 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext", "int",
 				"int"
 			};
 
-		_methodName21 = "getSeasonsCount";
+		_methodName22 = "getSeasonsCount";
 
-		_methodParameterTypes21 = new String[] {
+		_methodParameterTypes22 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName22 = "addSeason";
+		_methodName23 = "addSeason";
 
-		_methodParameterTypes22 = new String[] {
+		_methodParameterTypes23 = new String[] {
 				"long", "java.lang.String", "java.util.Date", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName23 = "updateSeason";
+		_methodName24 = "updateSeason";
 
-		_methodParameterTypes23 = new String[] {
+		_methodParameterTypes24 = new String[] {
 				"long", "long", "java.lang.String", "java.util.Date", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName24 = "deleteSeason";
+		_methodName25 = "deleteSeason";
 
-		_methodParameterTypes24 = new String[] {
+		_methodParameterTypes25 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -705,14 +711,53 @@ public class SeasonLocalServiceClp implements SeasonLocalService {
 	}
 
 	@Override
+	public hu.webtown.liferay.tvtracker.model.Season getSeason(long seasonId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchSeasonException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
+					new Object[] {
+						seasonId,
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof hu.webtown.liferay.tvtracker.NoSuchSeasonException) {
+				throw (hu.webtown.liferay.tvtracker.NoSuchSeasonException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (hu.webtown.liferay.tvtracker.model.Season)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
 		long tvShowId, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19,
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
 					new Object[] {
 						tvShowId,
 						
@@ -746,8 +791,8 @@ public class SeasonLocalServiceClp implements SeasonLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] {
 						tvShowId,
 						
@@ -784,8 +829,8 @@ public class SeasonLocalServiceClp implements SeasonLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] {
 						tvShowId,
 						
@@ -823,8 +868,8 @@ public class SeasonLocalServiceClp implements SeasonLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] {
 						tvShowId,
 						
@@ -883,8 +928,8 @@ public class SeasonLocalServiceClp implements SeasonLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] {
 						tvShowId,
 						
@@ -940,8 +985,8 @@ public class SeasonLocalServiceClp implements SeasonLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
 					new Object[] {
 						seasonId,
 						
@@ -1020,4 +1065,6 @@ public class SeasonLocalServiceClp implements SeasonLocalService {
 	private String[] _methodParameterTypes23;
 	private String _methodName24;
 	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
 }

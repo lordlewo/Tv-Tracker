@@ -26,6 +26,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.asset.model.AssetEntry;
 import com.liferay.portlet.asset.model.AssetLinkConstants;
 
+import hu.webtown.liferay.tvtracker.NoSuchTvShowException;
 import hu.webtown.liferay.tvtracker.TvShowDescriptionException;
 import hu.webtown.liferay.tvtracker.TvShowImageException;
 import hu.webtown.liferay.tvtracker.TvShowPremierDateException;
@@ -55,6 +56,64 @@ import java.util.TimeZone;
  * @see hu.webtown.liferay.tvtracker.service.TvShowLocalServiceUtil
  */
 public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
+	
+	public TvShow getTvShow(long tvShowId, ServiceContext serviceContext) throws SystemException, NoSuchTvShowException{
+		
+		// unbox and prepare the necessary parameters
+		
+		long groupId = serviceContext.getScopeGroupId();
+		Locale currentLocale = serviceContext.getLocale();
+		TimeZone currentTimeZone = serviceContext.getTimeZone();
+		
+		// using of the finder method to retrive the requested entity instance
+		
+		TvShow tvShow = tvShowPersistence.findByG_T(tvShowId, groupId);
+		
+		
+		// producing and setting the necessary custom properties
+		
+		Calendar calendar = null;
+		
+		if(currentLocale != null && currentTimeZone != null){
+		
+			calendar = Calendar.getInstance(currentTimeZone, currentLocale);
+			
+		} else if(currentLocale != null){
+			
+			calendar = Calendar.getInstance(currentLocale);
+			
+		} else if (currentTimeZone != null){
+			
+			calendar = Calendar.getInstance(currentTimeZone);
+			
+		} else {
+			
+			calendar = Calendar.getInstance();
+			
+		}
+		
+		
+		// getting the premier year from the premier date
+		
+		Date premierDate = tvShow.getPremierDate();
+		calendar.setTime(premierDate);
+		
+		int premierYear = calendar.get(Calendar.YEAR);
+		tvShow.setPremierYear(premierYear);
+		
+		calendar.clear();
+		
+		
+		// getting the tvShow's season count
+		
+		int seasonCount = seasonLocalService.getSeasonsCount(tvShowId, serviceContext);
+		
+		tvShow.setSeasonCount(seasonCount);
+		
+		
+		return tvShow;
+	}
+	
 	
 	public List<TvShow> getTvShows(ServiceContext serviceContext) throws SystemException {
 		

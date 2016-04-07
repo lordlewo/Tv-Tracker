@@ -26,6 +26,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.asset.model.AssetEntry;
 import com.liferay.portlet.asset.model.AssetLinkConstants;
 
+import hu.webtown.liferay.tvtracker.NoSuchSeasonException;
 import hu.webtown.liferay.tvtracker.SeasonPremierDateException;
 import hu.webtown.liferay.tvtracker.SeasonTitleException;
 import hu.webtown.liferay.tvtracker.model.Season;
@@ -49,6 +50,27 @@ import java.util.List;
  * @see hu.webtown.liferay.tvtracker.service.SeasonLocalServiceUtil
  */
 public class SeasonLocalServiceImpl extends SeasonLocalServiceBaseImpl {
+	
+	public Season getSeason(long seasonId, ServiceContext serviceContext) throws SystemException, NoSuchSeasonException {
+		
+		// unbox and prepare the necessary parameters
+		
+		long groupId = serviceContext.getScopeGroupId();
+		
+		
+		// using of the finder method to retrive the requested entity instances
+		
+		Season season = seasonPersistence.findByG_S(groupId, seasonId);
+		
+		
+		// getting the season's episode count
+		
+		int episodeCount = episodeLocalService.getEpisodesCount(seasonId, serviceContext);
+		season.setEpisodeCount(episodeCount);
+		
+		
+		return season;
+	}
 	
 	public List<Season> getSeasons(long tvShowId, ServiceContext serviceContext) throws SystemException {
 		

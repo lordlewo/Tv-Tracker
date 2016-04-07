@@ -100,8 +100,9 @@ public class SeasonModelImpl extends BaseModelImpl<Season>
 				"value.object.column.bitmask.enabled.hu.webtown.liferay.tvtracker.model.Season"),
 			true);
 	public static long GROUPID_COLUMN_BITMASK = 1L;
-	public static long TVSHOWID_COLUMN_BITMASK = 2L;
-	public static long SEASONNUMBER_COLUMN_BITMASK = 4L;
+	public static long SEASONID_COLUMN_BITMASK = 2L;
+	public static long TVSHOWID_COLUMN_BITMASK = 4L;
+	public static long SEASONNUMBER_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -323,7 +324,19 @@ public class SeasonModelImpl extends BaseModelImpl<Season>
 
 	@Override
 	public void setSeasonId(long seasonId) {
+		_columnBitmask |= SEASONID_COLUMN_BITMASK;
+
+		if (!_setOriginalSeasonId) {
+			_setOriginalSeasonId = true;
+
+			_originalSeasonId = _seasonId;
+		}
+
 		_seasonId = seasonId;
+	}
+
+	public long getOriginalSeasonId() {
+		return _originalSeasonId;
 	}
 
 	@JSON
@@ -667,6 +680,10 @@ public class SeasonModelImpl extends BaseModelImpl<Season>
 	public void resetOriginalValues() {
 		SeasonModelImpl seasonModelImpl = this;
 
+		seasonModelImpl._originalSeasonId = seasonModelImpl._seasonId;
+
+		seasonModelImpl._setOriginalSeasonId = false;
+
 		seasonModelImpl._originalGroupId = seasonModelImpl._groupId;
 
 		seasonModelImpl._setOriginalGroupId = false;
@@ -902,6 +919,8 @@ public class SeasonModelImpl extends BaseModelImpl<Season>
 	private static ClassLoader _classLoader = Season.class.getClassLoader();
 	private static Class<?>[] _escapedModelInterfaces = new Class[] { Season.class };
 	private long _seasonId;
+	private long _originalSeasonId;
+	private boolean _setOriginalSeasonId;
 	private long _groupId;
 	private long _originalGroupId;
 	private boolean _setOriginalGroupId;

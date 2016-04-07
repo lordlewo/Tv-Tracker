@@ -281,6 +281,14 @@ public class TvShowLocalServiceWrapper implements TvShowLocalService,
 	}
 
 	@Override
+	public hu.webtown.liferay.tvtracker.model.TvShow getTvShow(long tvShowId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchTvShowException {
+		return _tvShowLocalService.getTvShow(tvShowId, serviceContext);
+	}
+
+	@Override
 	public java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {

@@ -933,6 +933,245 @@ public class TvShowPersistenceImpl extends BasePersistenceImpl<TvShow>
 	}
 
 	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "tvShow.groupId = ?";
+	public static final FinderPath FINDER_PATH_FETCH_BY_G_T = new FinderPath(TvShowModelImpl.ENTITY_CACHE_ENABLED,
+			TvShowModelImpl.FINDER_CACHE_ENABLED, TvShowImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByG_T",
+			new String[] { Long.class.getName(), Long.class.getName() },
+			TvShowModelImpl.TVSHOWID_COLUMN_BITMASK |
+			TvShowModelImpl.GROUPID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_G_T = new FinderPath(TvShowModelImpl.ENTITY_CACHE_ENABLED,
+			TvShowModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_T",
+			new String[] { Long.class.getName(), Long.class.getName() });
+
+	/**
+	 * Returns the tv show where tvShowId = &#63; and groupId = &#63; or throws a {@link hu.webtown.liferay.tvtracker.NoSuchTvShowException} if it could not be found.
+	 *
+	 * @param tvShowId the tv show ID
+	 * @param groupId the group ID
+	 * @return the matching tv show
+	 * @throws hu.webtown.liferay.tvtracker.NoSuchTvShowException if a matching tv show could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TvShow findByG_T(long tvShowId, long groupId)
+		throws NoSuchTvShowException, SystemException {
+		TvShow tvShow = fetchByG_T(tvShowId, groupId);
+
+		if (tvShow == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("tvShowId=");
+			msg.append(tvShowId);
+
+			msg.append(", groupId=");
+			msg.append(groupId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchTvShowException(msg.toString());
+		}
+
+		return tvShow;
+	}
+
+	/**
+	 * Returns the tv show where tvShowId = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param tvShowId the tv show ID
+	 * @param groupId the group ID
+	 * @return the matching tv show, or <code>null</code> if a matching tv show could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TvShow fetchByG_T(long tvShowId, long groupId)
+		throws SystemException {
+		return fetchByG_T(tvShowId, groupId, true);
+	}
+
+	/**
+	 * Returns the tv show where tvShowId = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param tvShowId the tv show ID
+	 * @param groupId the group ID
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching tv show, or <code>null</code> if a matching tv show could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TvShow fetchByG_T(long tvShowId, long groupId,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { tvShowId, groupId };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_G_T,
+					finderArgs, this);
+		}
+
+		if (result instanceof TvShow) {
+			TvShow tvShow = (TvShow)result;
+
+			if ((tvShowId != tvShow.getTvShowId()) ||
+					(groupId != tvShow.getGroupId())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_TVSHOW_WHERE);
+
+			query.append(_FINDER_COLUMN_G_T_TVSHOWID_2);
+
+			query.append(_FINDER_COLUMN_G_T_GROUPID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(tvShowId);
+
+				qPos.add(groupId);
+
+				List<TvShow> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_T,
+						finderArgs, list);
+				}
+				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"TvShowPersistenceImpl.fetchByG_T(long, long, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
+					TvShow tvShow = list.get(0);
+
+					result = tvShow;
+
+					cacheResult(tvShow);
+
+					if ((tvShow.getTvShowId() != tvShowId) ||
+							(tvShow.getGroupId() != groupId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_T,
+							finderArgs, tvShow);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_T,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (TvShow)result;
+		}
+	}
+
+	/**
+	 * Removes the tv show where tvShowId = &#63; and groupId = &#63; from the database.
+	 *
+	 * @param tvShowId the tv show ID
+	 * @param groupId the group ID
+	 * @return the tv show that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public TvShow removeByG_T(long tvShowId, long groupId)
+		throws NoSuchTvShowException, SystemException {
+		TvShow tvShow = findByG_T(tvShowId, groupId);
+
+		return remove(tvShow);
+	}
+
+	/**
+	 * Returns the number of tv shows where tvShowId = &#63; and groupId = &#63;.
+	 *
+	 * @param tvShowId the tv show ID
+	 * @param groupId the group ID
+	 * @return the number of matching tv shows
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByG_T(long tvShowId, long groupId)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_T;
+
+		Object[] finderArgs = new Object[] { tvShowId, groupId };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_TVSHOW_WHERE);
+
+			query.append(_FINDER_COLUMN_G_T_TVSHOWID_2);
+
+			query.append(_FINDER_COLUMN_G_T_GROUPID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(tvShowId);
+
+				qPos.add(groupId);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_G_T_TVSHOWID_2 = "tvShow.tvShowId = ? AND ";
+	private static final String _FINDER_COLUMN_G_T_GROUPID_2 = "tvShow.groupId = ?";
 
 	public TvShowPersistenceImpl() {
 		setModelClass(TvShow.class);
@@ -947,6 +1186,9 @@ public class TvShowPersistenceImpl extends BasePersistenceImpl<TvShow>
 	public void cacheResult(TvShow tvShow) {
 		EntityCacheUtil.putResult(TvShowModelImpl.ENTITY_CACHE_ENABLED,
 			TvShowImpl.class, tvShow.getPrimaryKey(), tvShow);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_T,
+			new Object[] { tvShow.getTvShowId(), tvShow.getGroupId() }, tvShow);
 
 		tvShow.resetOriginalValues();
 	}
@@ -1004,6 +1246,8 @@ public class TvShowPersistenceImpl extends BasePersistenceImpl<TvShow>
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(tvShow);
 	}
 
 	@Override
@@ -1014,6 +1258,54 @@ public class TvShowPersistenceImpl extends BasePersistenceImpl<TvShow>
 		for (TvShow tvShow : tvShows) {
 			EntityCacheUtil.removeResult(TvShowModelImpl.ENTITY_CACHE_ENABLED,
 				TvShowImpl.class, tvShow.getPrimaryKey());
+
+			clearUniqueFindersCache(tvShow);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(TvShow tvShow) {
+		if (tvShow.isNew()) {
+			Object[] args = new Object[] {
+					tvShow.getTvShowId(), tvShow.getGroupId()
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_G_T, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_T, args, tvShow);
+		}
+		else {
+			TvShowModelImpl tvShowModelImpl = (TvShowModelImpl)tvShow;
+
+			if ((tvShowModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_G_T.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						tvShow.getTvShowId(), tvShow.getGroupId()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_G_T, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_T, args, tvShow);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(TvShow tvShow) {
+		TvShowModelImpl tvShowModelImpl = (TvShowModelImpl)tvShow;
+
+		Object[] args = new Object[] { tvShow.getTvShowId(), tvShow.getGroupId() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_T, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_T, args);
+
+		if ((tvShowModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_G_T.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					tvShowModelImpl.getOriginalTvShowId(),
+					tvShowModelImpl.getOriginalGroupId()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_T, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_T, args);
 		}
 	}
 
@@ -1176,6 +1468,9 @@ public class TvShowPersistenceImpl extends BasePersistenceImpl<TvShow>
 
 		EntityCacheUtil.putResult(TvShowModelImpl.ENTITY_CACHE_ENABLED,
 			TvShowImpl.class, tvShow.getPrimaryKey(), tvShow);
+
+		clearUniqueFindersCache(tvShow);
+		cacheUniqueFindersCache(tvShow);
 
 		return tvShow;
 	}

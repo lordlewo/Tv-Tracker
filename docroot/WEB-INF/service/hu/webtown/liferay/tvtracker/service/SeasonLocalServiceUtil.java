@@ -275,6 +275,13 @@ public class SeasonLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static hu.webtown.liferay.tvtracker.model.Season getSeason(
+		long seasonId, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchSeasonException {
+		return getService().getSeason(seasonId, serviceContext);
+	}
+
 	public static java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
 		long tvShowId, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {

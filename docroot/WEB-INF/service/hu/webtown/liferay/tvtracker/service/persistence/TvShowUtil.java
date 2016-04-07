@@ -356,6 +356,79 @@ public class TvShowUtil {
 	}
 
 	/**
+	* Returns the tv show where tvShowId = &#63; and groupId = &#63; or throws a {@link hu.webtown.liferay.tvtracker.NoSuchTvShowException} if it could not be found.
+	*
+	* @param tvShowId the tv show ID
+	* @param groupId the group ID
+	* @return the matching tv show
+	* @throws hu.webtown.liferay.tvtracker.NoSuchTvShowException if a matching tv show could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static hu.webtown.liferay.tvtracker.model.TvShow findByG_T(
+		long tvShowId, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchTvShowException {
+		return getPersistence().findByG_T(tvShowId, groupId);
+	}
+
+	/**
+	* Returns the tv show where tvShowId = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param tvShowId the tv show ID
+	* @param groupId the group ID
+	* @return the matching tv show, or <code>null</code> if a matching tv show could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static hu.webtown.liferay.tvtracker.model.TvShow fetchByG_T(
+		long tvShowId, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByG_T(tvShowId, groupId);
+	}
+
+	/**
+	* Returns the tv show where tvShowId = &#63; and groupId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param tvShowId the tv show ID
+	* @param groupId the group ID
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching tv show, or <code>null</code> if a matching tv show could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static hu.webtown.liferay.tvtracker.model.TvShow fetchByG_T(
+		long tvShowId, long groupId, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByG_T(tvShowId, groupId, retrieveFromCache);
+	}
+
+	/**
+	* Removes the tv show where tvShowId = &#63; and groupId = &#63; from the database.
+	*
+	* @param tvShowId the tv show ID
+	* @param groupId the group ID
+	* @return the tv show that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public static hu.webtown.liferay.tvtracker.model.TvShow removeByG_T(
+		long tvShowId, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchTvShowException {
+		return getPersistence().removeByG_T(tvShowId, groupId);
+	}
+
+	/**
+	* Returns the number of tv shows where tvShowId = &#63; and groupId = &#63;.
+	*
+	* @param tvShowId the tv show ID
+	* @param groupId the group ID
+	* @return the number of matching tv shows
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByG_T(long tvShowId, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByG_T(tvShowId, groupId);
+	}
+
+	/**
 	* Caches the tv show in the entity cache if it is enabled.
 	*
 	* @param tvShow the tv show

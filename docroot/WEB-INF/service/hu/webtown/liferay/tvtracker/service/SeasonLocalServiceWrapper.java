@@ -281,6 +281,14 @@ public class SeasonLocalServiceWrapper implements SeasonLocalService,
 	}
 
 	@Override
+	public hu.webtown.liferay.tvtracker.model.Season getSeason(long seasonId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchSeasonException {
+		return _seasonLocalService.getSeason(seasonId, serviceContext);
+	}
+
+	@Override
 	public java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
 		long tvShowId, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {

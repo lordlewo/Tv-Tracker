@@ -114,49 +114,55 @@ public class TvShowLocalServiceClpInvoker {
 
 		_methodParameterTypes57 = new String[] { "java.lang.String" };
 
-		_methodName62 = "getTvShows";
+		_methodName62 = "getTvShow";
 
 		_methodParameterTypes62 = new String[] {
-				"com.liferay.portal.service.ServiceContext"
+				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName63 = "getTvShows";
 
 		_methodParameterTypes63 = new String[] {
-				"com.liferay.portal.service.ServiceContext", "int", "int"
-			};
-
-		_methodName64 = "getTvShowsCount";
-
-		_methodParameterTypes64 = new String[] {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName65 = "addTvShow";
+		_methodName64 = "getTvShows";
+
+		_methodParameterTypes64 = new String[] {
+				"com.liferay.portal.service.ServiceContext", "int", "int"
+			};
+
+		_methodName65 = "getTvShowsCount";
 
 		_methodParameterTypes65 = new String[] {
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName66 = "addTvShow";
+
+		_methodParameterTypes66 = new String[] {
 				"java.lang.String", "java.util.Date", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName66 = "updateTvShow";
+		_methodName67 = "updateTvShow";
 
-		_methodParameterTypes66 = new String[] {
+		_methodParameterTypes67 = new String[] {
 				"long", "java.lang.String", "java.util.Date", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName67 = "deleteTvShow";
+		_methodName68 = "deleteTvShow";
 
-		_methodParameterTypes67 = new String[] {
+		_methodParameterTypes68 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName68 = "deleteTvShowWithSeasons";
+		_methodName69 = "deleteTvShowWithSeasons";
 
-		_methodParameterTypes68 = new String[] {
+		_methodParameterTypes69 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -264,23 +270,29 @@ public class TvShowLocalServiceClpInvoker {
 
 		if (_methodName62.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
-			return TvShowLocalServiceUtil.getTvShows((com.liferay.portal.service.ServiceContext)arguments[0]);
+			return TvShowLocalServiceUtil.getTvShow(((Long)arguments[0]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
 		if (_methodName63.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+			return TvShowLocalServiceUtil.getTvShows((com.liferay.portal.service.ServiceContext)arguments[0]);
+		}
+
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
 			return TvShowLocalServiceUtil.getTvShows((com.liferay.portal.service.ServiceContext)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue());
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			return TvShowLocalServiceUtil.getTvShowsCount((com.liferay.portal.service.ServiceContext)arguments[0]);
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName66.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
 			return TvShowLocalServiceUtil.addTvShow((java.lang.String)arguments[0],
 				(java.util.Date)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -288,8 +300,8 @@ public class TvShowLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
-		if (_methodName66.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
 			return TvShowLocalServiceUtil.updateTvShow(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.util.Date)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -298,14 +310,14 @@ public class TvShowLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[8]);
 		}
 
-		if (_methodName67.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+		if (_methodName68.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
 			return TvShowLocalServiceUtil.deleteTvShow(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName69.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
 			return TvShowLocalServiceUtil.deleteTvShowWithSeasons(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
@@ -363,4 +375,6 @@ public class TvShowLocalServiceClpInvoker {
 	private String[] _methodParameterTypes67;
 	private String _methodName68;
 	private String[] _methodParameterTypes68;
+	private String _methodName69;
+	private String[] _methodParameterTypes69;
 }

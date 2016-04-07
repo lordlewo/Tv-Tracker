@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -37,6 +38,10 @@ public class TvTrackerPortlet extends MVCPortlet {
 		try {
 			
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(TvShow.class.getName(), renderRequest);
+			
+			/*long tvShowId = ParamUtil.getLong(renderRequest, WebKeys.TVSHOW_ID);
+			
+			renderRequest.setAttribute(WebKeys.TVSHOW_ID, tvShowId);*/
 			
 			
 		} catch (Exception e) {
@@ -164,7 +169,7 @@ public class TvTrackerPortlet extends MVCPortlet {
 				cal.set(2012, 4, 2);
 				seasonNumber = 2;
 				description = "The second season of the epic fantasy drama television series Game of Thrones premiered in the United States on HBO on April 1, 2012, and concluded on June 3, 2012. Like the first season, it consists of ten episodes. It mostly covers the events of A Clash of Kings, the second book of the A Song of Ice and Fire novels by George R. R. Martin, of which the series is an adaptation.";
-				imageUrl = "http://localhost:8080/documents//20823/got.jpg/938845ce-438f-43d5-bd5d-60da2c471220?t=1459427850000";
+				imageUrl = "http://localhost:8080/documents/20181/20823/got.jpg/938845ce-438f-43d5-bd5d-60da2c471220?t=1459427850000";
 
 				SeasonLocalServiceUtil.addSeason(tvshowId, title , cal.getTime(), seasonNumber, description, imageUrl, "test", "test", "test", serviceContext);
 

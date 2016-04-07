@@ -275,6 +275,13 @@ public class TvShowLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static hu.webtown.liferay.tvtracker.model.TvShow getTvShow(
+		long tvShowId, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchTvShowException {
+		return getService().getTvShow(tvShowId, serviceContext);
+	}
+
 	public static java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {

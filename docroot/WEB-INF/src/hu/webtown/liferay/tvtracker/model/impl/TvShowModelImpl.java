@@ -98,7 +98,8 @@ public class TvShowModelImpl extends BaseModelImpl<TvShow>
 				"value.object.column.bitmask.enabled.hu.webtown.liferay.tvtracker.model.TvShow"),
 			true);
 	public static long GROUPID_COLUMN_BITMASK = 1L;
-	public static long TITLE_COLUMN_BITMASK = 2L;
+	public static long TVSHOWID_COLUMN_BITMASK = 2L;
+	public static long TITLE_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -304,7 +305,19 @@ public class TvShowModelImpl extends BaseModelImpl<TvShow>
 
 	@Override
 	public void setTvShowId(long tvShowId) {
+		_columnBitmask |= TVSHOWID_COLUMN_BITMASK;
+
+		if (!_setOriginalTvShowId) {
+			_setOriginalTvShowId = true;
+
+			_originalTvShowId = _tvShowId;
+		}
+
 		_tvShowId = tvShowId;
+	}
+
+	public long getOriginalTvShowId() {
+		return _originalTvShowId;
 	}
 
 	@JSON
@@ -604,6 +617,10 @@ public class TvShowModelImpl extends BaseModelImpl<TvShow>
 	public void resetOriginalValues() {
 		TvShowModelImpl tvShowModelImpl = this;
 
+		tvShowModelImpl._originalTvShowId = tvShowModelImpl._tvShowId;
+
+		tvShowModelImpl._setOriginalTvShowId = false;
+
 		tvShowModelImpl._originalGroupId = tvShowModelImpl._groupId;
 
 		tvShowModelImpl._setOriginalGroupId = false;
@@ -819,6 +836,8 @@ public class TvShowModelImpl extends BaseModelImpl<TvShow>
 	private static ClassLoader _classLoader = TvShow.class.getClassLoader();
 	private static Class<?>[] _escapedModelInterfaces = new Class[] { TvShow.class };
 	private long _tvShowId;
+	private long _originalTvShowId;
+	private boolean _setOriginalTvShowId;
 	private long _groupId;
 	private long _originalGroupId;
 	private boolean _setOriginalGroupId;

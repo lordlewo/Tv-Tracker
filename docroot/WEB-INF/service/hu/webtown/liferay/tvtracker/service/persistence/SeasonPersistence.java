@@ -264,6 +264,69 @@ public interface SeasonPersistence extends BasePersistence<Season> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Returns the season where groupId = &#63; and seasonId = &#63; or throws a {@link hu.webtown.liferay.tvtracker.NoSuchSeasonException} if it could not be found.
+	*
+	* @param groupId the group ID
+	* @param seasonId the season ID
+	* @return the matching season
+	* @throws hu.webtown.liferay.tvtracker.NoSuchSeasonException if a matching season could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.webtown.liferay.tvtracker.model.Season findByG_S(long groupId,
+		long seasonId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchSeasonException;
+
+	/**
+	* Returns the season where groupId = &#63; and seasonId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param groupId the group ID
+	* @param seasonId the season ID
+	* @return the matching season, or <code>null</code> if a matching season could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.webtown.liferay.tvtracker.model.Season fetchByG_S(long groupId,
+		long seasonId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the season where groupId = &#63; and seasonId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param groupId the group ID
+	* @param seasonId the season ID
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching season, or <code>null</code> if a matching season could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.webtown.liferay.tvtracker.model.Season fetchByG_S(long groupId,
+		long seasonId, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the season where groupId = &#63; and seasonId = &#63; from the database.
+	*
+	* @param groupId the group ID
+	* @param seasonId the season ID
+	* @return the season that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public hu.webtown.liferay.tvtracker.model.Season removeByG_S(long groupId,
+		long seasonId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchSeasonException;
+
+	/**
+	* Returns the number of seasons where groupId = &#63; and seasonId = &#63;.
+	*
+	* @param groupId the group ID
+	* @param seasonId the season ID
+	* @return the number of matching seasons
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByG_S(long groupId, long seasonId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Caches the season in the entity cache if it is enabled.
 	*
 	* @param season the season

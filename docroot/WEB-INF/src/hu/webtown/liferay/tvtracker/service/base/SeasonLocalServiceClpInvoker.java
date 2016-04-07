@@ -114,7 +114,7 @@ public class SeasonLocalServiceClpInvoker {
 
 		_methodParameterTypes57 = new String[] { "java.lang.String" };
 
-		_methodName62 = "getSeasons";
+		_methodName62 = "getSeason";
 
 		_methodParameterTypes62 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
@@ -123,37 +123,43 @@ public class SeasonLocalServiceClpInvoker {
 		_methodName63 = "getSeasons";
 
 		_methodParameterTypes63 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName64 = "getSeasons";
+
+		_methodParameterTypes64 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext", "int",
 				"int"
 			};
 
-		_methodName64 = "getSeasonsCount";
+		_methodName65 = "getSeasonsCount";
 
-		_methodParameterTypes64 = new String[] {
+		_methodParameterTypes65 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName65 = "addSeason";
+		_methodName66 = "addSeason";
 
-		_methodParameterTypes65 = new String[] {
+		_methodParameterTypes66 = new String[] {
 				"long", "java.lang.String", "java.util.Date", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName66 = "updateSeason";
+		_methodName67 = "updateSeason";
 
-		_methodParameterTypes66 = new String[] {
+		_methodParameterTypes67 = new String[] {
 				"long", "long", "java.lang.String", "java.util.Date", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName67 = "deleteSeason";
+		_methodName68 = "deleteSeason";
 
-		_methodParameterTypes67 = new String[] {
+		_methodParameterTypes68 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -261,26 +267,32 @@ public class SeasonLocalServiceClpInvoker {
 
 		if (_methodName62.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
-			return SeasonLocalServiceUtil.getSeasons(((Long)arguments[0]).longValue(),
+			return SeasonLocalServiceUtil.getSeason(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
 		if (_methodName63.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
 			return SeasonLocalServiceUtil.getSeasons(((Long)arguments[0]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
+		}
+
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+			return SeasonLocalServiceUtil.getSeasons(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1],
 				((Integer)arguments[2]).intValue(),
 				((Integer)arguments[3]).intValue());
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			return SeasonLocalServiceUtil.getSeasonsCount(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName66.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
 			return SeasonLocalServiceUtil.addSeason(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.util.Date)arguments[2],
 				((Integer)arguments[3]).intValue(),
@@ -290,8 +302,8 @@ public class SeasonLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[9]);
 		}
 
-		if (_methodName66.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
 			return SeasonLocalServiceUtil.updateSeason(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.util.Date)arguments[3],
@@ -302,8 +314,8 @@ public class SeasonLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[10]);
 		}
 
-		if (_methodName67.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+		if (_methodName68.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
 			return SeasonLocalServiceUtil.deleteSeason(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
@@ -359,4 +371,6 @@ public class SeasonLocalServiceClpInvoker {
 	private String[] _methodParameterTypes66;
 	private String _methodName67;
 	private String[] _methodParameterTypes67;
+	private String _methodName68;
+	private String[] _methodParameterTypes68;
 }

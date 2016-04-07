@@ -990,6 +990,245 @@ public class SeasonPersistenceImpl extends BasePersistenceImpl<Season>
 
 	private static final String _FINDER_COLUMN_G_T_GROUPID_2 = "season.groupId = ? AND ";
 	private static final String _FINDER_COLUMN_G_T_TVSHOWID_2 = "season.tvShowId = ?";
+	public static final FinderPath FINDER_PATH_FETCH_BY_G_S = new FinderPath(SeasonModelImpl.ENTITY_CACHE_ENABLED,
+			SeasonModelImpl.FINDER_CACHE_ENABLED, SeasonImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByG_S",
+			new String[] { Long.class.getName(), Long.class.getName() },
+			SeasonModelImpl.GROUPID_COLUMN_BITMASK |
+			SeasonModelImpl.SEASONID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_G_S = new FinderPath(SeasonModelImpl.ENTITY_CACHE_ENABLED,
+			SeasonModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByG_S",
+			new String[] { Long.class.getName(), Long.class.getName() });
+
+	/**
+	 * Returns the season where groupId = &#63; and seasonId = &#63; or throws a {@link hu.webtown.liferay.tvtracker.NoSuchSeasonException} if it could not be found.
+	 *
+	 * @param groupId the group ID
+	 * @param seasonId the season ID
+	 * @return the matching season
+	 * @throws hu.webtown.liferay.tvtracker.NoSuchSeasonException if a matching season could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Season findByG_S(long groupId, long seasonId)
+		throws NoSuchSeasonException, SystemException {
+		Season season = fetchByG_S(groupId, seasonId);
+
+		if (season == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("groupId=");
+			msg.append(groupId);
+
+			msg.append(", seasonId=");
+			msg.append(seasonId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchSeasonException(msg.toString());
+		}
+
+		return season;
+	}
+
+	/**
+	 * Returns the season where groupId = &#63; and seasonId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param seasonId the season ID
+	 * @return the matching season, or <code>null</code> if a matching season could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Season fetchByG_S(long groupId, long seasonId)
+		throws SystemException {
+		return fetchByG_S(groupId, seasonId, true);
+	}
+
+	/**
+	 * Returns the season where groupId = &#63; and seasonId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param groupId the group ID
+	 * @param seasonId the season ID
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching season, or <code>null</code> if a matching season could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Season fetchByG_S(long groupId, long seasonId,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { groupId, seasonId };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_G_S,
+					finderArgs, this);
+		}
+
+		if (result instanceof Season) {
+			Season season = (Season)result;
+
+			if ((groupId != season.getGroupId()) ||
+					(seasonId != season.getSeasonId())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_SEASON_WHERE);
+
+			query.append(_FINDER_COLUMN_G_S_GROUPID_2);
+
+			query.append(_FINDER_COLUMN_G_S_SEASONID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(groupId);
+
+				qPos.add(seasonId);
+
+				List<Season> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_S,
+						finderArgs, list);
+				}
+				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"SeasonPersistenceImpl.fetchByG_S(long, long, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
+					Season season = list.get(0);
+
+					result = season;
+
+					cacheResult(season);
+
+					if ((season.getGroupId() != groupId) ||
+							(season.getSeasonId() != seasonId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_S,
+							finderArgs, season);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_S,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (Season)result;
+		}
+	}
+
+	/**
+	 * Removes the season where groupId = &#63; and seasonId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @param seasonId the season ID
+	 * @return the season that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Season removeByG_S(long groupId, long seasonId)
+		throws NoSuchSeasonException, SystemException {
+		Season season = findByG_S(groupId, seasonId);
+
+		return remove(season);
+	}
+
+	/**
+	 * Returns the number of seasons where groupId = &#63; and seasonId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @param seasonId the season ID
+	 * @return the number of matching seasons
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByG_S(long groupId, long seasonId)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_G_S;
+
+		Object[] finderArgs = new Object[] { groupId, seasonId };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_SEASON_WHERE);
+
+			query.append(_FINDER_COLUMN_G_S_GROUPID_2);
+
+			query.append(_FINDER_COLUMN_G_S_SEASONID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(groupId);
+
+				qPos.add(seasonId);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_G_S_GROUPID_2 = "season.groupId = ? AND ";
+	private static final String _FINDER_COLUMN_G_S_SEASONID_2 = "season.seasonId = ?";
 
 	public SeasonPersistenceImpl() {
 		setModelClass(Season.class);
@@ -1004,6 +1243,9 @@ public class SeasonPersistenceImpl extends BasePersistenceImpl<Season>
 	public void cacheResult(Season season) {
 		EntityCacheUtil.putResult(SeasonModelImpl.ENTITY_CACHE_ENABLED,
 			SeasonImpl.class, season.getPrimaryKey(), season);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_S,
+			new Object[] { season.getGroupId(), season.getSeasonId() }, season);
 
 		season.resetOriginalValues();
 	}
@@ -1061,6 +1303,8 @@ public class SeasonPersistenceImpl extends BasePersistenceImpl<Season>
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(season);
 	}
 
 	@Override
@@ -1071,6 +1315,54 @@ public class SeasonPersistenceImpl extends BasePersistenceImpl<Season>
 		for (Season season : seasons) {
 			EntityCacheUtil.removeResult(SeasonModelImpl.ENTITY_CACHE_ENABLED,
 				SeasonImpl.class, season.getPrimaryKey());
+
+			clearUniqueFindersCache(season);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(Season season) {
+		if (season.isNew()) {
+			Object[] args = new Object[] {
+					season.getGroupId(), season.getSeasonId()
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_G_S, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_S, args, season);
+		}
+		else {
+			SeasonModelImpl seasonModelImpl = (SeasonModelImpl)season;
+
+			if ((seasonModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_G_S.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						season.getGroupId(), season.getSeasonId()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_G_S, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_G_S, args, season);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(Season season) {
+		SeasonModelImpl seasonModelImpl = (SeasonModelImpl)season;
+
+		Object[] args = new Object[] { season.getGroupId(), season.getSeasonId() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_S, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_S, args);
+
+		if ((seasonModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_G_S.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					seasonModelImpl.getOriginalGroupId(),
+					seasonModelImpl.getOriginalSeasonId()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_G_S, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_G_S, args);
 		}
 	}
 
@@ -1237,6 +1529,9 @@ public class SeasonPersistenceImpl extends BasePersistenceImpl<Season>
 
 		EntityCacheUtil.putResult(SeasonModelImpl.ENTITY_CACHE_ENABLED,
 			SeasonImpl.class, season.getPrimaryKey(), season);
+
+		clearUniqueFindersCache(season);
+		cacheUniqueFindersCache(season);
 
 		return season;
 	}
