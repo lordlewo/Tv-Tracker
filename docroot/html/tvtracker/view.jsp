@@ -22,8 +22,6 @@
 	<liferay-ui:search-container-results>
 		<% 
 			List<TvShow> tvShows = TvShowLocalServiceUtil.getTvShows(serviceContext, searchContainer.getStart(), searchContainer.getEnd());
-			
-			List<TvShow> permissioncheckedTvShows = new ArrayList<TvShow>();
 		
 			
 			// permisssion checking in scriplet
@@ -62,7 +60,7 @@
 			
 			<%-- season count --%>
 			
-			<liferay-ui:search-container-column-text  name="Season Count" > 
+			<liferay-ui:search-container-column-text  name="Seasons" > 
 				<%
 					long currentTvShowId = tvShow.getTvShowId();
 					int seasonsCount = SeasonLocalServiceUtil.getSeasonsCount(currentTvShowId, serviceContext);
@@ -77,6 +75,7 @@
 			<portlet:renderURL var="detailsURL">
 				<portlet:param name="mvcPath" value="/html/tvtracker/detail/tvshow_detail.jsp"/>
 				<portlet:param name="<%= WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShow.getTvShowId()) %>"/>
+				<%-- (value = 0) -> details tab selected | (value != 0) -> seasons tab selected --%>
 				<portlet:param name="selected_tab" value="0" />
 			</portlet:renderURL>
 			

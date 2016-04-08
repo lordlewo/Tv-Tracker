@@ -83,7 +83,7 @@ public class SeasonModelImpl extends BaseModelImpl<Season>
 			{ "imageVersion", Types.VARCHAR },
 			{ "tvShowId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table TvT_Season (seasonId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,premierDate DATE null,seasonNumber INTEGER,description VARCHAR(500) null,imageUrl VARCHAR(500) null,imageUuid VARCHAR(75) null,imageTitle VARCHAR(75) null,imageVersion VARCHAR(75) null,tvShowId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table TvT_Season (seasonId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,premierDate DATE null,seasonNumber INTEGER,description VARCHAR(1000) null,imageUrl VARCHAR(1000) null,imageUuid VARCHAR(75) null,imageTitle VARCHAR(75) null,imageVersion VARCHAR(75) null,tvShowId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table TvT_Season";
 	public static final String ORDER_BY_JPQL = " ORDER BY season.seasonNumber ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY TvT_Season.seasonNumber ASC";

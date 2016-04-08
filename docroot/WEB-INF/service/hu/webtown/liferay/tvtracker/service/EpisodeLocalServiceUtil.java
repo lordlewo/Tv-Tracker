@@ -296,6 +296,21 @@ public class EpisodeLocalServiceUtil {
 
 	public static hu.webtown.liferay.tvtracker.model.Episode addEpisode(
 		long seasonId, java.lang.String title, java.util.Date airDate,
+		int episodeNumber, java.lang.String description,
+		java.lang.String imageUrl, java.lang.String imageUuid,
+		java.lang.String imageTitle, java.lang.String imageVersion,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addEpisode(seasonId, title, airDate, episodeNumber,
+			description, imageUrl, imageUuid, imageTitle, imageVersion,
+			serviceContext);
+	}
+
+	public static hu.webtown.liferay.tvtracker.model.Episode updateEpisode(
+		long seasonId, long episodeId, java.lang.String title,
+		java.util.Date airDate, int episodeNumber,
 		java.lang.String description, java.lang.String imageUrl,
 		java.lang.String imageUuid, java.lang.String imageTitle,
 		java.lang.String imageVersion,
@@ -303,22 +318,9 @@ public class EpisodeLocalServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addEpisode(seasonId, title, airDate, description, imageUrl,
-			imageUuid, imageTitle, imageVersion, serviceContext);
-	}
-
-	public static hu.webtown.liferay.tvtracker.model.Episode updateEpisode(
-		long seasonId, long episodeId, java.lang.String title,
-		java.util.Date airDate, java.lang.String description,
-		java.lang.String imageUrl, java.lang.String imageUuid,
-		java.lang.String imageTitle, java.lang.String imageVersion,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
 				   .updateEpisode(seasonId, episodeId, title, airDate,
-			description, imageUrl, imageUuid, imageTitle, imageVersion,
-			serviceContext);
+			episodeNumber, description, imageUrl, imageUuid, imageTitle,
+			imageVersion, serviceContext);
 	}
 
 	public static hu.webtown.liferay.tvtracker.model.Episode deleteEpisode(

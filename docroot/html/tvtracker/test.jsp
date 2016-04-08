@@ -4,30 +4,37 @@
 <br> 
 
 <portlet:actionURL name="testAddTvShow" var="testAddTvShowURL"/>
-<portlet:actionURL name="testUpdateTvShow" var="testUpdateTvShowURL"/>
 <portlet:actionURL name="testDeleteTvShow" var="testDeleteTvShowURL"/>
 
-Add TvShow:
-<aui:button name="addTvShowButton" value="Add TvShow" onClick="<%= testAddTvShowURL %>" />
+Add TvShows:
+<aui:button name="addTvShowButton" value="Add TvShows" onClick="<%= testAddTvShowURL %>" />
 <br>
-Update TvShow:
-<aui:button name="updateTvShowButton" value="Update TvShow" onClick="<%= testUpdateTvShowURL %>" />
 <br>
-Delete TvShow:
-<aui:button name="deleteTvShowButton" value="Delete TvShow" onClick="<%= testDeleteTvShowURL %>" />
+Delete TvShows:
+<aui:button name="deleteTvShowButton" value="Delete TvShows" onClick="<%= testDeleteTvShowURL %>" />
 
 <br>
 <br>
 
 <portlet:actionURL name="testAddSeason" var="testAddSeasonURL"/>
-<portlet:actionURL name="testUpdateSeason" var="testUpdateSeasonURL"/>
 <portlet:actionURL name="testDeleteSeason" var="testDeleteSeasonURL"/>
 
-Add Season:
-<aui:button name="addSeasonButton" value="Add Season" onClick="<%= testAddSeasonURL %>" />
+Add Seasons:
+<aui:button name="addSeasonButton" value="Add Seasons" onClick="<%= testAddSeasonURL %>" />
 <br>
-Update Season:
-<aui:button name="updateSeasonButton" value="Update Season" onClick="<%= testUpdateSeasonURL %>" />
 <br>
-Delete  Season:
-<aui:button name="deleteSeasonButton" value="Delete Season" onClick="<%= testDeleteSeasonURL %>" />
+Delete Seasons:
+<aui:button name="deleteSeasonButton" value="Delete Seasons" onClick="<%= testDeleteSeasonURL %>" />
+
+<br>
+<br>
+
+<portlet:actionURL name="testAddEpisode" var="testAddEpisodeURL"/>
+<portlet:actionURL name="testDeleteEpisode" var="testDeleteEpisodeURL"/>
+
+Add Episodes:
+<aui:button name="addEpisodeButton" value="Add Episodes" onClick="<%= testAddEpisodeURL %>" />
+<br>
+<br>
+Delete Episodes:
+<aui:button name="deleteEpisodeButton" value="Delete Episodes" onClick="<%= testDeleteEpisodeURL %>" />

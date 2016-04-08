@@ -84,7 +84,7 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		return episodePersistence.countByG_S(groupId, seasonId);
 	}
 	
-	public Episode addEpisode(long seasonId, String title, Date airDate, String description, String imageUrl, String imageUuid, String imageTitle, String imageVersion, ServiceContext serviceContext) throws PortalException, SystemException {
+	public Episode addEpisode(long seasonId, String title, Date airDate, int episodeNumber, String description, String imageUrl, String imageUuid, String imageTitle, String imageVersion, ServiceContext serviceContext) throws PortalException, SystemException {
 		
 		// unbox and prepare the necessary parameters
 		
@@ -103,7 +103,7 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		
 		// check the validity of the input parameters
 		
-		validate(title, airDate, description, imageUrl, imageUuid, imageTitle, imageVersion);
+		validate(title, airDate, episodeNumber, description, imageUrl, imageUuid, imageTitle, imageVersion);
 		
 		// create new entity instance and fill up with the prepared parameters
 		
@@ -123,6 +123,7 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		
 		episode.setTitle(title);
 		episode.setAirDate(airDate);
+		episode.setEpisodeNumber(episodeNumber);
 		episode.setDescription(description);
 		episode.setImageUrl(imageUrl);
 		episode.setImageUuid(imageUuid);
@@ -188,7 +189,7 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		return episode;
 	}
 	
-	public Episode updateEpisode(long seasonId, long episodeId, String title, Date airDate, String description, String imageUrl, String imageUuid, String imageTitle, String imageVersion, ServiceContext serviceContext) throws PortalException, SystemException {
+	public Episode updateEpisode(long seasonId, long episodeId, String title, Date airDate, int episodeNumber, String description, String imageUrl, String imageUuid, String imageTitle, String imageVersion, ServiceContext serviceContext) throws PortalException, SystemException {
 		
 		// unbox and prepare the necessary parameters
 		
@@ -207,7 +208,7 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		
 		// check the validity of the input parameters
 		
-		validate(title, airDate, description, imageUrl, imageUuid, imageTitle, imageVersion);
+		validate(title, airDate, episodeNumber, description, imageUrl, imageUuid, imageTitle, imageVersion);
 		
 		
 		// get the editable entity instance and fill up with the prepared newly parameters
@@ -227,6 +228,7 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		
 		episode.setTitle(title);
 		episode.setAirDate(airDate);
+		episode.setEpisodeNumber(episodeNumber);
 		episode.setDescription(description);
 		episode.setImageUrl(imageUrl);
 		episode.setImageUuid(imageUuid);
@@ -340,7 +342,7 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 	
 	/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 	
-	protected void validate(String title, Date airDate, String description, String imageUrl, String imageUuid, String imageTitle, String imageVersion) throws PortalException {
+	protected void validate(String title, Date airDate, int episodeNumber, String description, String imageUrl, String imageUuid, String imageTitle, String imageVersion) throws PortalException {
 		
 		// checking if the paramaters are acceptable
 		

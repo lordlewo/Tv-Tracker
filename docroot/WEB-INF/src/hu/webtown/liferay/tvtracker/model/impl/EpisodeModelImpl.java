@@ -76,6 +76,7 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "title", Types.VARCHAR },
 			{ "airDate", Types.TIMESTAMP },
+			{ "episodeNumber", Types.INTEGER },
 			{ "description", Types.VARCHAR },
 			{ "imageUrl", Types.VARCHAR },
 			{ "imageUuid", Types.VARCHAR },
@@ -83,7 +84,7 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 			{ "imageVersion", Types.VARCHAR },
 			{ "seasonId", Types.BIGINT }
 		};
-	public static final String TABLE_SQL_CREATE = "create table TvT_Episode (episodeId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,airDate DATE null,description VARCHAR(500) null,imageUrl VARCHAR(500) null,imageUuid VARCHAR(75) null,imageTitle VARCHAR(75) null,imageVersion VARCHAR(75) null,seasonId LONG)";
+	public static final String TABLE_SQL_CREATE = "create table TvT_Episode (episodeId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,airDate DATE null,episodeNumber INTEGER,description VARCHAR(1000) null,imageUrl VARCHAR(1000) null,imageUuid VARCHAR(75) null,imageTitle VARCHAR(75) null,imageVersion VARCHAR(75) null,seasonId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table TvT_Episode";
 	public static final String ORDER_BY_JPQL = " ORDER BY episode.airDate ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY TvT_Episode.airDate ASC";
@@ -125,6 +126,7 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 		model.setModifiedDate(soapModel.getModifiedDate());
 		model.setTitle(soapModel.getTitle());
 		model.setAirDate(soapModel.getAirDate());
+		model.setEpisodeNumber(soapModel.getEpisodeNumber());
 		model.setDescription(soapModel.getDescription());
 		model.setImageUrl(soapModel.getImageUrl());
 		model.setImageUuid(soapModel.getImageUuid());
@@ -204,6 +206,7 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("title", getTitle());
 		attributes.put("airDate", getAirDate());
+		attributes.put("episodeNumber", getEpisodeNumber());
 		attributes.put("description", getDescription());
 		attributes.put("imageUrl", getImageUrl());
 		attributes.put("imageUuid", getImageUuid());
@@ -268,6 +271,12 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 
 		if (airDate != null) {
 			setAirDate(airDate);
+		}
+
+		Integer episodeNumber = (Integer)attributes.get("episodeNumber");
+
+		if (episodeNumber != null) {
+			setEpisodeNumber(episodeNumber);
 		}
 
 		String description = (String)attributes.get("description");
@@ -442,6 +451,17 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 
 	@JSON
 	@Override
+	public int getEpisodeNumber() {
+		return _episodeNumber;
+	}
+
+	@Override
+	public void setEpisodeNumber(int episodeNumber) {
+		_episodeNumber = episodeNumber;
+	}
+
+	@JSON
+	@Override
 	public String getDescription() {
 		if (_description == null) {
 			return StringPool.BLANK;
@@ -583,6 +603,7 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 		episodeImpl.setModifiedDate(getModifiedDate());
 		episodeImpl.setTitle(getTitle());
 		episodeImpl.setAirDate(getAirDate());
+		episodeImpl.setEpisodeNumber(getEpisodeNumber());
 		episodeImpl.setDescription(getDescription());
 		episodeImpl.setImageUrl(getImageUrl());
 		episodeImpl.setImageUuid(getImageUuid());
@@ -705,6 +726,8 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 			episodeCacheModel.airDate = Long.MIN_VALUE;
 		}
 
+		episodeCacheModel.episodeNumber = getEpisodeNumber();
+
 		episodeCacheModel.description = getDescription();
 
 		String description = episodeCacheModel.description;
@@ -752,7 +775,7 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{episodeId=");
 		sb.append(getEpisodeId());
@@ -772,6 +795,8 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 		sb.append(getTitle());
 		sb.append(", airDate=");
 		sb.append(getAirDate());
+		sb.append(", episodeNumber=");
+		sb.append(getEpisodeNumber());
 		sb.append(", description=");
 		sb.append(getDescription());
 		sb.append(", imageUrl=");
@@ -791,7 +816,7 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(52);
 
 		sb.append("<model><model-name>");
 		sb.append("hu.webtown.liferay.tvtracker.model.Episode");
@@ -832,6 +857,10 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 		sb.append(
 			"<column><column-name>airDate</column-name><column-value><![CDATA[");
 		sb.append(getAirDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>episodeNumber</column-name><column-value><![CDATA[");
+		sb.append(getEpisodeNumber());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>description</column-name><column-value><![CDATA[");
@@ -879,6 +908,7 @@ public class EpisodeModelImpl extends BaseModelImpl<Episode>
 	private Date _modifiedDate;
 	private String _title;
 	private Date _airDate;
+	private int _episodeNumber;
 	private String _description;
 	private String _imageUrl;
 	private String _imageUuid;

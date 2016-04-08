@@ -1263,6 +1263,7 @@ public class EpisodePersistenceImpl extends BasePersistenceImpl<Episode>
 		episodeImpl.setModifiedDate(episode.getModifiedDate());
 		episodeImpl.setTitle(episode.getTitle());
 		episodeImpl.setAirDate(episode.getAirDate());
+		episodeImpl.setEpisodeNumber(episode.getEpisodeNumber());
 		episodeImpl.setDescription(episode.getDescription());
 		episodeImpl.setImageUrl(episode.getImageUrl());
 		episodeImpl.setImageUuid(episode.getImageUuid());

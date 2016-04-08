@@ -100,6 +100,7 @@
 		<column name="modifiedDate" type="Date"></column>
         <column name="title" type="String"></column>
         <column name="airDate" type="Date"></column>
+        <column name="episodeNumber" type="int"></column>
         <column name="description" type="String"></column>
         <column name="imageUrl" type="String"></column>
         <column name="imageUuid" type="String"></column>

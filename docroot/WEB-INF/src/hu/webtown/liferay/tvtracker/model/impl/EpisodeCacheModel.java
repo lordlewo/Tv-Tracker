@@ -37,7 +37,7 @@ import java.util.Date;
 public class EpisodeCacheModel implements CacheModel<Episode>, Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{episodeId=");
 		sb.append(episodeId);
@@ -57,6 +57,8 @@ public class EpisodeCacheModel implements CacheModel<Episode>, Externalizable {
 		sb.append(title);
 		sb.append(", airDate=");
 		sb.append(airDate);
+		sb.append(", episodeNumber=");
+		sb.append(episodeNumber);
 		sb.append(", description=");
 		sb.append(description);
 		sb.append(", imageUrl=");
@@ -118,6 +120,8 @@ public class EpisodeCacheModel implements CacheModel<Episode>, Externalizable {
 			episodeImpl.setAirDate(new Date(airDate));
 		}
 
+		episodeImpl.setEpisodeNumber(episodeNumber);
+
 		if (description == null) {
 			episodeImpl.setDescription(StringPool.BLANK);
 		}
@@ -171,6 +175,7 @@ public class EpisodeCacheModel implements CacheModel<Episode>, Externalizable {
 		modifiedDate = objectInput.readLong();
 		title = objectInput.readUTF();
 		airDate = objectInput.readLong();
+		episodeNumber = objectInput.readInt();
 		description = objectInput.readUTF();
 		imageUrl = objectInput.readUTF();
 		imageUuid = objectInput.readUTF();
@@ -205,6 +210,7 @@ public class EpisodeCacheModel implements CacheModel<Episode>, Externalizable {
 		}
 
 		objectOutput.writeLong(airDate);
+		objectOutput.writeInt(episodeNumber);
 
 		if (description == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -253,6 +259,7 @@ public class EpisodeCacheModel implements CacheModel<Episode>, Externalizable {
 	public long modifiedDate;
 	public String title;
 	public long airDate;
+	public int episodeNumber;
 	public String description;
 	public String imageUrl;
 	public String imageUuid;

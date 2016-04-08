@@ -18,6 +18,7 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="title" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="airDate" type="org.hibernate.type.TimestampType" />
+		<property name="episodeNumber" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="imageUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="imageUuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />

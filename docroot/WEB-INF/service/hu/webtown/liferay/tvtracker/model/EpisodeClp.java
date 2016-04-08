@@ -84,6 +84,7 @@ public class EpisodeClp extends BaseModelImpl<Episode> implements Episode {
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("title", getTitle());
 		attributes.put("airDate", getAirDate());
+		attributes.put("episodeNumber", getEpisodeNumber());
 		attributes.put("description", getDescription());
 		attributes.put("imageUrl", getImageUrl());
 		attributes.put("imageUuid", getImageUuid());
@@ -148,6 +149,12 @@ public class EpisodeClp extends BaseModelImpl<Episode> implements Episode {
 
 		if (airDate != null) {
 			setAirDate(airDate);
+		}
+
+		Integer episodeNumber = (Integer)attributes.get("episodeNumber");
+
+		if (episodeNumber != null) {
+			setEpisodeNumber(episodeNumber);
 		}
 
 		String description = (String)attributes.get("description");
@@ -405,6 +412,29 @@ public class EpisodeClp extends BaseModelImpl<Episode> implements Episode {
 	}
 
 	@Override
+	public int getEpisodeNumber() {
+		return _episodeNumber;
+	}
+
+	@Override
+	public void setEpisodeNumber(int episodeNumber) {
+		_episodeNumber = episodeNumber;
+
+		if (_episodeRemoteModel != null) {
+			try {
+				Class<?> clazz = _episodeRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEpisodeNumber", int.class);
+
+				method.invoke(_episodeRemoteModel, episodeNumber);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public String getDescription() {
 		return _description;
 	}
@@ -620,6 +650,7 @@ public class EpisodeClp extends BaseModelImpl<Episode> implements Episode {
 		clone.setModifiedDate(getModifiedDate());
 		clone.setTitle(getTitle());
 		clone.setAirDate(getAirDate());
+		clone.setEpisodeNumber(getEpisodeNumber());
 		clone.setDescription(getDescription());
 		clone.setImageUrl(getImageUrl());
 		clone.setImageUuid(getImageUuid());
@@ -676,7 +707,7 @@ public class EpisodeClp extends BaseModelImpl<Episode> implements Episode {
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(31);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{episodeId=");
 		sb.append(getEpisodeId());
@@ -696,6 +727,8 @@ public class EpisodeClp extends BaseModelImpl<Episode> implements Episode {
 		sb.append(getTitle());
 		sb.append(", airDate=");
 		sb.append(getAirDate());
+		sb.append(", episodeNumber=");
+		sb.append(getEpisodeNumber());
 		sb.append(", description=");
 		sb.append(getDescription());
 		sb.append(", imageUrl=");
@@ -715,7 +748,7 @@ public class EpisodeClp extends BaseModelImpl<Episode> implements Episode {
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(49);
+		StringBundler sb = new StringBundler(52);
 
 		sb.append("<model><model-name>");
 		sb.append("hu.webtown.liferay.tvtracker.model.Episode");
@@ -758,6 +791,10 @@ public class EpisodeClp extends BaseModelImpl<Episode> implements Episode {
 		sb.append(getAirDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>episodeNumber</column-name><column-value><![CDATA[");
+		sb.append(getEpisodeNumber());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>description</column-name><column-value><![CDATA[");
 		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
@@ -797,6 +834,7 @@ public class EpisodeClp extends BaseModelImpl<Episode> implements Episode {
 	private Date _modifiedDate;
 	private String _title;
 	private Date _airDate;
+	private int _episodeNumber;
 	private String _description;
 	private String _imageUrl;
 	private String _imageUuid;

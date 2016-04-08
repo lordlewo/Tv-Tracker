@@ -81,7 +81,7 @@ public class TvShowModelImpl extends BaseModelImpl<TvShow>
 			{ "imageTitle", Types.VARCHAR },
 			{ "imageVersion", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table TvT_TvShow (tvShowId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,premierDate DATE null,description VARCHAR(500) null,imageUrl VARCHAR(500) null,imageUuid VARCHAR(75) null,imageTitle VARCHAR(75) null,imageVersion VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table TvT_TvShow (tvShowId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,title VARCHAR(75) null,premierDate DATE null,description VARCHAR(1000) null,imageUrl VARCHAR(1000) null,imageUuid VARCHAR(75) null,imageTitle VARCHAR(75) null,imageVersion VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table TvT_TvShow";
 	public static final String ORDER_BY_JPQL = " ORDER BY tvShow.title ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY TvT_TvShow.title ASC";

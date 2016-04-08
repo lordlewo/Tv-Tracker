@@ -13,11 +13,12 @@
 			<hint name="max-length">75</hint>
 		</field>
 		<field name="airDate" type="Date" />
+		<field name="episodeNumber" type="int" />
 		<field name="description" type="String">
-			<hint name="max-length">500</hint>
+			<hint name="max-length">1000</hint>
 		</field>
 		<field name="imageUrl" type="String">
-			<hint name="max-length">500</hint>
+			<hint name="max-length">1000</hint>
 		</field>
 		<field name="imageUuid" type="String" />
 		<field name="imageTitle" type="String" />
@@ -40,10 +41,10 @@
 		</field>
 		<field name="seasonNumber" type="int" />
 		<field name="description" type="String">
-			<hint name="max-length">500</hint>
+			<hint name="max-length">1000</hint>
 		</field>
 		<field name="imageUrl" type="String">
-			<hint name="max-length">500</hint>
+			<hint name="max-length">1000</hint>
 		</field>
 		<field name="imageUuid" type="String" />
 		<field name="imageTitle" type="String" />
@@ -65,10 +66,10 @@
 			<hint name="show-time">false</hint>
 		</field>
 		<field name="description" type="String">
-			<hint name="max-length">500</hint>
+			<hint name="max-length">1000</hint>
 		</field>
 		<field name="imageUrl" type="String">
-			<hint name="max-length">500</hint>
+			<hint name="max-length">1000</hint>
 		</field>
 		<field name="imageUuid" type="String" />
 		<field name="imageTitle" type="String" />

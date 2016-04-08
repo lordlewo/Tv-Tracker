@@ -24,6 +24,7 @@
 			<basic name="airDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="episodeNumber" />
 			<basic name="description" />
 			<basic name="imageUrl" />
 			<basic name="imageUuid" />

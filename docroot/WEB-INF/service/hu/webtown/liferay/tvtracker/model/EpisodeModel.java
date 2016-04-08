@@ -219,6 +219,20 @@ public interface EpisodeModel extends BaseModel<Episode>, GroupedModel {
 	public void setAirDate(Date airDate);
 
 	/**
+	 * Returns the episode number of this episode.
+	 *
+	 * @return the episode number of this episode
+	 */
+	public int getEpisodeNumber();
+
+	/**
+	 * Sets the episode number of this episode.
+	 *
+	 * @param episodeNumber the episode number of this episode
+	 */
+	public void setEpisodeNumber(int episodeNumber);
+
+	/**
 	 * Returns the description of this episode.
 	 *
 	 * @return the description of this episode

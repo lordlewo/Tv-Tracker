@@ -40,6 +40,7 @@ public class EpisodeSoap implements Serializable {
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setTitle(model.getTitle());
 		soapModel.setAirDate(model.getAirDate());
+		soapModel.setEpisodeNumber(model.getEpisodeNumber());
 		soapModel.setDescription(model.getDescription());
 		soapModel.setImageUrl(model.getImageUrl());
 		soapModel.setImageUuid(model.getImageUuid());
@@ -170,6 +171,14 @@ public class EpisodeSoap implements Serializable {
 		_airDate = airDate;
 	}
 
+	public int getEpisodeNumber() {
+		return _episodeNumber;
+	}
+
+	public void setEpisodeNumber(int episodeNumber) {
+		_episodeNumber = episodeNumber;
+	}
+
 	public String getDescription() {
 		return _description;
 	}
@@ -227,6 +236,7 @@ public class EpisodeSoap implements Serializable {
 	private Date _modifiedDate;
 	private String _title;
 	private Date _airDate;
+	private int _episodeNumber;
 	private String _description;
 	private String _imageUrl;
 	private String _imageUuid;

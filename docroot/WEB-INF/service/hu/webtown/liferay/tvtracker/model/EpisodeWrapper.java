@@ -58,6 +58,7 @@ public class EpisodeWrapper implements Episode, ModelWrapper<Episode> {
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("title", getTitle());
 		attributes.put("airDate", getAirDate());
+		attributes.put("episodeNumber", getEpisodeNumber());
 		attributes.put("description", getDescription());
 		attributes.put("imageUrl", getImageUrl());
 		attributes.put("imageUuid", getImageUuid());
@@ -122,6 +123,12 @@ public class EpisodeWrapper implements Episode, ModelWrapper<Episode> {
 
 		if (airDate != null) {
 			setAirDate(airDate);
+		}
+
+		Integer episodeNumber = (Integer)attributes.get("episodeNumber");
+
+		if (episodeNumber != null) {
+			setEpisodeNumber(episodeNumber);
 		}
 
 		String description = (String)attributes.get("description");
@@ -381,6 +388,26 @@ public class EpisodeWrapper implements Episode, ModelWrapper<Episode> {
 	@Override
 	public void setAirDate(java.util.Date airDate) {
 		_episode.setAirDate(airDate);
+	}
+
+	/**
+	* Returns the episode number of this episode.
+	*
+	* @return the episode number of this episode
+	*/
+	@Override
+	public int getEpisodeNumber() {
+		return _episode.getEpisodeNumber();
+	}
+
+	/**
+	* Sets the episode number of this episode.
+	*
+	* @param episodeNumber the episode number of this episode
+	*/
+	@Override
+	public void setEpisodeNumber(int episodeNumber) {
+		_episode.setEpisodeNumber(episodeNumber);
 	}
 
 	/**
