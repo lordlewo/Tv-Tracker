@@ -9,7 +9,7 @@
 	
 	// tab selection logic
 	
-	int selectedTab = ParamUtil.getInteger(renderRequest, "selected_tab");
+	int selectedTab = ParamUtil.getInteger(renderRequest, "selected_tab", 0);
 	
 	boolean tabVisibility = true;
 	String detailsCssClass = "active";

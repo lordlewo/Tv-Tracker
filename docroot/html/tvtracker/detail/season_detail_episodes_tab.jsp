@@ -3,9 +3,12 @@
 <% 
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 
+	long tvShowId = ParamUtil.getLong(request, renderResponse.getNamespace() + WebKeys.TVSHOW_ID);
 	long seasonId = ParamUtil.getLong(request, renderResponse.getNamespace() + WebKeys.SEASON_ID);
-	Season season = SeasonLocalServiceUtil.getSeason(seasonId, serviceContext);
 	
+	TvShow tvShow = TvShowLocalServiceUtil.getTvShow(tvShowId, serviceContext);
+	Season season = SeasonLocalServiceUtil.getSeason(seasonId, serviceContext);
+
 	
 	List<Episode> episodes = EpisodeLocalServiceUtil.getEpisodes(seasonId, serviceContext);
 	
@@ -36,7 +39,18 @@
 			<aui:row style="padding: 10px; border-bottom: 2px solid #cacaca">
 				<aui:col span="6">
 					<div style="padding: 10px;">
-						<img src="<%= episode.getImageUrl() %>" style="width: 50;" />
+						
+						<c:choose>
+							<c:when test="<%= !episode.getImageUrl().isEmpty() %>">
+								<img src="<%= episode.getImageUrl() %>" style="width: 50;" />
+							</c:when>
+							<c:when test="<%= !season.getImageUrl().isEmpty() %>">
+								<img src="<%= season.getImageUrl() %>" style="width: 50;" />
+							</c:when>
+							<c:otherwise>
+								<img src="<%= tvShow.getImageUrl() %>" style="width: 50;" />
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</aui:col>
 				<aui:col span="6" >

@@ -75,8 +75,8 @@
 			<portlet:renderURL var="detailsURL">
 				<portlet:param name="mvcPath" value="/html/tvtracker/detail/tvshow_detail.jsp"/>
 				<portlet:param name="<%= WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShow.getTvShowId()) %>"/>
-				<%-- (value = 0) -> details tab selected | (value != 0) -> seasons tab selected --%>
-				<portlet:param name="selected_tab" value="0" />
+				<%-- (value = 0) -> tvshow.details tab selected | (value != 0) -> tvshow.seasons tab selected --%>
+				<portlet:param name="selected_tab_tvshow" value="0" />
 			</portlet:renderURL>
 			
 			<liferay-ui:search-container-column-text name="Details" value=">>>>" href="<%= detailsURL %>" />

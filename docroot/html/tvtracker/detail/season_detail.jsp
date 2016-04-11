@@ -12,7 +12,7 @@
 	
 	// tab selection logic
 	
-	int selectedTab = ParamUtil.getInteger(renderRequest, "selected_tab");
+	int selectedTab = ParamUtil.getInteger(renderRequest, "selected_tab", 0);
 	
 	boolean tabVisibility = true;
 	String detailsCssClass = "active";
@@ -47,8 +47,8 @@
 			<portlet:renderURL var="tvshowURL">
 	        	<portlet:param name="mvcPath" value="/html/tvtracker/detail/tvshow_detail.jsp"/>
 	        	<portlet:param name="<%= WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShowId) %>"/>
-				<%-- (value = 0) -> details tab selected | (value != 0) -> seasons tab selected --%>
-				<portlet:param name="selected_tab" value="0" />
+				<%-- (value = 0) -> tvshow.details tab selected | (value != 0) -> tvshow.seasons tab selected --%>
+				<portlet:param name="selected_tab" value="1" />
 			</portlet:renderURL>
 		
 			<%-- 			<liferay-ui:header backURL="<%= viewURL %>" title="<%= tvShow.getTitle() %>"/> --%>
@@ -61,7 +61,14 @@
 		<aui:row>
 			<aui:col span="3">
 				<aui:row >
-					<img src="<%= season.getImageUrl() %>" style="border-radius: 25px; border:2px solid #ccc; padding:2px; background:#eee;" />
+					<c:choose>
+						<c:when test="<%= !season.getImageUrl().isEmpty() %>">
+							<img src="<%= season.getImageUrl() %>" style="border-radius: 25px; border:2px solid #ccc; padding:2px; background:#eee;" />
+						</c:when>
+						<c:otherwise>
+							<img src="<%= tvShow.getImageUrl() %>" style="border-radius: 25px; border:2px solid #ccc; padding:2px; background:#eee;" />
+						</c:otherwise>
+					</c:choose>
 				</aui:row>
 			</aui:col>
 			
@@ -128,6 +135,7 @@
 					<div style="border-radius: 0px 0px 25px 25px; border:2px solid #ccc; padding:10px 10px 20px 20px; background:#eee; margin: 10px 0px;">
 						
 						<liferay-util:include page="/html/tvtracker/detail/season_detail_episodes_tab.jsp" servletContext="<%= application %>" >
+							<liferay-util:param name="<%= renderResponse.getNamespace() + WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShowId) %>" />
 							<liferay-util:param name="<%= renderResponse.getNamespace() + WebKeys.SEASON_ID %>" value="<%= String.valueOf(seasonId) %>" />
 						</liferay-util:include>
 						

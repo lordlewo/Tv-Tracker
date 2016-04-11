@@ -4,6 +4,9 @@
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 
 	long tvShowId = ParamUtil.getLong(request, renderResponse.getNamespace() + WebKeys.TVSHOW_ID);
+	TvShow tvShow = TvShowLocalServiceUtil.getTvShow(tvShowId, serviceContext);
+	
+	
 	List<Season> seasons = SeasonLocalServiceUtil.getSeasons(tvShowId, serviceContext);
 	
 	
@@ -45,7 +48,14 @@
 			<aui:row style="padding: 10px; border-top: 2px solid #cacaca">
 				<aui:col span="4">
 					<div style="padding: 10px;">
-						<img src="<%= season.getImageUrl() %>" style="width: 50;" />
+						<c:choose>
+							<c:when test="<%= !season.getImageUrl().isEmpty() %>">
+								<img src="<%= season.getImageUrl() %>" style="width: 50;" />
+							</c:when>
+							<c:otherwise>
+								<img src="<%= tvShow.getImageUrl() %>" style="width: 50;" />
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</aui:col>
 				<aui:col span="3" >
@@ -66,7 +76,7 @@
 						<portlet:param name="mvcPath" value="/html/tvtracker/detail/season_detail.jsp"/>
 						<portlet:param name="<%= WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShowId) %>"/>
 						<portlet:param name="<%= WebKeys.SEASON_ID %>" value="<%= String.valueOf(season.getSeasonId()) %>"/>
-						<%-- (value = 0) -> details tab selected | (value != 0) -> episodes tab selected --%>
+						<%-- (value = 0) -> season.details tab selected | (value != 0) -> season.episodes tab selected --%>
 						<portlet:param name="selected_tab" value="0" />
 					</portlet:renderURL>
 				
