@@ -14,11 +14,13 @@
 
 package hu.webtown.liferay.tvtracker.service.impl;
 
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -127,6 +129,45 @@ public class SeasonLocalServiceImpl extends SeasonLocalServiceBaseImpl {
 		
 		return seasons;
 	}
+	
+	public List<Season> getSeasons(long tvShowId, ServiceContext serviceContext, OrderByComparator orderByComparator) throws SystemException {
+		
+		int start = QueryUtil.ALL_POS;
+		int end = QueryUtil.ALL_POS;
+		
+		return getSeasons(tvShowId, serviceContext, start, end, orderByComparator);
+		
+	}
+	
+	public List<Season> getSeasons(long tvShowId, ServiceContext serviceContext, int start, int end, OrderByComparator orderByComparator) throws SystemException {
+		
+		// unbox and prepare the necessary parameters
+		
+		long groupId = serviceContext.getScopeGroupId();
+		
+		
+		// using of the finder method to retrive the requested entity instances
+		
+		List<Season> seasons = seasonPersistence.findByG_T(groupId, tvShowId, start, end, orderByComparator);
+		
+		
+		// producing and setting the necessary custom properties
+		
+		for (Season season : seasons) {
+			
+			// getting the season's episode count
+			
+			long seasonId = season.getSeasonId();
+			
+			int episodeCount = episodeLocalService.getEpisodesCount(seasonId, serviceContext);
+			season.setEpisodeCount(episodeCount);
+		}
+		
+		
+		return seasons;
+		
+	}
+	
 	
 	public int getSeasonsCount(long tvShowId, ServiceContext serviceContext) throws SystemException {
 		

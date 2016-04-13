@@ -303,6 +303,24 @@ public class TvShowLocalServiceWrapper implements TvShowLocalService,
 	}
 
 	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		com.liferay.portal.service.ServiceContext serviceContext,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _tvShowLocalService.getTvShows(serviceContext, orderByComparator);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _tvShowLocalService.getTvShows(serviceContext, start, end,
+			orderByComparator);
+	}
+
+	@Override
 	public int getTvShowsCount(
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {

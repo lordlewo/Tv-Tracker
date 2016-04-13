@@ -14,11 +14,13 @@
 
 package hu.webtown.liferay.tvtracker.service.impl;
 
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -191,6 +193,76 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		// producing and setting the necessary custom properties
 		
 		Calendar calendar = Calendar.getInstance();
+		
+		for (TvShow tvShow : tvShows) {
+			
+			// getting the premier year from the premier date
+			
+			Date premierDate = tvShow.getPremierDate();
+			calendar.setTime(premierDate);
+			
+			int premierYear = calendar.get(Calendar.YEAR);
+			tvShow.setPremierYear(premierYear);
+			
+			calendar.clear();
+			
+			
+			// getting the tvShow's season count
+			
+			long tvShowId = tvShow.getTvShowId();
+			
+			int seasonCount = seasonLocalService.getSeasonsCount(tvShowId, serviceContext);
+			tvShow.setSeasonCount(seasonCount);
+		}
+		
+		
+		return tvShows;
+	}
+	
+	public List<TvShow> getTvShows(ServiceContext serviceContext, OrderByComparator orderByComparator) throws SystemException{
+		
+		int start = QueryUtil.ALL_POS;
+		int end = QueryUtil.ALL_POS;
+		
+		return getTvShows(serviceContext, start, end, orderByComparator);
+
+	}
+	
+	public List<TvShow> getTvShows(ServiceContext serviceContext, int start, int end, OrderByComparator orderByComparator) throws SystemException{
+		
+		// unbox and prepare the necessary parameters
+		
+		long groupId = serviceContext.getScopeGroupId();
+		Locale currentLocale = serviceContext.getLocale();
+		TimeZone currentTimeZone = serviceContext.getTimeZone();
+		
+		// using of the finder method to retrive the requested entity instances
+		
+		List<TvShow> tvShows = tvShowPersistence.findByGroupId(groupId, start, end, orderByComparator);
+		
+		
+		// producing and setting the necessary custom properties
+		
+		Calendar calendar = null;
+		
+		if(currentLocale != null && currentTimeZone != null){
+		
+			calendar = Calendar.getInstance(currentTimeZone, currentLocale);
+			
+		} else if(currentLocale != null){
+			
+			calendar = Calendar.getInstance(currentLocale);
+			
+		} else if (currentTimeZone != null){
+			
+			calendar = Calendar.getInstance(currentTimeZone);
+			
+		} else {
+			
+			calendar = Calendar.getInstance();
+			
+		}
+		
 		
 		for (TvShow tvShow : tvShows) {
 			

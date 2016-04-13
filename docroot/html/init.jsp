@@ -43,6 +43,25 @@
 <%@ page import="hu.webtown.liferay.tvtracker.service.permission.SeasonPermission" %>
 <%@ page import="hu.webtown.liferay.tvtracker.service.permission.EpisodePermission" %>
 
+<%@page import="com.liferay.portal.kernel.util.OrderByComparator"%>
+
+<%@page import="hu.webtown.liferay.tvtracker.search.comparator.TvShowTitleComparator"%>
+<%@ page import="hu.webtown.liferay.tvtracker.search.comparator.util.ComparatorUtil" %>
+
+
+
+<%@page import="com.liferay.portal.kernel.search.SearchContextFactory"%>
+<%@page import="com.liferay.portal.kernel.search.SearchContext"%>
+<%@page import="com.liferay.portal.kernel.search.IndexerRegistryUtil"%>
+<%@page import="com.liferay.portal.kernel.search.Indexer"%>
+<%@page import="com.liferay.portal.kernel.search.Hits"%>
+<%@page import="com.liferay.portal.kernel.log.LogFactoryUtil"%>
+<%@page import="com.liferay.portal.kernel.log.Log"%>
+<%@page import="com.liferay.portal.kernel.exception.SystemException"%>
+<%@page import="com.liferay.portal.kernel.exception.PortalException"%>
+<%@page import="com.liferay.portal.kernel.search.Field"%>
+<%@page import="com.liferay.portal.kernel.search.Document"%>
+
 <%@ page import="java.util.*" %>
 
 <portlet:defineObjects />

@@ -295,6 +295,26 @@ public class SeasonLocalServiceUtil {
 		return getService().getSeasons(tvShowId, serviceContext, start, end);
 	}
 
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
+		long tvShowId,
+		com.liferay.portal.service.ServiceContext serviceContext,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getSeasons(tvShowId, serviceContext, orderByComparator);
+	}
+
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
+		long tvShowId,
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getSeasons(tvShowId, serviceContext, start, end,
+			orderByComparator);
+	}
+
 	public static int getSeasonsCount(long tvShowId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {

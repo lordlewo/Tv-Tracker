@@ -76,13 +76,13 @@
 		</aui:row>
 		
 		<aui:row>
-			<aui:col span="6">
+			<aui:col span="<%= (selectedTab == 0 ? 6 : 4) %>">
 				<aui:row >
 					<img src="<%= tvShow.getImageUrl() %>" style="border-radius: 25px; border:2px solid #ccc; padding:2px; background:#eee;" />
 				</aui:row>
 			</aui:col>
 			
-			<aui:col span="6">
+			<aui:col span="<%= (selectedTab == 0 ? 6 : 8) %>">
 			
 			    <portlet:renderURL var="detailsTabURL">
 			        <portlet:param name="mvcPath" value="/html/tvtracker/detail/tvshow_detail.jsp" />

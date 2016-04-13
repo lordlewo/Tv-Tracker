@@ -14,11 +14,13 @@
 
 package hu.webtown.liferay.tvtracker.service.impl;
 
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Indexer;
 import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.util.ContentTypes;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -71,6 +73,27 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		// using of the finder method
 		
 		return episodePersistence.findByG_S(groupId, seasonId, start, end);
+	}
+	
+	public List<Episode> getEpisodes(long seasonId, ServiceContext serviceContext, OrderByComparator orderByComparator) throws SystemException {
+		
+		int start = QueryUtil.ALL_POS;
+		int end = QueryUtil.ALL_POS;
+		
+		return getEpisodes(seasonId, serviceContext, start, end, orderByComparator);
+		
+	}
+	
+	public List<Episode> getEpisodes(long seasonId, ServiceContext serviceContext, int start, int end, OrderByComparator orderByComparator) throws SystemException {
+		
+		// unbox and prepare the necessary parameters
+		
+		long groupId = serviceContext.getScopeGroupId();
+		
+		// using of the finder method
+		
+		return episodePersistence.findByG_S(groupId, seasonId, start, end, orderByComparator);
+		
 	}
 	
 	public int getEpisodesCount(long seasonId, ServiceContext serviceContext) throws SystemException {
