@@ -1,6 +1,8 @@
 <%@ include file="/html/init.jsp" %>
 
-
+<%!
+	private static Log _log = LogFactoryUtil.getLog("ajjaj");
+%>
 
 	<liferay-portlet:renderURL var="navigateToTestURL">
 		<liferay-portlet:param name="mvcPath" value="/html/tvtracker/test.jsp"/>
@@ -109,7 +111,7 @@
 			
 			<%-- tvshow image --%>
 			
-			<liferay-ui:search-container-column-jsp name="Cover" path="/html/tvtracker/image.jsp"  />
+			<liferay-ui:search-container-column-jsp name="Cover" path="/html/tvtracker/cover.jsp"  />
 			
 			
 			<%-- tvshow title --%>
@@ -149,8 +151,3 @@
 
 	<liferay-ui:search-iterator />
 </liferay-ui:search-container>
-
-
-<%!
-        private static Log _log = LogFactoryUtil.getLog("ajjaj");
-%>

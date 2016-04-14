@@ -61,7 +61,7 @@
 
 	<c:if test="<%= TvShowPermission.contains(permissionChecker, tvShowId, ActionKeys.VIEW) %>">
 		
-		<aui:row style="margin-bottom: 20px; border-bottom: 2px solid #ccc;">
+		<aui:row cssClass="tvShowHeaderRow" >
 		
 			<portlet:renderURL var="viewURL">
 	        	<portlet:param name="mvcPath" value="/html/tvtracker/view.jsp"></portlet:param>
@@ -78,7 +78,7 @@
 		<aui:row>
 			<aui:col span="<%= (selectedTab == 0 ? 6 : 4) %>">
 				<aui:row >
-					<img src="<%= tvShow.getImageUrl() %>" style="border-radius: 25px; border:2px solid #ccc; padding:2px; background:#eee;" />
+					<img src="<%= tvShow.getImageUrl() %>" id="tvShowImage" />
 				</aui:row>
 			</aui:col>
 			
@@ -101,47 +101,47 @@
 				</aui:nav>
 				
 				<c:if test="<%= tabVisibility %>">
-					<div style="border-radius: 0px 0px 25px 25px; border:2px solid #ccc; padding: 20px; background:#eee; margin: 10px 0px;">
-						<aui:row style="padding-left: 10px; padding-top: 10px;">
+					<div class="tvShowDetailsTab">
+						<aui:row cssClass="tvShowDetailsTabRow">
 							<aui:col span="3"/>
-							<aui:col span="8" style="margin-bottom: 10px; border-bottom: 2px solid #ccc;">
+							<aui:col span="8" cssClass="tvShowDetailsRowTitle">
 								<h3> <%= tvShow.getTitle() %> </h3>
 							</aui:col>
 							<aui:col span="1"/>
 						</aui:row>
 						
-						<aui:row style="padding-left: 10px; padding-top: 10px;">
+						<aui:row cssClass="tvShowDetailsTabRow">
 							<aui:col span="3">
 								<strong>Premier Date:</strong>
 							</aui:col>
-							<aui:col span="9" style="padding-left: 5px">
+							<aui:col span="8" cssClass="tvShowDetailsRowText">
 								<fmt:formatDate value="<%= tvShow.getPremierDate() %>" type="date" pattern="MMM dd, yyyy"/>
 							</aui:col>
 						</aui:row>
 						
-						<aui:row style="padding-left: 10px; padding-top: 10px;">
+						<aui:row cssClass="tvShowDetailsTabRow">
 							<aui:col span="3">
 								<strong>Genres:</strong>
 							</aui:col>
-							<aui:col span="6" style="padding-left: 5px">
+							<aui:col span="8" cssClass="tvShowDetailsRowText">
 								<%= stringBuilder.toString() %>
 							</aui:col>
 						</aui:row>
 						
-						<aui:row style="padding-left: 10px; padding-top: 10px;">
+						<aui:row cssClass="tvShowDetailsTabRow">
 							<aui:col span="3">
 								<strong>Number of Seasons:</strong>
 							</aui:col>
-							<aui:col span="9" style="padding-left: 5px">
+							<aui:col span="8" cssClass="tvShowDetailsRowText">
 								<%= tvShow.getSeasonCount() %>
 							</aui:col>
 						</aui:row>
 						
-						<aui:row style="padding-left: 10px; padding-top: 10px;">
+						<aui:row cssClass="tvShowDetailsTabRow">
 							<aui:col span="3">
 								<strong>Description:</strong>
 							</aui:col>
-							<aui:col span="8" style="padding-left: 5px; padding-right: 10px; text-align: justify;">
+							<aui:col span="8" cssClass="tvShowDetailsRowText tvShowDeatilsRowTextDetails">
 								<%= tvShow.getDescription() %>
 							</aui:col>
 						</aui:row>
@@ -149,7 +149,7 @@
 				</c:if>
 				
 				<c:if test="<%= !tabVisibility %>">
-					<div style="border-radius: 0px 0px 25px 25px; border:2px solid #ccc; padding:10px 10px 20px 20px; background:#eee; margin: 10px 0px;">
+					<div class="tvShowSeasonsTab">
 						
 						<liferay-util:include page="/html/tvtracker/detail/tvshow_detail_seasons_tab.jsp" servletContext="<%= application %>" >
 							<liferay-util:param name="<%= renderResponse.getNamespace() + WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShowId) %>" />

@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.BaseIndexer;
+import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
@@ -106,7 +107,7 @@ public class TvShowIndexer extends BaseIndexer {
 		
 		String title = tvShow.getTitle();
 		Date premierDate = tvShow.getPremierDate();
-		long premierYear = tvShow.getPremierYear();
+		int premierYear = tvShow.getPremierYear();
 		String description = tvShow.getDescription();
 		
 		
@@ -122,8 +123,8 @@ public class TvShowIndexer extends BaseIndexer {
 		
 		document.addText(Field.TITLE, title);
 		document.addDate("premierDate", premierDate);
-		document.addNumber(Field.DESCRIPTION, premierYear);
-		document.addText(Field.CONTENT, description);
+		document.addNumber(Field.CONTENT, premierYear);
+		document.addText(Field.DESCRIPTION, description);
 		
 		
 		return document;
@@ -227,5 +228,12 @@ public class TvShowIndexer extends BaseIndexer {
 		// update the index
 		
 		SearchEngineUtil.updateDocuments(searchEngineId, companyId, documents, commitImmediately);
+	}
+	
+	@Override
+	public void postProcessSearchQuery(BooleanQuery searchQuery, SearchContext searchContext) throws Exception {
+		super.postProcessSearchQuery(searchQuery, searchContext);
+		
+		
 	}
 }

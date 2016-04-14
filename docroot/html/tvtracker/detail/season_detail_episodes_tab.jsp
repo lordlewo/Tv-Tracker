@@ -34,33 +34,30 @@
 
 	<c:if test="<%= !permissionCheckedEpisodes.isEmpty() %>">
 		<% 
-			for(Episode episode: permissionCheckedEpisodes){
+			for (Episode episode: permissionCheckedEpisodes){
 		%>
-			<aui:row style="padding: 10px; border-bottom: 2px solid #cacaca">
-				<aui:col span="6">
-					<div style="padding: 10px;">
-						
-						<c:choose>
-							<c:when test="<%= !episode.getImageUrl().isEmpty() %>">
-								<img src="<%= episode.getImageUrl() %>" style="width: 50;" />
-							</c:when>
-							<c:when test="<%= !season.getImageUrl().isEmpty() %>">
-								<img src="<%= season.getImageUrl() %>" style="width: 50;" />
-							</c:when>
-							<c:otherwise>
-								<img src="<%= tvShow.getImageUrl() %>" style="width: 50;" />
-							</c:otherwise>
-						</c:choose>
-					</div>
+			<aui:row cssClass="seasonEpisodesTabRow">
+				<aui:col span="6" cssClass="seasonEpisodesTabRowImage">
+					<c:choose>
+						<c:when test="<%= !episode.getImageUrl().isEmpty() %>">
+							<img src="<%= episode.getImageUrl() %>" />
+						</c:when>
+						<c:when test="<%= !season.getImageUrl().isEmpty() %>">
+							<img src="<%= season.getImageUrl() %>" />
+						</c:when>
+						<c:otherwise>
+							<img src="<%= tvShow.getImageUrl() %>" />
+						</c:otherwise>
+					</c:choose>
 				</aui:col>
 				<aui:col span="6" >
-					<aui:row style="padding-left: 10px; padding-top: 10px;">
-						<aui:col span="11" style="margin-bottom: 10px; border-bottom: 2px solid #ccc;">
+					<aui:row cssClass="seasonEpisodesTabRowTitle">
+						<aui:col span="11">
 							<h5> <%= episode.getTitle() %> </h5>
 						</aui:col>
 					</aui:row>
 					
-					<aui:row style="padding-left: 20px;">
+					<aui:row cssClass="seasonEpisodesTabRowText">
 						<aui:col span="3">
 							Air Date:
 						</aui:col>
@@ -69,7 +66,7 @@
 						</aui:col>
 					</aui:row>
 					
-					<aui:row style="padding-left: 20px;">
+					<aui:row cssClass="seasonEpisodesTabRowText">
 						<aui:col span="3">
 							Episode:
 						</aui:col>
@@ -78,8 +75,8 @@
 						</aui:col>
 					</aui:row>
 					
-					<aui:row style="padding-left: 10px;">
-						<aui:col span="11" style="border-top: 2px solid #ccc; padding-top: 10px; padding-left: 10px; padding-right: 10px; text-align: justify;">
+					<aui:row cssClass="seasonEpisodesTabRowDescription">
+						<aui:col span="11" cssClass="seasonEpisodesTabRowDescriptionText">
 							<%= episode.getDescription() %>
 						</aui:col>
 					</aui:row>

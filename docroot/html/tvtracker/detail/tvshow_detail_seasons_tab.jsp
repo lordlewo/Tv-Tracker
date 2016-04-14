@@ -29,46 +29,40 @@
 
 <aui:container>
 	
-	<aui:row style="padding: 10px;">
+	<aui:row cssClass="tvShowSeasonsTabHeader">
 		<aui:col span="4">
-			<h5 style="text-align: center;">Cover</h5>
+			<h5>Cover</h5>
 		</aui:col>
 		<aui:col span="3">
-			<h5 style="text-align: center;">Title</h5>
+			<h5>Title</h5>
 		</aui:col>
 		<aui:col span="3">
-			<h5 style="text-align: center;">Episodes</h5>
+			<h5>Episodes</h5>
 		</aui:col>
 	</aui:row>
 
 	<c:if test="<%= !permissionCheckedSeasons.isEmpty() %>">
 		<% 
-			for(Season season: permissionCheckedSeasons){
+			for (Season season: permissionCheckedSeasons){
 		%>
-			<aui:row style="padding: 10px; border-top: 2px solid #cacaca">
-				<aui:col span="4">
-					<div style="padding: 10px;">
-						<c:choose>
-							<c:when test="<%= !season.getImageUrl().isEmpty() %>">
-								<img src="<%= season.getImageUrl() %>" style="width: 50;" />
-							</c:when>
-							<c:otherwise>
-								<img src="<%= tvShow.getImageUrl() %>" style="width: 50;" />
-							</c:otherwise>
-						</c:choose>
-					</div>
+			<aui:row cssClass="tvShowSeasonsTabRow">
+				<aui:col span="4" cssClass="tvShowSeasonsTabRowImage">
+					<c:choose>
+						<c:when test="<%= !season.getImageUrl().isEmpty() %>">
+							<img src="<%= season.getImageUrl() %>" />
+						</c:when>
+						<c:otherwise>
+							<img src="<%= tvShow.getImageUrl() %>" />
+						</c:otherwise>
+					</c:choose>
 				</aui:col>
-				<aui:col span="3" >
-					<div style="text-align: center; margin-top: 20px;">
-						<%= season.getTitle() %>
-					</div>
+				<aui:col span="3" cssClass="tvShowSeasonsTabRowText">
+					<%= season.getTitle() %>
 				</aui:col>
-				<aui:col span="3">
-					<div style="text-align: center; margin-top: 20px;">
-						<%= season.getEpisodeCount() %>
-					</div>
+				<aui:col span="3" cssClass="tvShowSeasonsTabRowText">
+					<%= season.getEpisodeCount() %>
 				</aui:col>
-				<aui:col span="2">
+				<aui:col span="2" cssClass="tvShowSeasonsTabRowText">
 				
 					<%-- navigation to the season details page --%>
 
@@ -80,9 +74,7 @@
 						<portlet:param name="selected_tab" value="0" />
 					</portlet:renderURL>
 				
-					<div style="text-align: center; margin-top: 20px;">
-						<aui:button icon="icon-arrow-right" href="<%= detailsURL %>"/>
-					</div>
+					<aui:button icon="icon-arrow-right" href="<%= detailsURL %>"/>
 				</aui:col>
 			</aui:row>
 		<% 

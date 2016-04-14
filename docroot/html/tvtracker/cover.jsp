@@ -8,7 +8,9 @@
 	TvShow tvShow = (TvShow) resultRow.getObject();
 	
 %>
-	
-	<div align="center">
-		<img src="<%= tvShow.getImageUrl() %>" width="200" align="middle"/>
-	</div>
+
+<aui:container>
+	<aui:row align="center">
+		<img src="<%= tvShow.getImageUrl() %>" width="300"/>
+	</aui:row>
+</aui:container>
