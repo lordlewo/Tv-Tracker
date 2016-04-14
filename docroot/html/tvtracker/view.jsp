@@ -29,7 +29,7 @@
 
 <liferay-ui:search-container 
 			delta="10" 
-			emptyResultsMessage="There are not TvShows!" 
+			emptyResultsMessage="There are not any TvShows!" 
 			orderByCol="<%= orderByCol %>" 
 			orderByType="<%= orderByType %>" 
 			orderByComparator="<%= orderByComparator %>" >
