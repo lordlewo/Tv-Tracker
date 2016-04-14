@@ -52,8 +52,8 @@
 				</aui:col>
 				<aui:col span="6" >
 					<aui:row cssClass="seasonEpisodesTabRowTitle">
-						<aui:col span="11">
-							<h5> <%= episode.getTitle() %> </h5>
+						<aui:col span="11" >
+							<h5> <%= episode.getTitle() %> </h5> 
 						</aui:col>
 					</aui:row>
 					

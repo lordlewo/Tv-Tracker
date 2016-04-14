@@ -63,11 +63,11 @@
 
 .seasonEpisodesTabRow{
 	padding: 10px; 
-	border-bottom: 2px solid #cacaca
+	border-bottom: 2px solid #cacaca;
 }
 
 .seasonEpisodesTabRowTitle {
-	margin-top: 10px;
+	padding-top: 10px;
 	margin-bottom: 10px;
 	border-bottom: 2px solid #ccc;
 }
@@ -82,9 +82,7 @@
 
 .seasonEpisodesTabRowDescriptionText {
 	border-top: 2px solid #ccc; 
-	padding-top: 10px; 
-	padding-left: 10px;
-	padding-right: 10px; 
+	padding: 10px; 
 	text-align: justify;
 }
 
