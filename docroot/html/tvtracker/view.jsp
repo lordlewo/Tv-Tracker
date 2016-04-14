@@ -40,7 +40,7 @@
 	<liferay-ui:search-container-results>
 		<%
 		
-			if(keywords != null && !keywords.isEmpty()){
+			if(keywords == null || keywords.isEmpty()){
 				
 				List<TvShow> tvShows = TvShowLocalServiceUtil.getTvShows(
 							serviceContext, 
@@ -68,7 +68,7 @@
 				
 			} else {
 				
-			/*	SearchContext searchContext = SearchContextFactory.getInstance(request);
+				SearchContext searchContext = SearchContextFactory.getInstance(request);
 				searchContext.setKeywords(keywords);
 		        searchContext.setAttribute("paginationType", "more");
 		        searchContext.setStart(searchContainer.getStart());
@@ -99,7 +99,7 @@
 	        	}
 				
 		        pageContext.setAttribute("results", tvShows);
-				searchContainer.setTotal(tvShows.size());*/
+				searchContainer.setTotal(tvShows.size());
 		        
 			}
 		%>
