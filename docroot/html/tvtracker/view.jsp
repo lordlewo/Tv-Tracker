@@ -25,7 +25,7 @@
 	
 	// search
 	
-	String keywords = ParamUtil.getString(request, "keywords");
+	String keywords = ParamUtil.getString(renderRequest, "keywords");
 
 %>
 
@@ -145,7 +145,9 @@
 				<portlet:param name="selected_tab_tvshow" value="0" />
 			</portlet:renderURL>
 			
-			<liferay-ui:search-container-column-text name="Details" value=">>>>" href="<%= detailsURL %>" />
+			<liferay-ui:search-container-column-text name="Details">
+				<div style="text-align: center;"><h1><aui:a href="<%= detailsURL %>" cssClass="icon-arrow-right" style="text-decoration: none;" /></h1></div>		
+			</liferay-ui:search-container-column-text>
 			
 		</liferay-ui:search-container-row>
 

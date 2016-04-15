@@ -12,7 +12,7 @@
 		<span class="aui-search-bar">
 			<aui:input name="keywords" type="text" title="Search TvShows" inlineField="true" label="Searched TvShows: " inlineLabel="left" />
 		
-			<aui:button type="submit" value="search" />
+			<aui:button icon="icon-search" type="submit" value="search" />
 		</span>
 	</div>
 

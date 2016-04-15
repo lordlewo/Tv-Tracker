@@ -7,6 +7,7 @@
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="theme" %>
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
+<%@ taglib uri="http://liferay.com/tld/security" prefix="liferay-security" %>
 
 <%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
 <%@ page import="com.liferay.portal.kernel.util.HtmlUtil" %>
@@ -49,18 +50,21 @@
 <%@ page import="hu.webtown.liferay.tvtracker.search.comparator.util.ComparatorUtil" %>
 
 
-
 <%@page import="com.liferay.portal.kernel.search.SearchContextFactory"%>
 <%@page import="com.liferay.portal.kernel.search.SearchContext"%>
 <%@page import="com.liferay.portal.kernel.search.IndexerRegistryUtil"%>
 <%@page import="com.liferay.portal.kernel.search.Indexer"%>
+<%@page import="com.liferay.portal.kernel.search.Field"%>
+<%@page import="com.liferay.portal.kernel.search.Document"%>
 <%@page import="com.liferay.portal.kernel.search.Hits"%>
+
+<%@ page import="com.liferay.portal.kernel.dao.search.SearchEntry" %>
+<%@ page import="com.liferay.portal.kernel.dao.search.ResultRow" %>
+
 <%@page import="com.liferay.portal.kernel.log.LogFactoryUtil"%>
 <%@page import="com.liferay.portal.kernel.log.Log"%>
 <%@page import="com.liferay.portal.kernel.exception.SystemException"%>
 <%@page import="com.liferay.portal.kernel.exception.PortalException"%>
-<%@page import="com.liferay.portal.kernel.search.Field"%>
-<%@page import="com.liferay.portal.kernel.search.Document"%>
 
 <%@ page import="java.util.*" %>
 
