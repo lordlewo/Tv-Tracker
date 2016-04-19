@@ -23,48 +23,14 @@
 	Collections.sort(tvShows, orderByComparator);
 	
 	
-	// search
+	// search /// TODO
 	
 	String keywords = ParamUtil.getString(renderRequest, "keywords");
 	
 %>
 
 <aui:container>
-	<aui:row>
-		<aui:col span="12">
-			<liferay-portlet:renderURL varImpl="searchURL">
-				<liferay-portlet:param name="mvcPath" value="/html/tvshowadmin/view.jsp"/>
-			</liferay-portlet:renderURL>
 		
-			<aui:form action="<%= searchURL %>" method="get" name="form">
-				<liferay-portlet:renderURLParams varImpl="searchURL"/>
-				
-				<div class="search-form">
-					<span class="aui-search-bar">
-						<aui:input name="keywords" type="text" inlineField="true" label="Searching for TvShows:"  style="width: 300px;"/>
-					
-						<aui:button icon="icon-search" type="submit" value="search" />
-					</span>
-				</div>
-			</aui:form>
-		</aui:col>
-	</aui:row>
-	
-	<c:if test="<%= TvTrackerModelPermission.contains(permissionChecker, groupId, ActionKeys.ADD_TVSHOW) %>">
-		<aui:row>
-			<aui:col span="12">
-				<portlet:renderURL var="addTvShowURL">
-					<portlet:param name="method" value="add"/>
-					<portlet:param name="mvcPath" value="/html/tvshowadmin/edit.jsp"/>
-				</portlet:renderURL>
-				
-				<aui:button-row>
-					<aui:button icon="icon-plus" value="Add TvShow" href="<%= addTvShowURL %>" />
-				</aui:button-row>
-			</aui:col>
-		</aui:row>
-	</c:if>
-	
 	<aui:row>
 		<aui:col span="12">
 			<liferay-ui:search-container 
@@ -75,6 +41,7 @@
 				orderByComparator="<%= orderByComparator %>" 
 				total="<%= totalCount %>" > 
 	 
+				<liferay-ui:search-form page="/html/tvshowadmin/search_form.jsp" searchContainer="<%= searchContainer %>" servletContext="<%= application %>" />
 		
 				<liferay-ui:search-container-results results="<%= tvShows %>" />
 			
@@ -92,7 +59,7 @@
 					
 					<liferay-ui:search-container-column-text 
 								cssClass="searchContainerColumnClass" 
-								name="PremierDate" 
+								name="PremierYear" 
 								orderable="true" 
 								orderableProperty="premierYear" >
 						<fmt:formatDate value="<%= tvShow.getPremierDate() %>" type="date" pattern="yyyy"/>
