@@ -27,8 +27,10 @@
 
 <%@ page import="com.liferay.portlet.asset.model.AssetCategory"%>
 <%@ page import="com.liferay.portlet.asset.model.AssetEntry"%>
+<%@ page import="com.liferay.portlet.asset.model.AssetTag" %>
 <%@ page import="com.liferay.portlet.asset.service.AssetCategoryLocalServiceUtil"%>
 <%@ page import="com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil"%>
+<%@ page import="com.liferay.portlet.asset.service.AssetTagLocalServiceUtil" %>
 
 
 <%@ page import="hu.webtown.liferay.tvtracker.model.TvShow"%>
