@@ -39,7 +39,7 @@
 	<c:if test="<%= TvShowPermission.contains(permissionChecker, tvShowId, ActionKeys.DELETE) %>" >
 	
 		<portlet:actionURL name="deleteTvShow"	var="tvShowDeleteURL">
-			<portlet:param name="tvShowId" value="<%= String.valueOf(tvShowId) %>" />
+			<portlet:param name="<%= WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShowId) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete message="Delete" url="<%= tvShowDeleteURL %>" />

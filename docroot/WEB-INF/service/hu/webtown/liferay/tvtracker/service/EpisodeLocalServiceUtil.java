@@ -276,9 +276,21 @@ public class EpisodeLocalServiceUtil {
 	}
 
 	public static java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getEpisodes(serviceContext);
+	}
+
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
 		long seasonId, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getEpisodes(seasonId, serviceContext);
+	}
+
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getEpisodes(serviceContext, start, end);
 	}
 
 	public static java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
@@ -286,6 +298,13 @@ public class EpisodeLocalServiceUtil {
 		com.liferay.portal.service.ServiceContext serviceContext, int start,
 		int end) throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getEpisodes(seasonId, serviceContext, start, end);
+	}
+
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getEpisodes(serviceContext, orderByComparator);
 	}
 
 	public static java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
@@ -298,6 +317,15 @@ public class EpisodeLocalServiceUtil {
 	}
 
 	public static java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getEpisodes(serviceContext, start, end, orderByComparator);
+	}
+
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
 		long seasonId,
 		com.liferay.portal.service.ServiceContext serviceContext, int start,
 		int end,
@@ -306,6 +334,12 @@ public class EpisodeLocalServiceUtil {
 		return getService()
 				   .getEpisodes(seasonId, serviceContext, start, end,
 			orderByComparator);
+	}
+
+	public static int getEpisodesCount(
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getEpisodesCount(serviceContext);
 	}
 
 	public static int getEpisodesCount(long seasonId,

@@ -632,7 +632,7 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		if(Validator.isNull(imageUrl) || !Validator.isUri(imageUrl)){
 			
-			//throw new TvShowImageException();
+			throw new TvShowImageException();
 		}
 		
 		if(Validator.isNull(imageUuid)){

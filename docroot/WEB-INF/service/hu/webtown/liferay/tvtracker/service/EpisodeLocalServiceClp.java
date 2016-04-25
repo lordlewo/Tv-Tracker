@@ -117,57 +117,89 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 		_methodName19 = "getEpisodes";
 
 		_methodParameterTypes19 = new String[] {
-				"long", "com.liferay.portal.service.ServiceContext"
+				"com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName20 = "getEpisodes";
 
 		_methodParameterTypes20 = new String[] {
-				"long", "com.liferay.portal.service.ServiceContext", "int",
-				"int"
+				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName21 = "getEpisodes";
 
 		_methodParameterTypes21 = new String[] {
-				"long", "com.liferay.portal.service.ServiceContext",
-				"com.liferay.portal.kernel.util.OrderByComparator"
+				"com.liferay.portal.service.ServiceContext", "int", "int"
 			};
 
 		_methodName22 = "getEpisodes";
 
 		_methodParameterTypes22 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext", "int",
+				"int"
+			};
+
+		_methodName23 = "getEpisodes";
+
+		_methodParameterTypes23 = new String[] {
+				"com.liferay.portal.service.ServiceContext",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName24 = "getEpisodes";
+
+		_methodParameterTypes24 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName25 = "getEpisodes";
+
+		_methodParameterTypes25 = new String[] {
+				"com.liferay.portal.service.ServiceContext", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName26 = "getEpisodes";
+
+		_methodParameterTypes26 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext", "int",
 				"int", "com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName23 = "getEpisodesCount";
+		_methodName27 = "getEpisodesCount";
 
-		_methodParameterTypes23 = new String[] {
+		_methodParameterTypes27 = new String[] {
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName28 = "getEpisodesCount";
+
+		_methodParameterTypes28 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName24 = "addEpisode";
+		_methodName29 = "addEpisode";
 
-		_methodParameterTypes24 = new String[] {
+		_methodParameterTypes29 = new String[] {
 				"long", "java.lang.String", "java.util.Date", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName25 = "updateEpisode";
+		_methodName30 = "updateEpisode";
 
-		_methodParameterTypes25 = new String[] {
+		_methodParameterTypes30 = new String[] {
 				"long", "long", "java.lang.String", "java.util.Date", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName26 = "deleteEpisode";
+		_methodName31 = "deleteEpisode";
 
-		_methodParameterTypes26 = new String[] {
+		_methodParameterTypes31 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -723,17 +755,83 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 
 	@Override
 	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
-		long seasonId, com.liferay.portal.service.ServiceContext serviceContext)
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
+					new Object[] { ClpSerializer.translateInput(serviceContext) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.webtown.liferay.tvtracker.model.Episode>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		long seasonId, com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
 					new Object[] {
 						seasonId,
 						
 					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.webtown.liferay.tvtracker.model.Episode>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] {
+						ClpSerializer.translateInput(serviceContext),
+						
+					start,
+						
+					end
 					});
 		}
 		catch (Throwable t) {
@@ -763,8 +861,8 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] {
 						seasonId,
 						
@@ -796,6 +894,41 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 
 	@Override
 	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
+					new Object[] {
+						ClpSerializer.translateInput(serviceContext),
+						
+					ClpSerializer.translateInput(orderByComparator)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.webtown.liferay.tvtracker.model.Episode>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
 		long seasonId,
 		com.liferay.portal.service.ServiceContext serviceContext,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
@@ -803,12 +936,52 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] {
 						seasonId,
 						
 					ClpSerializer.translateInput(serviceContext),
+						
+					ClpSerializer.translateInput(orderByComparator)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<hu.webtown.liferay.tvtracker.model.Episode>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
+					new Object[] {
+						ClpSerializer.translateInput(serviceContext),
+						
+					start,
+						
+					end,
 						
 					ClpSerializer.translateInput(orderByComparator)
 					});
@@ -842,8 +1015,8 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
 					new Object[] {
 						seasonId,
 						
@@ -876,14 +1049,44 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 	}
 
 	@Override
+	public int getEpisodesCount(
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName27,
+					_methodParameterTypes27,
+					new Object[] { ClpSerializer.translateInput(serviceContext) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	@Override
 	public int getEpisodesCount(long seasonId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName28,
+					_methodParameterTypes28,
 					new Object[] {
 						seasonId,
 						
@@ -921,8 +1124,8 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName29,
+					_methodParameterTypes29,
 					new Object[] {
 						seasonId,
 						
@@ -981,8 +1184,8 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName25,
-					_methodParameterTypes25,
+			returnObj = _invokableLocalService.invokeMethod(_methodName30,
+					_methodParameterTypes30,
 					new Object[] {
 						seasonId,
 						
@@ -1038,8 +1241,8 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName26,
-					_methodParameterTypes26,
+			returnObj = _invokableLocalService.invokeMethod(_methodName31,
+					_methodParameterTypes31,
 					new Object[] {
 						episodeId,
 						
@@ -1122,4 +1325,14 @@ public class EpisodeLocalServiceClp implements EpisodeLocalService {
 	private String[] _methodParameterTypes25;
 	private String _methodName26;
 	private String[] _methodParameterTypes26;
+	private String _methodName27;
+	private String[] _methodParameterTypes27;
+	private String _methodName28;
+	private String[] _methodParameterTypes28;
+	private String _methodName29;
+	private String[] _methodParameterTypes29;
+	private String _methodName30;
+	private String[] _methodParameterTypes30;
+	private String _methodName31;
+	private String[] _methodParameterTypes31;
 }

@@ -290,9 +290,23 @@ public class SeasonLocalServiceWrapper implements SeasonLocalService,
 
 	@Override
 	public java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _seasonLocalService.getSeasons(serviceContext);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
 		long tvShowId, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _seasonLocalService.getSeasons(tvShowId, serviceContext);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		return _seasonLocalService.getSeasons(serviceContext, start, end);
 	}
 
 	@Override
@@ -302,6 +316,14 @@ public class SeasonLocalServiceWrapper implements SeasonLocalService,
 		int end) throws com.liferay.portal.kernel.exception.SystemException {
 		return _seasonLocalService.getSeasons(tvShowId, serviceContext, start,
 			end);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
+		com.liferay.portal.service.ServiceContext serviceContext,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _seasonLocalService.getSeasons(serviceContext, orderByComparator);
 	}
 
 	@Override
@@ -316,6 +338,16 @@ public class SeasonLocalServiceWrapper implements SeasonLocalService,
 
 	@Override
 	public java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _seasonLocalService.getSeasons(serviceContext, start, end,
+			orderByComparator);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Season> getSeasons(
 		long tvShowId,
 		com.liferay.portal.service.ServiceContext serviceContext, int start,
 		int end,
@@ -323,6 +355,13 @@ public class SeasonLocalServiceWrapper implements SeasonLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _seasonLocalService.getSeasons(tvShowId, serviceContext, start,
 			end, orderByComparator);
+	}
+
+	@Override
+	public int getSeasonsCount(
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _seasonLocalService.getSeasonsCount(serviceContext);
 	}
 
 	@Override

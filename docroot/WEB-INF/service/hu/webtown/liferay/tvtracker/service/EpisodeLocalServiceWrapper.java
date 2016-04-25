@@ -285,9 +285,23 @@ public class EpisodeLocalServiceWrapper implements EpisodeLocalService,
 
 	@Override
 	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _episodeLocalService.getEpisodes(serviceContext);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
 		long seasonId, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _episodeLocalService.getEpisodes(seasonId, serviceContext);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end) throws com.liferay.portal.kernel.exception.SystemException {
+		return _episodeLocalService.getEpisodes(serviceContext, start, end);
 	}
 
 	@Override
@@ -297,6 +311,15 @@ public class EpisodeLocalServiceWrapper implements EpisodeLocalService,
 		int end) throws com.liferay.portal.kernel.exception.SystemException {
 		return _episodeLocalService.getEpisodes(seasonId, serviceContext,
 			start, end);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _episodeLocalService.getEpisodes(serviceContext,
+			orderByComparator);
 	}
 
 	@Override
@@ -311,6 +334,16 @@ public class EpisodeLocalServiceWrapper implements EpisodeLocalService,
 
 	@Override
 	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
+		com.liferay.portal.service.ServiceContext serviceContext, int start,
+		int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _episodeLocalService.getEpisodes(serviceContext, start, end,
+			orderByComparator);
+	}
+
+	@Override
+	public java.util.List<hu.webtown.liferay.tvtracker.model.Episode> getEpisodes(
 		long seasonId,
 		com.liferay.portal.service.ServiceContext serviceContext, int start,
 		int end,
@@ -318,6 +351,13 @@ public class EpisodeLocalServiceWrapper implements EpisodeLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _episodeLocalService.getEpisodes(seasonId, serviceContext,
 			start, end, orderByComparator);
+	}
+
+	@Override
+	public int getEpisodesCount(
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _episodeLocalService.getEpisodesCount(serviceContext);
 	}
 
 	@Override

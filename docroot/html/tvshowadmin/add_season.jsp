@@ -2,10 +2,6 @@
 
 <%
 	String tv = ParamUtil.getString(request, WebKeys.TVSHOW_ID);
-	int idx = ParamUtil.getInteger(request, "idx");
-	
-	String seasonTitle = "seasonTitle" + idx;
-	String seasonDescription = "seasonDescription" + idx;
 %>
 <aui:col span="3">
 	<aui:row>
@@ -26,7 +22,7 @@
 <aui:col span="3">
 	<aui:row>
 		<div id="counterContainer">
-			<aui:input name="<%= seasonTitle %>" type="text" title="Season Title" label="Season Title">
+			<aui:input name="seasonTitle" type="text" title="Season Title" label="Season Title">
 				<aui:validator name="required" errorMessage="Please enter the season's name."/>
 				<p><span id="titlecCounter"></span> character(s) remaining</p>
 			</aui:input>
@@ -44,7 +40,7 @@
 <aui:col span="4">
 	<aui:row>
 		<div id="counterContainer">
-			<aui:input name="<%= seasonDescription %>" title="Seson Description" label="Season Description" type="textarea" style="width: 350px; height: 150px;">
+			<aui:input name="seasonDescription" title="Seson Description" label="Season Description" type="textarea" style="width: 350px; height: 150px;">
 				<aui:validator name="required" errorMessage="Please enter the season's description." />
 				<p><span id="descriptioncCounter"></span> character(s) remaining</p>
 			</aui:input>
@@ -67,10 +63,38 @@
 		return new A.CharCounter(ccConfig);
 	}
 	
-	var id = "<%=idx%>";
+	/******************** modify input tags' 'name' attribute*********************/
 	
-	createCharCounterr('#titlecCounter', '#<portlet:namespace />seasonTitle'+id, 75);
-	createCharCounterr('#descriptioncCounter', '#<portlet:namespace />seasonDescription'+id, 500);
-
+	var id = getIdx();
+	
+	
+	// new attr values
+	var newSeasonTitleId = '<portlet:namespace />seasonTitle' + id;
+	var newSeasonDescriptionId = '<portlet:namespace />seasonDescription' + id;
+	
+	
+	var newSeasonTitleCounterId = '<portlet:namespace />titlecCounter' + id;
+	var newSeasonDescriptioncounterId = '<portlet:namespace />descriptioncCounter' + id;
+	
+	
+	
+	// refactoring the attrs of inputs
+	A.one('#<portlet:namespace />seasonTitle').attr('name', newSeasonTitleId);
+	A.one('#<portlet:namespace />seasonDescription').attr('name', newSeasonDescriptionId);
+	
+	A.one('#<portlet:namespace />seasonTitle').attr('id', newSeasonTitleId);
+	A.one('#<portlet:namespace />seasonDescription').attr('id', newSeasonDescriptionId);
+	
+	
+	
+	// refactoring the attrs of remaining's <span> 
+	A.one('#titlecCounter').attr('id', newSeasonTitleCounterId);
+	A.one('#descriptioncCounter').attr('id', newSeasonDescriptioncounterId);
+	
+	
+	
+	// attach cc to the counter <span>-s
+	createCharCounterr('#' + newSeasonTitleCounterId, '#' + newSeasonTitleId, 75);
+	createCharCounterr('#' + newSeasonDescriptioncounterId, '#' + newSeasonDescriptionId, 500);
 	
 </aui:script>

@@ -19,8 +19,8 @@
 	int totalCount = TvShowLocalServiceUtil.getTvShowsCount(serviceContext);
 	List<TvShow> tvShows = TvShowLocalServiceUtil.getTvShows(serviceContext, orderByComparator);
 	
-	tvShows = ListUtil.copy(tvShows);
-	Collections.sort(tvShows, orderByComparator);
+	//tvShows = ListUtil.copy(tvShows);
+	//Collections.sort(tvShows, orderByComparator);
 	
 	
 	// search /// TODO

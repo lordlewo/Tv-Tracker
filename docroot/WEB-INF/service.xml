@@ -70,6 +70,9 @@
         <order by="asc">
             <order-column name="seasonNumber"></order-column>
         </order>
+        <finder name="GroupId" return-type="Collection">
+            <finder-column name="groupId"></finder-column>
+        </finder>
         <finder name="G_T" return-type="Collection">
             <finder-column name="groupId"></finder-column>
             <finder-column name="tvShowId"></finder-column>
@@ -110,6 +113,9 @@
         <order by="asc">
             <order-column name="airDate"></order-column>
         </order>
+        <finder name="GroupId" return-type="Collection">
+            <finder-column name="groupId"></finder-column>
+        </finder>
         <finder name="G_S" return-type="Collection">
             <finder-column name="groupId"></finder-column>
             <finder-column name="seasonId"></finder-column>
@@ -123,11 +129,13 @@
         <exception>TvShowDescription</exception>
         <exception>TvShowImage</exception>
         <exception>SeasonTitle</exception>
+        <exception>SeasonNumber</exception>
         <exception>SeasonPremierDate</exception>
         <exception>SeasonDescription</exception>
         <exception>SeasonImage</exception>
         <exception>EpisodeTitle</exception>
         <exception>EpisodeAirDate</exception>
+        <exception>EpisodeNumber</exception>
         <exception>EpisodeDescription</exception>
         <exception>EpisodeImage</exception>
     </exceptions>

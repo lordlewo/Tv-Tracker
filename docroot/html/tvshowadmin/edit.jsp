@@ -29,6 +29,25 @@
 	
 %>
 
+<script type="text/javascript">
+
+	/******************* Counter Clojure *****************************/
+	
+	var getIdx = (function counterUtil(){
+		
+		var counter = 0;
+	
+		function count(){
+			var idx = counter;
+			counter++;
+			
+			return idx;
+		}
+	
+		return count;
+	})();
+</script>
+
 <portlet:renderURL var="viewURL">
 	<portlet:param name="mvcPath" value="/html/tvshowadmin/view.jsp"/>
 </portlet:renderURL>
@@ -122,11 +141,11 @@
 		
 		<aui:row>
 			<div id="season-fields">
+				<aui:input name="rowIndexes" type="hidden"/>
 				<div class="lfr-form-row lfr-form-row-inline">
 					<div class="row-fields">
 						<liferay-util:include page="/html/tvshowadmin/add_season.jsp" servletContext="<%= application %>">
 							<liferay-util:param name="<%= WebKeys.TVSHOW_ID %>" value="ize"></liferay-util:param>
-							<liferay-util:param name="idx" value="0"></liferay-util:param>
 						</liferay-util:include>
 					</div>
 				</div>
@@ -227,9 +246,9 @@
 		var seasonCoverImage = null;
 		
 		
-		// attach clicklistner to the autofield's 'select' buttons, 
+		// attach clicklistener to the autofield's 'select' buttons, 
 		// for the purpose of the image searching in the Document and Media Library
-		// while the buttons added dynamically to the DOM, that must use the delegate method for the event 'bubbling'
+		// while the buttons added dynamically to the DOM, therefore must use the delegate method for the event 'bubbling', to attach the listeners to the newly generated DOM elements
 		var contentBox = A.one('#season-fields');
 		contentBox.delegate('click', seasonSelect, '.seasonCover');
 		function seasonSelect(event){
@@ -279,6 +298,6 @@
 		
 		createCharCounter('#titleCounter', '#<portlet:namespace />title', 75);
 		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', 500);
-    	
+
 	</aui:script>
 </aui:container>

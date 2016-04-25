@@ -8,4 +8,6 @@ public interface WebKeys extends com.liferay.portal.kernel.util.WebKeys {
 	
 	public static final String SEASON_ID = "SEASON_ID";
 	
+	public static final String EPISODE_ID = "EPISODE_ID";
+	
 }

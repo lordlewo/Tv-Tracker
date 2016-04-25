@@ -385,6 +385,11 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"hu.webtown.liferay.tvtracker.EpisodeNumberException")) {
+			return new hu.webtown.liferay.tvtracker.EpisodeNumberException();
+		}
+
+		if (className.equals(
 					"hu.webtown.liferay.tvtracker.EpisodeTitleException")) {
 			return new hu.webtown.liferay.tvtracker.EpisodeTitleException();
 		}
@@ -397,6 +402,11 @@ public class ClpSerializer {
 		if (className.equals(
 					"hu.webtown.liferay.tvtracker.SeasonImageException")) {
 			return new hu.webtown.liferay.tvtracker.SeasonImageException();
+		}
+
+		if (className.equals(
+					"hu.webtown.liferay.tvtracker.SeasonNumberException")) {
+			return new hu.webtown.liferay.tvtracker.SeasonNumberException();
 		}
 
 		if (className.equals(
