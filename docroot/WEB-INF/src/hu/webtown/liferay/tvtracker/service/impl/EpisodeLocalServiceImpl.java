@@ -445,7 +445,7 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 			throw new EpisodeDescriptionException();
 		}
 		
-		if(Validator.isNull(imageUrl) || !Validator.isUrl(imageUrl)){
+		if(Validator.isNull(imageUrl) /*|| !Validator.isUrl(imageUrl)*/){
 			
 			throw new EpisodeImageException();
 		}

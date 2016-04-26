@@ -29,7 +29,7 @@
 	
 %>
 
-<aui:container>
+<aui:container style="margin-right: 20px; margin-left: 20px;">
 		
 	<aui:row>
 		<aui:col span="12">

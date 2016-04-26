@@ -1,14 +1,10 @@
-<%@page import="java.util.concurrent.atomic.AtomicInteger"%>
-<%@page import="javax.portlet.PortletMode"%>
-<%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
-<%@page import="hu.webtown.liferay.tvtracker.NoSuchTvShowException"%>
 <%@ include file="/html/init.jsp" %>
 
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	
-	String action = ParamUtil.getString(renderRequest, "action");
 	long tvShowId = ParamUtil.getLong(renderRequest, WebKeys.TVSHOW_ID);
+	String action = ParamUtil.getString(renderRequest, "action");
 	
 	String actionUrlName = null;
 	String headerName = null;
@@ -63,8 +59,10 @@
 		
 		
 		<%-- hidden fields --%>
+		<c:if test='<%= action.equalsIgnoreCase("update") %>'>
+			<aui:input name="tvShowId" type="hidden"></aui:input>
+		</c:if>
 		
-		<aui:input name="tvShowId" type="hidden"></aui:input>
 		<aui:input name="imageUrl" type="hidden"></aui:input>
 		<aui:input name="imageUuid" type="hidden"></aui:input>
 		<aui:input name="imageVersion" type="hidden"></aui:input>
@@ -79,24 +77,24 @@
 		</aui:row>
 		
 		
-		<%-- tv show cover and cover selection --%>
+		<%-- tv show cover selection --%>
 	
-		<aui:row style="margin: 30px 20px 0px 20px; height: 200px; max-height: 200px;"> 
+		<aui:row style="margin: 30px 20px 0px 20px;"> 
 			<aui:field-wrapper label="Cover">
-				<aui:col span="3" >
+				<aui:col span="4" >
 					<%
 						String blankImageUrl = renderResponse.encodeURL(renderRequest.getContextPath() + "/img/no-image.png");
 					
 						String imageSrc = (tvShow != null) ? tvShow.getImageUrl() : blankImageUrl;
 					%>
-					<img id="<portlet:namespace/>img" src="<%= imageSrc%>" height="200" style="max-height: 200px;"/>
+					<img id="<portlet:namespace/>img" src="<%=imageSrc%>" />
 				</aui:col>
 				<aui:col span="5">
 					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image"> 
 						<aui:validator name="required" errorMessage="Please select the tv show's cover." />
 					</aui:input> 
 					<br/>
-					<aui:button name="selectButton" value="Select" icon=" icon-folder-open"/>
+					<aui:button name="selectButton" value="Select" icon="icon-folder-open"/>
 				</aui:col>
 			</aui:field-wrapper>
 		</aui:row>
@@ -105,8 +103,8 @@
 		<%-- tv show categories, title, premier and description fill --%>
 		
 		<aui:row>
-			<aui:col span="12">
-				<div style="margin-bottom: 30px; margin-top: 30px;">
+			<aui:col span="12" style="margin-top: 30px; margin-left: 20px;">
+				<div style="margin-bottom: 30px;">
 					<liferay-ui:asset-categories-error />
 					<liferay-ui:panel defaultState="open" extended="false" id="tvShowCategorizationPanel" persistState="true" title="Categorization">
 						<aui:input name="categories" type="assetCategories" />
@@ -139,19 +137,17 @@
 		
 		<%-- tv show seasons, autofields --%>
 		
-		<aui:row>
-			<div id="season-fields">
-				<aui:input name="rowIndexes" type="hidden"/>
-				<div class="lfr-form-row lfr-form-row-inline">
-					<div class="row-fields">
-						<liferay-util:include page="/html/tvshowadmin/add_season.jsp" servletContext="<%= application %>">
-							<liferay-util:param name="<%= WebKeys.TVSHOW_ID %>" value="ize"></liferay-util:param>
-						</liferay-util:include>
-					</div>
+		<div id="season-fields">
+			<aui:input name="rowIndexes" type="hidden"/>
+			<div class="lfr-form-row lfr-form-row-inline">
+				<div class="row-fields">
+					<liferay-util:include page="/html/tvshowadmin/add_season.jsp" servletContext="<%= application %>">
+						<liferay-util:param name="<%= WebKeys.TVSHOW_ID %>" value="ize"></liferay-util:param>
+					</liferay-util:include>
 				</div>
 			</div>
-		</aui:row>
-		
+		</div>
+
 		
 		<%-- submit/cancel buttons --%>
 		
@@ -174,7 +170,7 @@
 	</liferay-portlet:renderURL>
 
 	<portlet:renderURL var="addSeasonURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
-		<portlet:param name="mvcPath" value="/html/tvshowadmin/add_season.jsp" />
+		<portlet:param name="mvcPath" value="/html/tvshowadmin/add_season.jsp" /> 
 	</portlet:renderURL>
 	
 	<aui:script use="aui-char-counter,liferay-auto-fields,aui-base,liferay-util-window,aui-io-plugin-deprecated,aui-dialog-iframe-deprecated">
@@ -264,7 +260,9 @@
 			seasonCoverSelectPopUp.titleNode.html("Select Cover");
 		}
 
-		// and set the appropriate values for the html tags (with js) and hide the popup
+		/****************** Callback function for Cover selection *******************/
+		
+		// set the appropriate values for the html tags (with js) and hide the popup
 		_166_selectDocumentLibrary = function(url, id, groupId, fileName, version){
 			if(!witchPopUp){
 				A.one("#<portlet:namespace/>imageUrl").val(url);
@@ -283,7 +281,7 @@
 			}
         }
 		
-		/*********************** validation char counter ****************************/
+		/********************* validation - char counter ****************************/
 		
 		function createCharCounter(cc_counter, cc_input, cc_maxlength){
 			

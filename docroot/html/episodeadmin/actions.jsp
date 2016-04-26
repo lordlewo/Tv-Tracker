@@ -11,20 +11,17 @@
 	
 	
 	<c:if test="<%= EpisodePermission.contains(permissionChecker, episodeId, ActionKeys.UPDATE) %>" >
-	
 		<portlet:renderURL var="updateEpisodeURL">
 			<portlet:param name="<%= WebKeys.EPISODE_ID %>" value="<%= String.valueOf(episodeId) %>" />
 			<portlet:param name="action" value="update"/>
 			<portlet:param name="mvcPath" value="/html/episodeadmin/edit.jsp"/>
 		</portlet:renderURL>
 				
-		<liferay-ui:icon image="edit" message="Edit" url="<%= updateEpisodeURL %>" />
-		
+		<liferay-ui:icon image="edit" message="Edit" url="<%= updateEpisodeURL %>" />	
 	</c:if>
 	
 	
 	<c:if test="<%= EpisodePermission.contains(permissionChecker, episodeId, ActionKeys.PERMISSIONS) %>" >
-	
 		<liferay-security:permissionsURL 
 					modelResource="<%= Episode.class.getName() %>" 
 					modelResourceDescription="<%= episode.getTitle() %>" 
@@ -32,18 +29,15 @@
 					var="permissionsURL"/>
 					
 		<liferay-ui:icon image="permissions" message="Permission" url="<%= permissionsURL %>" />
-		
 	</c:if>
 	
 	
 	<c:if test="<%= EpisodePermission.contains(permissionChecker, episodeId, ActionKeys.DELETE) %>" >
-	
 		<portlet:actionURL name="deleteEpisode"	var="episodeDeleteURL">
 			<portlet:param name="<%= WebKeys.EPISODE_ID %>" value="<%= String.valueOf(episodeId) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete message="Delete" url="<%= episodeDeleteURL %>" />
-		
 	</c:if>
 
 

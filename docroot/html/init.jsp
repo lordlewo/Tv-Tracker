@@ -49,6 +49,9 @@
 <%@page import="com.liferay.portal.kernel.util.OrderByComparator"%>
 
 <%@page import="hu.webtown.liferay.tvtracker.search.comparator.TvShowTitleComparator"%>
+<%@page import="hu.webtown.liferay.tvtracker.search.comparator.TvShowPremierYearComparator"%>
+<%@page import="hu.webtown.liferay.tvtracker.search.comparator.EpisodeTitleComparator"%>
+<%@page import="hu.webtown.liferay.tvtracker.search.comparator.EpisodeAirDateComparator"%>
 <%@ page import="hu.webtown.liferay.tvtracker.search.comparator.util.ComparatorUtil" %>
 
 
@@ -67,6 +70,9 @@
 <%@page import="com.liferay.portal.kernel.log.Log"%>
 <%@page import="com.liferay.portal.kernel.exception.SystemException"%>
 <%@page import="com.liferay.portal.kernel.exception.PortalException"%>
+
+<%@page import="javax.portlet.PortletMode"%>
+<%@page import="com.liferay.portal.kernel.portlet.LiferayWindowState"%>
 
 <%@ page import="java.util.*" %>
 

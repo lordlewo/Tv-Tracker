@@ -12,7 +12,9 @@
 		<field name="title" type="String">
 			<hint name="max-length">75</hint>
 		</field>
-		<field name="airDate" type="Date" />
+		<field name="airDate" type="Date">
+			<hint name="show-time">true</hint>
+		</field>
 		<field name="episodeNumber" type="int" />
 		<field name="description" type="String">
 			<hint name="max-length">1000</hint>

@@ -1,7 +1,6 @@
 <%@ include file="/html/init.jsp"  %>
 
 <%
-
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	long groupId = serviceContext.getScopeGroupId();
 	
@@ -24,7 +23,7 @@
 	String keywords = ParamUtil.getString(renderRequest, "keywords");
 %>
 
-<aui:container>
+<aui:container style="margin-right: 20px; margin-left: 20px;">
 		
 	<aui:row>
 		<aui:col span="12">
@@ -36,7 +35,10 @@
 				orderByComparator="<%= orderByComparator %>" 
 				total="<%= totalCount %>" > 
 	 
-				<liferay-ui:search-form page="/html/episodeadmin/search_form.jsp" searchContainer="<%= searchContainer %>" servletContext="<%= application %>" />
+				<liferay-ui:search-form 
+							page="/html/episodeadmin/search_form.jsp" 
+							searchContainer="<%= searchContainer %>" 
+							servletContext="<%= application %>" />
 		
 				<liferay-ui:search-container-results results="<%= episodes %>" />
 			
@@ -51,6 +53,11 @@
 								property="title" 
 								orderable="true" 
 								orderableProperty="title" />
+								
+					<liferay-ui:search-container-column-text 
+								cssClass="searchContainerColumnClass" 
+								property="episodeNumber" 
+								 />
 					
 					<liferay-ui:search-container-column-text 
 								cssClass="searchContainerColumnClass" 
