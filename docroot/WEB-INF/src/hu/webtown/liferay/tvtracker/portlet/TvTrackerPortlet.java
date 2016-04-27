@@ -60,7 +60,10 @@ public class TvTrackerPortlet extends MVCPortlet {
 	
 /****************************************************************************************************************************/
 /****************************************************************************************************************************/	
-
+	public void testAuto(ActionRequest actionRequest, ActionResponse actionResponse){
+		int i = 0;
+		i++;
+	}
 
 	// TvShow
 	

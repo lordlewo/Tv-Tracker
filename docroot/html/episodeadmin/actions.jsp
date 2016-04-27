@@ -34,7 +34,7 @@
 	
 	<c:if test="<%= EpisodePermission.contains(permissionChecker, episodeId, ActionKeys.DELETE) %>" >
 		<portlet:actionURL name="deleteEpisode"	var="episodeDeleteURL">
-			<portlet:param name="<%= WebKeys.EPISODE_ID %>" value="<%= String.valueOf(episodeId) %>" />
+			<portlet:param name="episodeId" value="<%= String.valueOf(episodeId) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete message="Delete" url="<%= episodeDeleteURL %>" />

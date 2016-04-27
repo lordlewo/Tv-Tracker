@@ -38,3 +38,37 @@ Add Episodes:
 <br>
 Delete Episodes:
 <aui:button name="deleteEpisodeButton" value="Delete Episodes" onClick="<%= testDeleteEpisodeURL %>" />
+
+<portlet:actionURL name="testAuto" var="testAutoURL"/>
+ 
+<aui:form name="fm" method="POST" action="<%=testAutoURL%>" >
+
+	<div id="member-fields">
+		<div class="lfr-form-row lfr-form-row-inline">
+			<div class="row-fields" style="display: flex;">
+				<aui:input name="firstName" label="First Name" />
+				<aui:input name="lastName" label="Last Name" />
+				<aui:select name="gender" label="Gender">
+					<aui:option value="male" label="Male"></aui:option>
+					<aui:option value="female" label="Female"></aui:option>
+				</aui:select>
+			</div>
+		</div>
+	</div>
+	
+	<aui:button type="submit"/>
+
+</aui:form>
+
+<aui:script use="liferay-auto-fields">
+ 
+	new Liferay.AutoFields(
+		{
+			contentBox: '#member-fields',
+			fieldIndexes: '<portlet:namespace />rowIndexes',
+			sortable: true,
+			sortableHandle: '.row-fields',
+		}
+	).render();
+
+</aui:script>

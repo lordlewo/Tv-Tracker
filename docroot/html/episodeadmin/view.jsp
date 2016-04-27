@@ -12,10 +12,9 @@
 	
 	OrderByComparator orderByComparator = ComparatorUtil.getEpisodeOrderByComparator(orderByCol, orderByType);
 
-	// get episodes
+	// get episodes count
 	
 	int totalCount = EpisodeLocalServiceUtil.getEpisodesCount(serviceContext);
-	List<Episode> episodes = EpisodeLocalServiceUtil.getEpisodes(serviceContext, orderByComparator);
 	
 	
 	// search /// TODO
@@ -27,20 +26,31 @@
 		
 	<aui:row>
 		<aui:col span="12">
-			<liferay-ui:search-container 
+			<liferay-ui:search-container
 				delta="10" 
 				emptyResultsMessage="There aren't any Episodes!" 
 				orderByCol="<%= orderByCol %>" 
 				orderByType="<%= orderByType %>" 
 				orderByComparator="<%= orderByComparator %>" 
 				total="<%= totalCount %>" > 
-	 
+	 			
 				<liferay-ui:search-form 
 							page="/html/episodeadmin/search_form.jsp" 
 							searchContainer="<%= searchContainer %>" 
 							servletContext="<%= application %>" />
 		
-				<liferay-ui:search-container-results results="<%= episodes %>" />
+				<liferay-ui:search-container-results>
+					<%
+						List<Episode> episodes = EpisodeLocalServiceUtil.getEpisodes(
+								serviceContext, 
+								searchContainer.getStart(), 
+								searchContainer.getEnd(), 
+								orderByComparator);
+					
+						//results.addAll(episodes);
+						searchContainer.setResults(episodes);
+					%>
+				</liferay-ui:search-container-results>
 			
 				<liferay-ui:search-container-row 
 							className="hu.webtown.liferay.tvtracker.model.Episode" 

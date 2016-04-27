@@ -14,7 +14,7 @@
 	OrderByComparator orderByComparator = ComparatorUtil.getTvShowOrderByComparator(orderByCol, orderByType);
 	
 	
-	// get tvshows
+	// get tvshows count
 	
 	int totalCount = TvShowLocalServiceUtil.getTvShowsCount(serviceContext);
 	List<TvShow> tvShows = TvShowLocalServiceUtil.getTvShows(serviceContext, orderByComparator);
@@ -43,7 +43,7 @@
 	 
 				<liferay-ui:search-form page="/html/tvshowadmin/search_form.jsp" searchContainer="<%= searchContainer %>" servletContext="<%= application %>" />
 		
-				<liferay-ui:search-container-results results="<%= tvShows %>" />
+				<liferay-ui:search-container-results results="<%= ListUtil.subList(tvShows, searchContainer.getStart(), searchContainer.getEnd()) %>" />
 			
 				<liferay-ui:search-container-row 
 							className="hu.webtown.liferay.tvtracker.model.TvShow" 

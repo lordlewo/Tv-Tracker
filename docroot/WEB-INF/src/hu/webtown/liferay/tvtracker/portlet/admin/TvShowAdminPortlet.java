@@ -24,7 +24,8 @@ public class TvShowAdminPortlet extends MVCPortlet {
 	}
 	
 	public void updateTvShow(ActionRequest actionRequest, ActionResponse actionResponse) throws PortalException, SystemException {
-			
+		int i = 0;
+		i++;
 	}
 	
 	public void deleteTvShow(ActionRequest actionRequest, ActionResponse actionResponse) throws PortalException, SystemException {

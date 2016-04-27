@@ -79,7 +79,7 @@
 		
 		<%-- tv show cover selection --%>
 	
-		<aui:row style="margin: 30px 20px 0px 20px;"> 
+		<aui:row style="margin: 30px 20px 30px 20px;"> 
 			<aui:field-wrapper label="Cover">
 				<aui:col span="4" >
 					<%
@@ -102,8 +102,8 @@
 		
 		<%-- tv show categories, title, premier and description fill --%>
 		
-		<aui:row>
-			<aui:col span="12" style="margin-top: 30px; margin-left: 20px;">
+		<aui:row style="margin-left: 20px;">
+			<aui:col span="12">
 				<div style="margin-bottom: 30px;">
 					<liferay-ui:asset-categories-error />
 					<liferay-ui:panel defaultState="open" extended="false" id="tvShowCategorizationPanel" persistState="true" title="Categorization">
@@ -137,24 +137,27 @@
 		
 		<%-- tv show seasons, autofields --%>
 		
-		<div id="season-fields">
-			<aui:input name="rowIndexes" type="hidden"/>
-			<div class="lfr-form-row lfr-form-row-inline">
-				<div class="row-fields">
-					<liferay-util:include page="/html/tvshowadmin/add_season.jsp" servletContext="<%= application %>">
-						<liferay-util:param name="<%= WebKeys.TVSHOW_ID %>" value="ize"></liferay-util:param>
-					</liferay-util:include>
+		<aui:row style="margin-left: 20px;">
+			<aui:field-wrapper label="Add Seasons to the Tv Show:">
+				<div id="season-fields">
+					<div class="lfr-form-row lfr-form-row-inline">
+						<div class="row-fields">
+							<liferay-util:include page="/html/tvshowadmin/add_season.jsp" servletContext="<%= application %>">
+								<liferay-util:param name="<%= WebKeys.TVSHOW_ID %>" value="ize"></liferay-util:param>
+							</liferay-util:include>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			</aui:field-wrapper>
+		</aui:row>
 
 		
 		<%-- submit/cancel buttons --%>
 		
-		<aui:row>
+		<aui:row style="margin-left: 20px;">
 			<aui:col span="12">
 				<aui:button-row >
-					<aui:button name="Save" type="submit" />
+					<aui:button name="Save" type="submit"/>
 					<aui:button name="Cancel" type="cancel" href="<%= viewURL %>" />
 				</aui:button-row>
 			</aui:col>
@@ -296,6 +299,23 @@
 		
 		createCharCounter('#titleCounter', '#<portlet:namespace />title', 75);
 		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', 500);
+		
+		
+		
+		/***/
+		
+		var premierDateWrapper = A.one('.pd');
+		var premierDateInput = A.one('#<portlet:namespace />premierDate');
 
+		
+		var premierDateDay = premierDateWrapper.one('#<portlet:namespace />premierDateDay');
+		var premierDateMonth = premierDateWrapper.one('#<portlet:namespace />premierDateMonth');
+		var premierDateYear = premierDateWrapper.one('#<portlet:namespace />premierDateYear');
+		
+	 	A.one('#<portlet:namespace />Save').on('click', fun);
+	 	function fun(){
+	 		var pd = premierDateWrapper.one('#<portlet:namespace />premierDateDay');
+	 		alert(pd.val());
+	 	}
 	</aui:script>
 </aui:container>

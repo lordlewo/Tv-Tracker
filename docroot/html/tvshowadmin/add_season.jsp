@@ -5,6 +5,7 @@
 %>
 
 <aui:row style="padding-top: 20px;">
+
 	<aui:col span="3">
 		<aui:row>
 			<%
@@ -32,9 +33,9 @@
 		</aui:row>
 	
 		<aui:row>
-			<aui:input name="premierDate" title="Season Premier Date" label="Season Premier Date" model="<%= Season.class %>">
+			<aui:input cssClass="pd" name="premierDate" title="Season Premier Date" label="Season Premier Date" model="<%= Season.class %>">
 				<aui:validator name="required" errorMessage="Please enter the season's premier date."/>
-				<aui:validator name="date" errorMessage="Please enter the tv show's premier date in correct form (dd/mm/yy)."/>
+				<aui:validator name="date" errorMessage="Please enter the season's premier date in correct form (dd/mm/yy)."/>
 			</aui:input>
 		</aui:row>
 	</aui:col>
@@ -51,7 +52,7 @@
 	</aui:col>
 </aui:row>
 
-<aui:script use="aui-base,aui-char-counter">
+<aui:script use="aui-base,aui-char-counter,aui-node">
 	
 	/*********************** validation char counter ****************************/
 	
@@ -99,5 +100,28 @@
 	// attach cc to the counter <span>-s
 	createCharCounterr('#' + newSeasonTitleCounterId, '#' + newSeasonTitleId, 75);
 	createCharCounterr('#' + newSeasonDescriptioncounterId, '#' + newSeasonDescriptionId, 500);
+	
+	
+	var premierDateWrapper = A.one('.pd');
+	var premierDateInput = A.one('#<portlet:namespace />premierDate');
+	
+// 	A.one('#<portlet:namespace />premierDate').on('change', fun);
+// 	function fun(event){
+// 		alert('xg');
+// 	}
+
+	
+	
+	var premierDateDay = premierDateWrapper.one('#<portlet:namespace />premierDateDay');
+	var premierDateMonth = premierDateWrapper.one('#<portlet:namespace />premierDateMonth');
+	var premierDateYear = premierDateWrapper.one('#<portlet:namespace />premierDateYear');
+	
+ 	A.one('#<portlet:namespace />premierDateDay').delegate('change', fun, '.pd');
+ 	function fun(){
+ 		alert('xg');
+ 	}
+	
+	//premierDateDay.attr('id','#<portlet:namespace />premierDateDay1');
+		
 	
 </aui:script>

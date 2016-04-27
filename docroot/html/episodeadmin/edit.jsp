@@ -51,7 +51,7 @@
 		<%-- hidden fields --%>
 		
 		<c:if test='<%= action.equalsIgnoreCase("update") %>'>
-			<aui:input name="<%= WebKeys.EPISODE_ID %>" type="hidden" />
+			<aui:input name="episodeId" type="hidden" />
 		</c:if>
 
 		<aui:input name="imageUrl" type="hidden" />
