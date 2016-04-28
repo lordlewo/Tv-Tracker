@@ -315,7 +315,7 @@
 	 	A.one('#<portlet:namespace />Save').on('click', fun);
 	 	function fun(){
 	 		var pd = premierDateWrapper.one('#<portlet:namespace />premierDateDay');
-	 		alert(pd.val());
+	 		alert(pd.val()); 
 	 	}
 	</aui:script>
 </aui:container>
