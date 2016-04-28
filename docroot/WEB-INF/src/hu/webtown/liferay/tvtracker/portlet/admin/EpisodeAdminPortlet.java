@@ -13,6 +13,7 @@ import hu.webtown.liferay.tvtracker.service.EpisodeLocalServiceUtil;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -27,35 +28,41 @@ public class EpisodeAdminPortlet extends MVCPortlet {
 	private static Log _logger = LogFactoryUtil.getLog(TvShowAdminPortlet.class);
 	
 	
+	protected Calendar getCal(ServiceContext serviceContext){
+		
+		Locale locale = serviceContext.getLocale();
+		TimeZone timeZone = serviceContext.getTimeZone();
+		
+		Calendar calendar = null;
+		
+		if (locale != null && timeZone != null){
+		
+			calendar = new GregorianCalendar(timeZone, locale);
+		
+		} else if (locale != null){
+			
+			calendar = new GregorianCalendar(locale);
+		
+		} else if (timeZone != null){
+			
+			calendar = new GregorianCalendar(timeZone);
+			
+		} else {
+			
+			calendar = new GregorianCalendar();
+			
+		}
+		
+		return calendar;
+	}
 	
 	public void addEpisode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		
 		try {
 			
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(EpisodeAdminPortlet.class.getName(), actionRequest);
-		
-			Locale locale = serviceContext.getLocale();
-			TimeZone timeZone = serviceContext.getTimeZone();
 			
-			Calendar calendar = null;
-			
-			if (locale != null && timeZone != null){
-			
-				calendar = Calendar.getInstance(timeZone, locale);
-			
-			} else if (locale != null){
-				
-				calendar = Calendar.getInstance(locale);
-			
-			} else if (timeZone != null){
-				
-				calendar = Calendar.getInstance(timeZone);
-				
-			} else {
-				
-				calendar = Calendar.getInstance();
-				
-			} 
+			Calendar calendar = getCal(serviceContext);
 			
 			int airDateDay = ParamUtil.getInteger(actionRequest, "airDateDay");
 			int airDateMonth = ParamUtil.getInteger(actionRequest, "airDateMonth");
@@ -76,7 +83,7 @@ public class EpisodeAdminPortlet extends MVCPortlet {
 			String imageUrl = ParamUtil.getString(actionRequest, "imageUrl");
 			String imageUuid = ParamUtil.getString(actionRequest, "imageUuid");
 			String imageTitle = ParamUtil.getString(actionRequest, "imageTitle");
-			String imageVersion = ParamUtil.getString(actionRequest, "imageTitle");
+			String imageVersion = ParamUtil.getString(actionRequest, "imageVersion");
 			
 			long seasonId = ParamUtil.getLong(actionRequest, "seasonId");
 		
@@ -103,28 +110,7 @@ public class EpisodeAdminPortlet extends MVCPortlet {
 			
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(EpisodeAdminPortlet.class.getName(), actionRequest);
 		
-			Locale locale = serviceContext.getLocale();
-			TimeZone timeZone = serviceContext.getTimeZone();
-			
-			Calendar calendar = null;
-			
-			if (locale != null && timeZone != null){
-			
-				calendar = Calendar.getInstance(timeZone, locale);
-			
-			} else if (locale != null){
-				
-				calendar = Calendar.getInstance(locale);
-			
-			} else if (timeZone != null){
-				
-				calendar = Calendar.getInstance(timeZone);
-				
-			} else {
-				
-				calendar = Calendar.getInstance();
-				
-			} 
+			Calendar calendar = getCal(serviceContext);
 			
 			int airDateDay = ParamUtil.getInteger(actionRequest, "airDateDay");
 			int airDateMonth = ParamUtil.getInteger(actionRequest, "airDateMonth");
@@ -145,14 +131,16 @@ public class EpisodeAdminPortlet extends MVCPortlet {
 			String imageUrl = ParamUtil.getString(actionRequest, "imageUrl");
 			String imageUuid = ParamUtil.getString(actionRequest, "imageUuid");
 			String imageTitle = ParamUtil.getString(actionRequest, "imageTitle");
-			String imageVersion = ParamUtil.getString(actionRequest, "imageTitle");
+			String imageVersion = ParamUtil.getString(actionRequest, "imageVersion");
 			
 			long episodeId = ParamUtil.getLong(actionRequest, "episodeId");
 			long seasonId = ParamUtil.getLong(actionRequest, "seasonId");
 		
 			
 			/* edit episode */
-			EpisodeLocalServiceUtil.updateEpisode(seasonId, episodeId, title, airDate, episodeNumber, description, imageUrl, imageUuid, imageTitle, imageVersion, serviceContext);
+			EpisodeLocalServiceUtil.updateEpisode(
+					seasonId, episodeId, title, airDate, episodeNumber, description, 
+					imageUrl, imageUuid, imageTitle, imageVersion, serviceContext);
 			
 			actionResponse.setRenderParameter("mvcPath", "/html/episodeadmin/view.jsp");
 			

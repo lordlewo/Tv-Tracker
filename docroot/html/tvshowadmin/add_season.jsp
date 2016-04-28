@@ -15,11 +15,17 @@
 		</aui:row>
 		
 		<aui:row>
-			<aui:input name="imageTitle" type="text" readOnly="true" label="Image" title="Image"> 
+			<aui:input name="seasonImageTitle" type="text" readOnly="true" label="Image" title="Image"> 
 				<aui:validator name="required" errorMessage="Please select the tv show's cover." />
 			</aui:input>
 			<aui:button cssClass="seasonCover" name="selectSeasonImageButton" value="Select" icon=" icon-folder-open"/>
 		</aui:row>
+		
+		<%-- hidden inputs --%>
+		<aui:input name="seasonImageUrl" type="hidden"></aui:input>
+		<aui:input name="seasonImageUuid" type="hidden"></aui:input>
+		<aui:input name="seasonImageVersion" type="hidden"></aui:input>
+		
 	</aui:col>
 		
 	<aui:col span="3">
@@ -31,18 +37,27 @@
 				</aui:input>
 			</div>
 		</aui:row>
+		
+		<aui:input name="seasonNumber" title="Season Number" label="Season Number" model="<%= Season.class %>">
+			<aui:validator name="required" errorMessage="Please enter the season's number." />
+			<aui:validator name="number" errorMessage="Please enter valid season number."/>
+			<aui:validator name="min" errorMessage="Please enter a positive number." >
+				'1'
+			</aui:validator>
+		</aui:input>
 	
 		<aui:row>
 			<aui:input cssClass="seasonPremierDateWrapper" name="premierDate" title="Season Premier Date" label="Season Premier Date" model="<%= Season.class %>">
 				<aui:validator name="required" errorMessage="Please enter the season's premier date."/>
 				<aui:validator name="date" errorMessage="Please enter the season's premier date in correct form (dd/mm/yy)."/>
 			</aui:input>
-			
-			<%-- hidden inputs --%>
-			<aui:input name="seasonPremierDateDay" type="hidden" cssClass=""/>
-			<aui:input name="seasonPremierDateMonth" type="hidden" cssClass=""/>
-			<aui:input name="seasonPremierDateYear" type="hidden" cssClass=""/>
 		</aui:row>
+		
+		<%-- hidden inputs --%>
+		<aui:input name="seasonPremierDateDay" type="hidden" cssClass=""/>
+		<aui:input name="seasonPremierDateMonth" type="hidden" cssClass=""/>
+		<aui:input name="seasonPremierDateYear" type="hidden" cssClass=""/>
+		
 	</aui:col>
 		
 	<aui:col span="4">
@@ -72,36 +87,87 @@
 		return new A.CharCounter(ccConfig);
 	}
 	
-	/******************** modify input tags' 'name' attribute*********************/
-	
-	var id = idx.get();
+	/*-************************** modify input tags *****************************-*/
 		
-	// cc ***************************************************************************//
-	// new attr values
-	var newSeasonTitleId = '<portlet:namespace />seasonTitle' + id;
-	var newSeasonDescriptionId = '<portlet:namespace />seasonDescription' + id;
+	var id = idx.get(); // get current id
 	
-	var newSeasonTitleCounterId = '<portlet:namespace />titlecCounter' + id;
-	var newSeasonDescriptioncounterId = '<portlet:namespace />descriptioncCounter' + id;
+	/**************************** season image ************************************/
+	
+	// new attr values
+	var newSeasonImageTitle = '<portlet:namespace />seasonImageTitle' + id;
+	var newSeasonImageUrl = '<portlet:namespace />seasonImageUrl' + id;
+	var newSeasonImageUuid = '<portlet:namespace />seasonImageUuid' + id;
+	var newSeasonImageVersion = '<portlet:namespace />seasonImageVersion' + id;
 	
 	// refactoring the attrs of inputs
-	A.one('#<portlet:namespace />seasonTitle').attr('name', newSeasonTitleId);
-	A.one('#<portlet:namespace />seasonDescription').attr('name', newSeasonDescriptionId);
+	A.one('#<portlet:namespace />seasonImageTitle').attr('name', newSeasonImageTitle);
+	A.one('#<portlet:namespace />seasonImageTitle').attr('id', newSeasonImageTitle);
 	
-	A.one('#<portlet:namespace />seasonTitle').attr('id', newSeasonTitleId);
-	A.one('#<portlet:namespace />seasonDescription').attr('id', newSeasonDescriptionId);
+	A.one('#<portlet:namespace />seasonImageUrl').attr('name', newSeasonImageUrl);
+	A.one('#<portlet:namespace />seasonImageUrl').attr('id', newSeasonImageUrl);
+	
+	A.one('#<portlet:namespace />seasonImageUuid').attr('name', newSeasonImageUuid);
+	A.one('#<portlet:namespace />seasonImageUuid').attr('id', newSeasonImageUuid);
+	
+	A.one('#<portlet:namespace />seasonImageVersion').attr('name', newSeasonImageVersion);
+	A.one('#<portlet:namespace />seasonImageVersion').attr('id', newSeasonImageVersion);
+	
+	
+	/**************************** season title ************************************/
+	
+	// new attr values
+	var newSeasonTitle = '<portlet:namespace />seasonTitle' + id;
+	
+	// refactoring the attrs of inputs
+	A.one('#<portlet:namespace />seasonTitle').attr('name', newSeasonTitle);
+	A.one('#<portlet:namespace />seasonTitle').attr('id', newSeasonTitle);
+	
+	
+	/**************************** season number **********************************/
+	
+	// new attr values
+	var newSeasonNumber = '<portlet:namespace />seasonNumber' + id;
+	
+	// refactoring the attrs of inputs
+	A.one('#<portlet:namespace />seasonNumber').attr('name', newSeasonNumber);
+	A.one('#<portlet:namespace />seasonNumber').attr('id', newSeasonNumber);
+	
+	
+	/**************************** season description ******************************/
+	
+	// new attr values
+	var newSeasonDescription = '<portlet:namespace />seasonDescription' + id;
+	
+	// refactoring the attrs of inputs
+	A.one('#<portlet:namespace />seasonDescription').attr('name', newSeasonDescription);
+	A.one('#<portlet:namespace />seasonDescription').attr('id', newSeasonDescription);
+	
+	
+	/* --------------------------- char counters ------------------------------- */
+	
+							// title char counter //
+							
+	var newSeasonTitleCounter = '<portlet:namespace />titlecCounter' + id;
 	
 	// refactoring the attrs of remaining's <span> 
-	A.one('#titlecCounter').attr('id', newSeasonTitleCounterId);
-	A.one('#descriptioncCounter').attr('id', newSeasonDescriptioncounterId);
+	A.one('#titlecCounter').attr('id', newSeasonTitleCounter);
 	
-
 	// attach cc to the counter <span>-s
-	createCharCounterr('#' + newSeasonTitleCounterId, '#' + newSeasonTitleId, 75);
-	createCharCounterr('#' + newSeasonDescriptioncounterId, '#' + newSeasonDescriptionId, 500);
+	createCharCounterr('#' + newSeasonTitleCounter, '#' + newSeasonTitle, 75);
 	
 	
+							// description char counter //
+							
+	var newSeasonDescriptioncounter = '<portlet:namespace />descriptioncCounter' + id;
 	
+	// refactoring the attrs of remaining's <span> 
+	A.one('#descriptioncCounter').attr('id', newSeasonDescriptioncounter);
+	
+	// attach cc to the counter <span>-s
+	createCharCounterr('#' + newSeasonDescriptioncounter, '#' + newSeasonDescription, 500);
+	
+	
+	/**************************** season date ************************************/
 	
 	// season premier date hidden inputs refactor
 	var newPremierDateDay = '<portlet:namespace />seasonPremierDateDay' + id;
@@ -109,13 +175,15 @@
 	var newPremierDateYear = '<portlet:namespace />seasonPremierDateYear' + id;
 	
 	A.one('#<portlet:namespace />seasonPremierDateDay').attr('name', newPremierDateDay);
-	A.one('#<portlet:namespace />seasonPremierDateMonth').attr('name', newPremierDateMonth);
-	A.one('#<portlet:namespace />seasonPremierDateYear').attr('name', newPremierDateYear);
-	
 	A.one('#<portlet:namespace />seasonPremierDateDay').attr('id', newPremierDateDay);
-	A.one('#<portlet:namespace />seasonPremierDateMonth').attr('id', newPremierDateMonth);
-	A.one('#<portlet:namespace />seasonPremierDateYear').attr('id', newPremierDateYear);
 	
+	A.one('#<portlet:namespace />seasonPremierDateMonth').attr('name', newPremierDateMonth);
+	A.one('#<portlet:namespace />seasonPremierDateMonth').attr('id', newPremierDateMonth);
+	
+	A.one('#<portlet:namespace />seasonPremierDateYear').attr('name', newPremierDateYear);
+	A.one('#<portlet:namespace />seasonPremierDateYear').attr('id', newPremierDateYear);
+
+
 	// wrapper class refactor
 	var wrapperSelector = 'wrapperSelector';
 	var newSeasonPremierDateWrapper = 'seasonPremierDateWrapper' + id;
@@ -123,20 +191,8 @@
 	A.one('.seasonPremierDateWrapper').addClass(wrapperSelector);
 	A.one('.seasonPremierDateWrapper').replaceClass('seasonPremierDateWrapper', newSeasonPremierDateWrapper);
 	
-	/*
-	var premierDateWrapper = A.one('.seasonPremierDateWrapper');
-	var premierDateInput = A.one('#<portlet:namespace />premierDate');
-
-	var premierDateDay = premierDateWrapper.one('#<portlet:namespace />premierDateDay');
-	var premierDateMonth = premierDateWrapper.one('#<portlet:namespace />premierDateMonth');
-	var premierDateYear = premierDateWrapper.one('#<portlet:namespace />premierDateYear');
+	/*-************************** modify input tags *****************************-*/
 	
- 	A.one('#<portlet:namespace />premierDateDay').delegate('change', fun, '.pd');
- 	function fun(){
- 		alert('xg');
- 	}
-	*/
-	//premierDateDay.attr('id','#<portlet:namespace />premierDateDay1');
-		
-	idx.inc();
+	idx.inc(); // increment current id
+	
 </aui:script>

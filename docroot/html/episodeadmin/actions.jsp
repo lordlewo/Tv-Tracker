@@ -12,7 +12,7 @@
 	
 	<c:if test="<%= EpisodePermission.contains(permissionChecker, episodeId, ActionKeys.UPDATE) %>" >
 		<portlet:renderURL var="updateEpisodeURL">
-			<portlet:param name="<%= WebKeys.EPISODE_ID %>" value="<%= String.valueOf(episodeId) %>" />
+			<portlet:param name="episodeId" value="<%= String.valueOf(episodeId) %>" />
 			<portlet:param name="action" value="update"/>
 			<portlet:param name="mvcPath" value="/html/episodeadmin/edit.jsp"/>
 		</portlet:renderURL>

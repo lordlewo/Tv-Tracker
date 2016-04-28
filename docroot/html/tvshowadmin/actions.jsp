@@ -13,7 +13,7 @@
 	<c:if test="<%= TvShowPermission.contains(permissionChecker, tvShowId, ActionKeys.UPDATE) %>" >
 	
 		<portlet:renderURL var="updateTvShowURL">
-			<portlet:param name="<%= WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShowId) %>" />
+			<portlet:param name="tvShowId" value="<%= String.valueOf(tvShowId) %>" />
 			<portlet:param name="action" value="update"/>
 			<portlet:param name="mvcPath" value="/html/tvshowadmin/edit.jsp"/>
 		</portlet:renderURL>
@@ -39,7 +39,7 @@
 	<c:if test="<%= TvShowPermission.contains(permissionChecker, tvShowId, ActionKeys.DELETE) %>" >
 	
 		<portlet:actionURL name="deleteTvShow"	var="tvShowDeleteURL">
-			<portlet:param name="<%= WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShowId) %>" />
+			<portlet:param name="tvShowId" value="<%= String.valueOf(tvShowId) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete message="Delete" url="<%= tvShowDeleteURL %>" />

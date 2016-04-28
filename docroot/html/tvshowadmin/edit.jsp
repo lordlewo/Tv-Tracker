@@ -3,7 +3,7 @@
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	
-	long tvShowId = ParamUtil.getLong(renderRequest, WebKeys.TVSHOW_ID);
+	long tvShowId = ParamUtil.getLong(renderRequest, "tvShowId");
 	String action = ParamUtil.getString(renderRequest, "action");
 	
 	String actionUrlName = null;
@@ -37,6 +37,10 @@
 			return _counter;
 		}
 		
+		function set(val){
+			_counter = val;
+		}
+		
 		function inc(){
 			_counter++;
 		}
@@ -46,6 +50,7 @@
 			var idx = {};
 			
 			idx.get = get;
+			idx.set = set;
 			idx.inc = inc;
 			
 			return idx;
@@ -254,8 +259,12 @@
 		/************************** season Cover select ******************************/
 		
 		// some variable reference from the newly added autofields content for the callback method _166_selectDocumentLibrary
-		var seasonCoverInput = null;
 		var seasonCoverImage = null;
+		
+		var seasonImageTitle = null;
+		var seasonImageUrl = null;
+		var seasonImageUuid = null;
+		var seasonImageVersion = null;
 		
 		
 		// attach clicklistener to the autofield's 'select' buttons, 
@@ -267,8 +276,27 @@
 			
 			witchPopUp = true;
 			
-			seasonCoverInput = event.currentTarget.ancestor().one('input');
-			seasonCoverImage = event.currentTarget.ancestor().ancestor().one('img');
+			
+			var wrapper = event.currentTarget.ancestor().ancestor();
+			seasonCoverImage = wrapper.one('img');
+			
+			for(var i = 0; i < idx.get(); i++){
+				
+				var inputFilter = '#<portlet:namespace />seasonImageTitle' + i;
+				
+				seasonImageTitle = wrapper.one(inputFilter);
+				
+				if(seasonImageTitle != null){
+					
+					seasonImageUrl = wrapper.one('#<portlet:namespace />seasonImageUrl' + i);
+					seasonImageUuid = wrapper.one('#<portlet:namespace />seasonImageUuid' + i);
+					seasonImageVersion = wrapper.one('#<portlet:namespace />seasonImageVersion' + i);
+					
+					break;
+				}
+			}
+			
+			//seasonImageTitle = event.currentTarget.ancestor().one('input');
 			
 			seasonCoverSelectPopUp = createLiferayPopUp();
 			seasonCoverSelectPopUp.render();
@@ -290,8 +318,13 @@
 				tvShowCoverSelectPopUp.hide();
 
 			}else{
-				seasonCoverInput.val(fileName);
 				seasonCoverImage.attr('src', url);
+				
+				seasonImageTitle.val(fileName);
+				seasonImageUrl.val(url);
+				seasonImageUuid.val(id);
+				seasonImageVersion.val(version);
+				
 				
 				seasonCoverSelectPopUp.hide();
 			}
@@ -314,39 +347,49 @@
 		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', 500);
 		
 
-		/************************************/
-		
-		var premierDateWrapper = A.one('.seasonPremierDateWrapper');
-		//var premierDateInput = A.one('#<portlet:namespace />premierDate');
-
+		/****************** Autofields: setting date hidden values *******************/
+	
+		// onclick listener to the Save submit button
 	 	A.one('#<portlet:namespace />Save').on('click', submitClick);
 	 	function submitClick(){
 	 		
+	 		// get all rows
 	 		var autofieldsRows = A.all('.lfr-form-row');
-			var rowsNum = autofieldsRows.size();
 			
+	 		// get rows num
+	 		var rowsNum = autofieldsRows.size();
+			
+	 		// iterate the rows
 			for(var i = 0; i < rowsNum; i++){
 				
+				// get current row in the cycle
 				var autofieldsRow = autofieldsRows.item(i);
 				
+				// if not hided - (hide -> if minus button clicked, the row still in the DOM, but that row already is don1t care)
 				if( !autofieldsRow.hasClass('hide') ){
 					
+					// get date's values holder from the row
 					var wrapper = autofieldsRow.one('.wrapperSelector');
 					
+					// specify the date's values serial number 
 					for(var j = 0; j < rowsNum; j++){
 						
 						var wrapperFilter = 'seasonPremierDateWrapper' + j;
 						
+						// if founded
 						if(wrapper.hasClass(wrapperFilter)){
 							
+							// get infos from the wrapper
 							var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
 							var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
 							var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
 							
+							// locate the custom fields
 							var newPremierDateDay = autofieldsRow.one('#<portlet:namespace />seasonPremierDateDay' + j);
 							var newPremierDateMonth = autofieldsRow.one('#<portlet:namespace />seasonPremierDateMonth' + j);
 							var newPremierDateYear = autofieldsRow.one('#<portlet:namespace />seasonPremierDateYear' + j);
 							
+							// set values to the custom hidden fields
 							newPremierDateDay.val(premierDateDay.val());
 							newPremierDateMonth.val(premierDateMonth.val());
 							newPremierDateYear.val(premierDateYear.val());
@@ -357,34 +400,6 @@
 					}
 				}
 			}
-	 		
-	 		/*var wrappers = A.all('.wrapperSelector');
-	 		var size = wrappers.size();
-	 		
-	 		for(var i = 0; i < size; i++){
-	 			
-	 			var classFilter = '.seasonPremierDateWrapper' + i;
-	 			var wrapper = wrappers.filter(classFilter);
-	 			
-	 			var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
-				var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
-				var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
-				
-				var newPremierDateDay = wrapper.one('#<portlet:namespace />premierDateDay' + i);
-				var newPremierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth' + i);
-				var newPremierDateYear = wrapper.one('#<portlet:namespace />premierDateYear' + i);
-				
-				newPremierDateDay.val(premierDateDay.val());
-				newPremierDateMonth.val(premierDateMonth.val());
-				newPremierDateYear.val(premierDateYear.val());
-	 			
-				alert(premierDateDay.val() + ' ' + premierDateMonth.val() + ' ' + premierDateYear.val());
-	 		}*/
-	 		
-	 		/* var premierDateDay = premierDateWrapper.one('#<portlet:namespace />premierDateDay');
-			var premierDateMonth = premierDateWrapper.one('#<portlet:namespace />premierDateMonth');
-			var premierDateYear = premierDateWrapper.one('#<portlet:namespace />premierDateYear');
-	 		alert(premierDateDay.val() + ' ' + premierDateMonth.val() + ' ' + premierDateYear.val()); */
 
 	 	}
 	</aui:script>

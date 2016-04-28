@@ -3,7 +3,7 @@
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	
-	long episodeId = ParamUtil.getLong(renderRequest, WebKeys.EPISODE_ID); // episodeId = 0 if there aren't any episodeId attribute in the reqest
+	long episodeId = ParamUtil.getLong(renderRequest, "episodeId"); // episodeId = 0 if there aren't any episodeId attribute in the reqest
 	String action = ParamUtil.getString(renderRequest, "action");
 
 	String actionUrlName = null;

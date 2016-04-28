@@ -611,7 +611,9 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 	
 	/*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 	
-	protected void validate(String title, Date premierDate, String description, String imageUrl, String imageUuid, String imageTitle, String imageVersion) throws PortalException {
+	protected void validate(
+			String title, Date premierDate, String description, 
+			String imageUrl, String imageUuid, String imageTitle, String imageVersion) throws PortalException {
 		
 		// checking if the paramaters are acceptable
 		

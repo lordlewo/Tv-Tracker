@@ -567,7 +567,7 @@ public class SeasonLocalServiceImpl extends SeasonLocalServiceBaseImpl {
 			throw new SeasonDescriptionException();
 		}
 		
-		if(Validator.isNull(imageUrl) || !Validator.isUrl(imageUrl)){
+		if(Validator.isNull(imageUrl) /*|| !Validator.isUrl(imageUrl)*/){
 			
 			throw new SeasonImageException();
 		}
