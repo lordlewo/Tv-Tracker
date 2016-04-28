@@ -29,19 +29,32 @@
 
 	/******************* Counter Clojure *****************************/
 	
-	var getIdx = (function counterUtil(){
+	var idx = (function (){
 		
-		var counter = 0;
+		var _counter = 0;
+		
+		function get(){
+			return _counter;
+		}
+		
+		function inc(){
+			_counter++;
+		}
 	
-		function count(){
-			var idx = counter;
-			counter++;
+		function counterUtil(){
+			
+			var idx = {};
+			
+			idx.get = get;
+			idx.inc = inc;
 			
 			return idx;
 		}
 	
-		return count;
-	})();
+		return counterUtil;
+	})()();
+	
+	
 </script>
 
 <portlet:renderURL var="viewURL">
@@ -300,22 +313,79 @@
 		createCharCounter('#titleCounter', '#<portlet:namespace />title', 75);
 		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', 500);
 		
+
+		/************************************/
 		
-		
-		/***/
-		
-		var premierDateWrapper = A.one('.pd');
-		var premierDateInput = A.one('#<portlet:namespace />premierDate');
+		var premierDateWrapper = A.one('.seasonPremierDateWrapper');
+		//var premierDateInput = A.one('#<portlet:namespace />premierDate');
 
 		
-		var premierDateDay = premierDateWrapper.one('#<portlet:namespace />premierDateDay');
-		var premierDateMonth = premierDateWrapper.one('#<portlet:namespace />premierDateMonth');
-		var premierDateYear = premierDateWrapper.one('#<portlet:namespace />premierDateYear');
-		
-	 	A.one('#<portlet:namespace />Save').on('click', fun);
-	 	function fun(){
-	 		var pd = premierDateWrapper.one('#<portlet:namespace />premierDateDay');
-	 		alert(pd.val());
+	 	A.one('#<portlet:namespace />Save').on('click', submitClick);
+	 	function submitClick(){
+	 		
+	 		var autofieldsRows = A.all('.lfr-form-row');
+			var rowsNum = autofieldsRows.size();
+			
+			for(var i = 0; i < rowsNum; i++){
+				
+				var autofieldsRow = autofieldsRows.item(i);
+				
+				if( !autofieldsRow.hasClass('hide') ){
+					
+					var wrapper = autofieldsRow.one('.wrapperSelector');
+					
+					for(var j = 0; j < rowsNum; j++){
+						
+						var wrapperFilter = 'seasonPremierDateWrapper' + j;
+						
+						if(wrapper.hasClass(wrapperFilter)){
+							
+							var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
+							var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
+							var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
+							
+							var newPremierDateDay = autofieldsRow.one('#<portlet:namespace />seasonPremierDateDay' + j);
+							var newPremierDateMonth = autofieldsRow.one('#<portlet:namespace />seasonPremierDateMonth' + j);
+							var newPremierDateYear = autofieldsRow.one('#<portlet:namespace />seasonPremierDateYear' + j);
+							
+							newPremierDateDay.val(premierDateDay.val());
+							newPremierDateMonth.val(premierDateMonth.val());
+							newPremierDateYear.val(premierDateYear.val());
+							
+							alert(newPremierDateDay.val() + ' ' + newPremierDateMonth.val() + ' ' + newPremierDateYear.val());
+							
+						}
+					}
+				}
+			}
+	 		
+	 		/*var wrappers = A.all('.wrapperSelector');
+	 		var size = wrappers.size();
+	 		
+	 		for(var i = 0; i < size; i++){
+	 			
+	 			var classFilter = '.seasonPremierDateWrapper' + i;
+	 			var wrapper = wrappers.filter(classFilter);
+	 			
+	 			var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
+				var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
+				var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
+				
+				var newPremierDateDay = wrapper.one('#<portlet:namespace />premierDateDay' + i);
+				var newPremierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth' + i);
+				var newPremierDateYear = wrapper.one('#<portlet:namespace />premierDateYear' + i);
+				
+				newPremierDateDay.val(premierDateDay.val());
+				newPremierDateMonth.val(premierDateMonth.val());
+				newPremierDateYear.val(premierDateYear.val());
+	 			
+				alert(premierDateDay.val() + ' ' + premierDateMonth.val() + ' ' + premierDateYear.val());
+	 		}*/
+	 		
+	 		/* var premierDateDay = premierDateWrapper.one('#<portlet:namespace />premierDateDay');
+			var premierDateMonth = premierDateWrapper.one('#<portlet:namespace />premierDateMonth');
+			var premierDateYear = premierDateWrapper.one('#<portlet:namespace />premierDateYear');
+	 		alert(premierDateDay.val() + ' ' + premierDateMonth.val() + ' ' + premierDateYear.val()); */
 	 	}
 	</aui:script>
 </aui:container>
