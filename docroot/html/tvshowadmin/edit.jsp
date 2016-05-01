@@ -8,17 +8,23 @@
 	
 	String actionUrlName = null;
 	String headerName = null;
+	
 	TvShow tvShow = null;
+	List<Season> seasons = null;
 	
 	if (action.equalsIgnoreCase("update")){
 	
 		tvShow = TvShowLocalServiceUtil.getTvShow(tvShowId, serviceContext);
+		seasons = SeasonLocalServiceUtil.getSeasons(tvShowId, serviceContext);
+		
 		actionUrlName = "updateTvShow";
 		headerName = "Edit TvShow: " + tvShow.getTitle();
 		
 	} else {
 		
 		tvShow = null;
+		seasons = new ArrayList<Season>();
+		
 		actionUrlName = "addTvShow";
 		headerName = "Add New TvShow";
 	}
@@ -158,13 +164,45 @@
 		<aui:row style="margin-left: 20px;">
 			<aui:field-wrapper label="Add Seasons to the Tv Show:">
 				<div id="season-fields">
-					<div class="lfr-form-row lfr-form-row-inline">
-						<div class="row-fields">
-							<liferay-util:include page="/html/tvshowadmin/add_season.jsp" servletContext="<%= application %>">
-								<liferay-util:param name="<%= WebKeys.TVSHOW_ID %>" value="ize"></liferay-util:param>
-							</liferay-util:include>
-						</div>
-					</div>
+					<c:choose>
+						<c:when test='<%= action.equalsIgnoreCase("update") && !seasons.isEmpty() %>'>
+							<%
+								for(Season season : seasons) {
+							%>
+								<div class="lfr-form-row lfr-form-row-inline">
+									<div class="row-fields">
+										<liferay-util:include page="/html/tvshowadmin/add_season.jsp" servletContext="<%= application %>">
+											<liferay-util:param name="<%= WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShowId) %>" />
+											<liferay-util:param name="<%= WebKeys.SEASON_ID %>" value="<%= String.valueOf(season.getSeasonId()) %>" />
+											<liferay-util:param name="action" value="<%= action %>" />
+										</liferay-util:include>
+									</div>
+								</div>
+							<% 
+								}
+							%>
+						</c:when>
+						<c:when test='<%= action.equalsIgnoreCase("update") && seasons.isEmpty() %>'>
+							<div class="lfr-form-row lfr-form-row-inline">
+								<div class="row-fields">
+									<liferay-util:include page="/html/tvshowadmin/add_season.jsp" servletContext="<%= application %>">
+										<liferay-util:param name="<%= WebKeys.TVSHOW_ID %>" value="<%= String.valueOf(tvShowId) %>" />
+										<liferay-util:param name="<%= WebKeys.SEASON_ID %>" value="0" />
+										<liferay-util:param name="action" value="<%= action %>" />
+									</liferay-util:include>
+								</div>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="lfr-form-row lfr-form-row-inline">
+								<div class="row-fields">
+									<liferay-util:include page="/html/tvshowadmin/add_season.jsp" servletContext="<%= application %>">
+										<liferay-util:param name="action" value="<%= action %>" />
+									</liferay-util:include>
+								</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</aui:field-wrapper>
 		</aui:row>
@@ -186,7 +224,11 @@
 	
 	<%-- portlet urls for the popup / autofields --%>
 		
-	<liferay-portlet:renderURL var="selectCoverURL" portletName="<%= PortletKeys.DYNAMIC_DATA_MAPPING %>" windowState="<%= LiferayWindowState.POP_UP.toString() %>" portletMode="<%= PortletMode.VIEW.toString() %>">
+	<liferay-portlet:renderURL 
+				var="selectCoverURL" 
+				portletName="<%= PortletKeys.DYNAMIC_DATA_MAPPING %>" 
+				windowState="<%= LiferayWindowState.POP_UP.toString() %>" 
+				portletMode="<%= PortletMode.VIEW.toString() %>">
 		<portlet:param name="struts_action" value="/dynamic_data_mapping/select_document_library"/>
 	</liferay-portlet:renderURL>
 
@@ -394,13 +436,12 @@
 							newPremierDateMonth.val(premierDateMonth.val());
 							newPremierDateYear.val(premierDateYear.val());
 							
-							alert(newPremierDateDay.val() + ' ' + newPremierDateMonth.val() + ' ' + newPremierDateYear.val());
+							//alert(newPremierDateDay.val() + ' ' + newPremierDateMonth.val() + ' ' + newPremierDateYear.val());
 							
 						}
 					}
 				}
 			}
-
 	 	}
 	</aui:script>
 </aui:container>

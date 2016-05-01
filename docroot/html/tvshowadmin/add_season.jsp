@@ -1,10 +1,36 @@
 <%@ include file="/html/init.jsp"  %>
 
 <%
-	String tv = ParamUtil.getString(request, WebKeys.TVSHOW_ID);
+	ServiceContext serviceContext = ServiceContextFactory.getInstance(request);
+
+	long tvShowId = ParamUtil.getLong(request, WebKeys.TVSHOW_ID, 0);
+	long seasonId = ParamUtil.getLong(request, WebKeys.SEASON_ID, 0);
+	String action = ParamUtil.getString(request, "action");
+	
+	TvShow tvShow = null;
+	Season season = null;
+	
+	if (action.equalsIgnoreCase("update")) {
+		
+		if (tvShowId > 0) {
+			tvShow = TvShowLocalServiceUtil.getTvShow(tvShowId, serviceContext);
+		}
+		
+		if (seasonId > 0) {
+			season = SeasonLocalServiceUtil.getSeason(seasonId, serviceContext);
+		}
+		
+	} else {
+		tvShow = null;
+		season = null;
+	}
 %>
 
 <aui:row style="padding-top: 20px;">
+
+	<aui:model-context model="<%= Season.class %>" bean="<%= season %>" />
+	
+	<aui:input name="seasonId" type="hidden" cssClass=""/>
 
 	<aui:col span="3">
 		<aui:row>
@@ -15,23 +41,23 @@
 		</aui:row>
 		
 		<aui:row>
-			<aui:input name="seasonImageTitle" type="text" readOnly="true" label="Image" title="Image"> 
+			<aui:input name="imageTitle" type="text" readOnly="true" label="Image" title="Image" > 
 				<aui:validator name="required" errorMessage="Please select the tv show's cover." />
 			</aui:input>
 			<aui:button cssClass="seasonCover" name="selectSeasonImageButton" value="Select" icon=" icon-folder-open"/>
 		</aui:row>
 		
 		<%-- hidden inputs --%>
-		<aui:input name="seasonImageUrl" type="hidden"></aui:input>
-		<aui:input name="seasonImageUuid" type="hidden"></aui:input>
-		<aui:input name="seasonImageVersion" type="hidden"></aui:input>
+		<aui:input name="imageUrl" type="hidden"></aui:input>
+		<aui:input name="imageUuid" type="hidden"></aui:input>
+		<aui:input name="imageVersion" type="hidden"></aui:input>
 		
 	</aui:col>
 		
 	<aui:col span="3">
 		<aui:row>
 			<div id="counterContainer">
-				<aui:input name="seasonTitle" type="text" title="Season Title" label="Season Title">
+				<aui:input name="title" type="text" title="Season Title" label="Season Title">
 					<aui:validator name="required" errorMessage="Please enter the season's name."/>
 					<p><span id="titlecCounter"></span> character(s) remaining</p>
 				</aui:input>
@@ -53,17 +79,19 @@
 			</aui:input>
 		</aui:row>
 		
-		<%-- hidden inputs --%>
-		<aui:input name="seasonPremierDateDay" type="hidden" cssClass=""/>
-		<aui:input name="seasonPremierDateMonth" type="hidden" cssClass=""/>
-		<aui:input name="seasonPremierDateYear" type="hidden" cssClass=""/>
+		<div id="hiddenDateFieldsWrapper">
+			<%-- hidden inputs --%>
+			<aui:input name="premierDateDay" type="hidden" cssClass=""/>
+			<aui:input name="premierDateMonth" type="hidden" cssClass=""/>
+			<aui:input name="premierDateYear" type="hidden" cssClass=""/>
+		</div>
 		
 	</aui:col>
 		
 	<aui:col span="4">
 		<aui:row>
 			<div id="counterContainer">
-				<aui:input name="seasonDescription" title="Seson Description" label="Season Description" type="textarea" style="width: 350px; height: 150px;">
+				<aui:input name="description" title="Seson Description" label="Season Description" type="textarea" style="width: 350px; height: 150px;">
 					<aui:validator name="required" errorMessage="Please enter the season's description." />
 					<p><span id="descriptioncCounter"></span> character(s) remaining</p>
 				</aui:input>
@@ -73,6 +101,8 @@
 </aui:row>
 
 <aui:script use="aui-base,aui-char-counter,aui-node">
+	
+	var index = idx.get(); // get current id
 	
 	/*********************** validation char counter ****************************/
 	
@@ -88,69 +118,92 @@
 	}
 	
 	/*-************************** modify input tags *****************************-*/
+	
+	function modifyTagAttr(id, attr, newAttrValue, index, containerId){
 		
-	var id = idx.get(); // get current id
+		// init some var
+		
+		var namespace = '<portlet:namespace />';
+		
+		var _tagSelectorById = '#' + namespace + id;
+		
+		var _newAttrValue = namespace + newAttrValue + index;
+		
+		var _containerId = containerId || 'season-fields';
+		
+		var _containerSelectorById = '#' + _containerId;
+		
+		
+		// modifying
+		
+		A.one(_containerSelectorById).one(_tagSelectorById).attr(attr, _newAttrValue);
+	}
+	
+	/**************************** season id ***************************************/
+	
+	modifyTagAttr('seasonId', 'name', 'seasonId', index);
+	modifyTagAttr('seasonId', 'id', 'seasonId', index);
 	
 	/**************************** season image ************************************/
 	
 	// new attr values
-	var newSeasonImageTitle = '<portlet:namespace />seasonImageTitle' + id;
-	var newSeasonImageUrl = '<portlet:namespace />seasonImageUrl' + id;
-	var newSeasonImageUuid = '<portlet:namespace />seasonImageUuid' + id;
-	var newSeasonImageVersion = '<portlet:namespace />seasonImageVersion' + id;
+	var newSeasonImageTitle = '<portlet:namespace />seasonImageTitle' + index;
+	var newSeasonImageUrl = '<portlet:namespace />seasonImageUrl' + index;
+	var newSeasonImageUuid = '<portlet:namespace />seasonImageUuid' + index;
+	var newSeasonImageVersion = '<portlet:namespace />seasonImageVersion' + index;
 	
 	// refactoring the attrs of inputs
-	A.one('#<portlet:namespace />seasonImageTitle').attr('name', newSeasonImageTitle);
-	A.one('#<portlet:namespace />seasonImageTitle').attr('id', newSeasonImageTitle);
+	A.one('#season-fields').one('#<portlet:namespace />imageTitle').attr('name', newSeasonImageTitle);
+	A.one('#season-fields').one('#<portlet:namespace />imageTitle').attr('id', newSeasonImageTitle);
 	
-	A.one('#<portlet:namespace />seasonImageUrl').attr('name', newSeasonImageUrl);
-	A.one('#<portlet:namespace />seasonImageUrl').attr('id', newSeasonImageUrl);
+	A.one('#season-fields').one('#<portlet:namespace />imageUrl').attr('name', newSeasonImageUrl);
+	A.one('#season-fields').one('#<portlet:namespace />imageUrl').attr('id', newSeasonImageUrl);
 	
-	A.one('#<portlet:namespace />seasonImageUuid').attr('name', newSeasonImageUuid);
-	A.one('#<portlet:namespace />seasonImageUuid').attr('id', newSeasonImageUuid);
+	A.one('#season-fields').one('#<portlet:namespace />imageUuid').attr('name', newSeasonImageUuid);
+	A.one('#season-fields').one('#<portlet:namespace />imageUuid').attr('id', newSeasonImageUuid);
 	
-	A.one('#<portlet:namespace />seasonImageVersion').attr('name', newSeasonImageVersion);
-	A.one('#<portlet:namespace />seasonImageVersion').attr('id', newSeasonImageVersion);
+	A.one('#season-fields').one('#<portlet:namespace />imageVersion').attr('name', newSeasonImageVersion);
+	A.one('#season-fields').one('#<portlet:namespace />imageVersion').attr('id', newSeasonImageVersion);
 	
 	
 	/**************************** season title ************************************/
 	
-	// new attr values
-	var newSeasonTitle = '<portlet:namespace />seasonTitle' + id;
+	// new attr value
+	var newSeasonTitle = '<portlet:namespace />seasonTitle' + index;
 	
-	// refactoring the attrs of inputs
-	A.one('#<portlet:namespace />seasonTitle').attr('name', newSeasonTitle);
-	A.one('#<portlet:namespace />seasonTitle').attr('id', newSeasonTitle);
+	// refactoring the attrs of input
+	A.one('#season-fields').one('#<portlet:namespace />title').attr('name', newSeasonTitle);
+	A.one('#season-fields').one('#<portlet:namespace />title').attr('id', newSeasonTitle);
 	
 	
 	/**************************** season number **********************************/
 	
-	// new attr values
-	var newSeasonNumber = '<portlet:namespace />seasonNumber' + id;
+	// new attr value
+	var newSeasonNumber = '<portlet:namespace />seasonNumber' + index;
 	
-	// refactoring the attrs of inputs
-	A.one('#<portlet:namespace />seasonNumber').attr('name', newSeasonNumber);
-	A.one('#<portlet:namespace />seasonNumber').attr('id', newSeasonNumber);
+	// refactoring the attrs of input
+	A.one('#season-fields').one('#<portlet:namespace />seasonNumber').attr('name', newSeasonNumber);
+	A.one('#season-fields').one('#<portlet:namespace />seasonNumber').attr('id', newSeasonNumber);
 	
 	
 	/**************************** season description ******************************/
 	
-	// new attr values
-	var newSeasonDescription = '<portlet:namespace />seasonDescription' + id;
+	// new attr value
+	var newSeasonDescription = '<portlet:namespace />seasonDescription' + index;
 	
-	// refactoring the attrs of inputs
-	A.one('#<portlet:namespace />seasonDescription').attr('name', newSeasonDescription);
-	A.one('#<portlet:namespace />seasonDescription').attr('id', newSeasonDescription);
+	// refactoring the attrs of input
+	A.one('#season-fields').one('#<portlet:namespace />description').attr('name', newSeasonDescription);
+	A.one('#season-fields').one('#<portlet:namespace />description').attr('id', newSeasonDescription);
 	
 	
 	/* --------------------------- char counters ------------------------------- */
 	
 							// title char counter //
 							
-	var newSeasonTitleCounter = '<portlet:namespace />titlecCounter' + id;
+	var newSeasonTitleCounter = '<portlet:namespace />titlecCounter' + index;
 	
 	// refactoring the attrs of remaining's <span> 
-	A.one('#titlecCounter').attr('id', newSeasonTitleCounter);
+	A.one('#season-fields').one('#titlecCounter').attr('id', newSeasonTitleCounter);
 	
 	// attach cc to the counter <span>-s
 	createCharCounterr('#' + newSeasonTitleCounter, '#' + newSeasonTitle, 75);
@@ -158,10 +211,10 @@
 	
 							// description char counter //
 							
-	var newSeasonDescriptioncounter = '<portlet:namespace />descriptioncCounter' + id;
+	var newSeasonDescriptioncounter = '<portlet:namespace />descriptioncCounter' + index;
 	
 	// refactoring the attrs of remaining's <span> 
-	A.one('#descriptioncCounter').attr('id', newSeasonDescriptioncounter);
+	A.one('#season-fields').one('#descriptioncCounter').attr('id', newSeasonDescriptioncounter);
 	
 	// attach cc to the counter <span>-s
 	createCharCounterr('#' + newSeasonDescriptioncounter, '#' + newSeasonDescription, 500);
@@ -169,27 +222,33 @@
 	
 	/**************************** season date ************************************/
 	
+	//date fields wrapper
+	
+	var newHiddenDateFieldsWrapper = 'hiddenDateFieldsWrapper' + index;
+	var dateFieldsWrapper = A.one('#hiddenDateFieldsWrapper');
+	dateFieldsWrapper.attr('id', newHiddenDateFieldsWrapper);
+	
 	// season premier date hidden inputs refactor
-	var newPremierDateDay = '<portlet:namespace />seasonPremierDateDay' + id;
-	var newPremierDateMonth = '<portlet:namespace />seasonPremierDateMonth' + id;
-	var newPremierDateYear = '<portlet:namespace />seasonPremierDateYear' + id;
+	var newPremierDateDay = '<portlet:namespace />seasonPremierDateDay' + index;
+	var newPremierDateMonth = '<portlet:namespace />seasonPremierDateMonth' + index;
+	var newPremierDateYear = '<portlet:namespace />seasonPremierDateYear' + index;
 	
-	A.one('#<portlet:namespace />seasonPremierDateDay').attr('name', newPremierDateDay);
-	A.one('#<portlet:namespace />seasonPremierDateDay').attr('id', newPremierDateDay);
+	dateFieldsWrapper.one('#<portlet:namespace />premierDateDay').attr('name', newPremierDateDay);
+	dateFieldsWrapper.one('#<portlet:namespace />premierDateDay').attr('id', newPremierDateDay);
 	
-	A.one('#<portlet:namespace />seasonPremierDateMonth').attr('name', newPremierDateMonth);
-	A.one('#<portlet:namespace />seasonPremierDateMonth').attr('id', newPremierDateMonth);
+	dateFieldsWrapper.one('#<portlet:namespace />premierDateMonth').attr('name', newPremierDateMonth);
+	dateFieldsWrapper.one('#<portlet:namespace />premierDateMonth').attr('id', newPremierDateMonth);
 	
-	A.one('#<portlet:namespace />seasonPremierDateYear').attr('name', newPremierDateYear);
-	A.one('#<portlet:namespace />seasonPremierDateYear').attr('id', newPremierDateYear);
+	dateFieldsWrapper.one('#<portlet:namespace />premierDateYear').attr('name', newPremierDateYear);
+	dateFieldsWrapper.one('#<portlet:namespace />premierDateYear').attr('id', newPremierDateYear);
 
-
+	
 	// wrapper class refactor
 	var wrapperSelector = 'wrapperSelector';
-	var newSeasonPremierDateWrapper = 'seasonPremierDateWrapper' + id;
+	var newSeasonPremierDateWrapper = 'seasonPremierDateWrapper' + index;
 	
-	A.one('.seasonPremierDateWrapper').addClass(wrapperSelector);
-	A.one('.seasonPremierDateWrapper').replaceClass('seasonPremierDateWrapper', newSeasonPremierDateWrapper);
+	A.one('#season-fields').one('.seasonPremierDateWrapper').addClass(wrapperSelector);
+	A.one('#season-fields').one('.seasonPremierDateWrapper').replaceClass('seasonPremierDateWrapper', newSeasonPremierDateWrapper);
 	
 	/*-************************** modify input tags *****************************-*/
 	
