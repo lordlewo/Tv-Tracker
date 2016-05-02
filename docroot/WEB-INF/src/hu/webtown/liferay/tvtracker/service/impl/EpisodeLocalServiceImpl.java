@@ -33,6 +33,7 @@ import hu.webtown.liferay.tvtracker.EpisodeDescriptionException;
 import hu.webtown.liferay.tvtracker.EpisodeImageException;
 import hu.webtown.liferay.tvtracker.EpisodeNumberException;
 import hu.webtown.liferay.tvtracker.EpisodeTitleException;
+import hu.webtown.liferay.tvtracker.SeasonImageException;
 import hu.webtown.liferay.tvtracker.model.Episode;
 import hu.webtown.liferay.tvtracker.service.base.EpisodeLocalServiceBaseImpl;
 
@@ -427,42 +428,27 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 		
 		if(Validator.isNull(title)){
 			
-			throw new EpisodeTitleException();
+			throw new EpisodeTitleException("The episode's title is mandatory!");
 		}
 		
 		if(Validator.isNull(airDate)){
 			
-			throw new EpisodeAirDateException();
+			throw new EpisodeAirDateException("The episode's air date is mandatory!");
 		}
 		
 		if(episodeNumber < 1){
 			
-			throw new EpisodeNumberException();
+			throw new EpisodeNumberException("The episode's number must be a positive integer number!");
 		}
 		
 		if(Validator.isNull(description)){
 			
-			throw new EpisodeDescriptionException();
+			throw new EpisodeDescriptionException("The episode's description is mandatory!");
 		}
 		
-		if(Validator.isNull(imageUrl) /*|| !Validator.isUrl(imageUrl)*/){
+		if(Validator.isNull(imageUrl) || Validator.isNull(imageUuid) || Validator.isNull(imageTitle) || Validator.isNull(imageVersion)){
 			
-			throw new EpisodeImageException();
-		}
-		
-		if(Validator.isNull(imageUuid)){
-			
-			throw new EpisodeImageException();
-		}
-
-		if(Validator.isNull(imageTitle)){
-			
-			throw new EpisodeImageException();
-		}
-		
-		if(Validator.isNull(imageVersion)){
-			
-			throw new EpisodeImageException();
+			throw new SeasonImageException("The episode's image musn't be null!");
 		}
 		
 	}

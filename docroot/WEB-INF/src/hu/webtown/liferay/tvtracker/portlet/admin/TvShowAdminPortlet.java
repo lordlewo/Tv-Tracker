@@ -14,15 +14,12 @@ import hu.webtown.liferay.tvtracker.model.TvShow;
 import hu.webtown.liferay.tvtracker.service.SeasonLocalServiceUtil;
 import hu.webtown.liferay.tvtracker.service.TvShowLocalServiceUtil;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 import java.util.TimeZone;
 
@@ -78,20 +75,20 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			/*******/// Tv Show ///***********************************************************************/
 			/*********************************************************************************************/
 			
-			int premierDateDay = ParamUtil.getInteger(actionRequest, "premierDateDay");
-			int premierDateMonth = ParamUtil.getInteger(actionRequest, "premierDateMonth");
-			int premierDateYear = ParamUtil.getInteger(actionRequest, "premierDateYear");
+			int premierDateDay = ParamUtil.getInteger(actionRequest, "premierDateDay", 0);
+			int premierDateMonth = ParamUtil.getInteger(actionRequest, "premierDateMonth", 0);
+			int premierDateYear = ParamUtil.getInteger(actionRequest, "premierDateYear", 0);
 			
 			calendar.set(premierDateYear, premierDateMonth, premierDateDay);
 			
 			Date tvShowPremierDate = calendar.getTime();
-			String tvShowTitle = ParamUtil.getString(actionRequest, "title");
-			String tvShowDescription = ParamUtil.getString(actionRequest, "description");
+			String tvShowTitle = ParamUtil.getString(actionRequest, "title", "");
+			String tvShowDescription = ParamUtil.getString(actionRequest, "description", "");
 			
-			String tvShowImageUrl = ParamUtil.getString(actionRequest, "imageUrl");
-			String tvShowImageUuid = ParamUtil.getString(actionRequest, "imageUuid");
-			String tvShowImageTitle = ParamUtil.getString(actionRequest, "imageTitle");
-			String tvShowImageVersion = ParamUtil.getString(actionRequest, "imageVersion");
+			String tvShowImageUrl = ParamUtil.getString(actionRequest, "imageUrl", "");
+			String tvShowImageUuid = ParamUtil.getString(actionRequest, "imageUuid", "");
+			String tvShowImageTitle = ParamUtil.getString(actionRequest, "imageTitle", "");
+			String tvShowImageVersion = ParamUtil.getString(actionRequest, "imageVersion", "");
 			
 			/* add tvshow */
 			TvShow tvShow = TvShowLocalServiceUtil.addTvShow(

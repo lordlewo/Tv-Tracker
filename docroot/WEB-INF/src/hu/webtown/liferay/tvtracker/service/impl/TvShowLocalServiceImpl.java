@@ -619,37 +619,22 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		if(Validator.isNull(title)){
 			
-			throw new TvShowTitleException();
+			throw new TvShowTitleException("The tv show's title is mandatory!");
 		}
 		
 		if(Validator.isNull(premierDate)){
 			
-			throw new TvShowPremierDateException();
+			throw new TvShowPremierDateException("The tv show's premier date is mandatory!");
 		}
 		
 		if(Validator.isNull(description)){
 			
-			throw new TvShowDescriptionException();
+			throw new TvShowDescriptionException("The tv show's description is mandatory!");
 		}
 		
-		if(Validator.isNull(imageUrl) || !Validator.isUri(imageUrl)){
+		if(Validator.isNull(imageUrl) || Validator.isNull(imageUuid) || Validator.isNull(imageTitle) || Validator.isNull(imageVersion)){
 			
-			throw new TvShowImageException();
-		}
-		
-		if(Validator.isNull(imageUuid)){
-			
-			throw new TvShowImageException();
-		}
-		
-		if(Validator.isNull(imageTitle)){
-			
-			throw new TvShowImageException();
-		}
-		
-		if(Validator.isNull(imageVersion)){
-			
-			throw new TvShowImageException();
+			throw new TvShowImageException("The tv show's image is mandatory!");
 		}
 		
 	}

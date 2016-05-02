@@ -389,7 +389,7 @@
 		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', 500);
 		
 
-		/****************** Autofields: setting date hidden values *******************/
+		/******** Autofields: setting own hidden season premier date values *********/
 	
 		// onclick listener to the Save submit button
 	 	A.one('#<portlet:namespace />Save').on('click', submitClick);
@@ -407,19 +407,19 @@
 				// get current row in the cycle
 				var autofieldsRow = autofieldsRows.item(i);
 				
-				// if not hided - (hide -> if minus button clicked, the row still in the DOM, but that row already is don1t care)
+				// if not hided - (hide -> if minus button clicked, the row still in the DOM, but that row already is irrelevant)
 				if( !autofieldsRow.hasClass('hide') ){
-					
-					// get date's values holder from the row
-					var wrapper = autofieldsRow.one('.wrapperSelector');
-					
-					// specify the date's values serial number 
+										
+					// specify the serial number of the date's values 
 					for(var j = 0; j < rowsNum; j++){
 						
-						var wrapperFilter = 'seasonPremierDateWrapper' + j;
+						// get date's values holder from the row
+						var wrapperId = '#<portlet:namespace/>seasonPremierDateWrapper' + j;
+						
+						var wrapper = autofieldsRow.one(wrapperId);
 						
 						// if founded
-						if(wrapper.hasClass(wrapperFilter)){
+						if(wrapper != null) {
 							
 							// get infos from the wrapper
 							var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
@@ -427,17 +427,16 @@
 							var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
 							
 							// locate the custom fields
-							var newPremierDateDay = autofieldsRow.one('#<portlet:namespace />seasonPremierDateDay' + j);
-							var newPremierDateMonth = autofieldsRow.one('#<portlet:namespace />seasonPremierDateMonth' + j);
-							var newPremierDateYear = autofieldsRow.one('#<portlet:namespace />seasonPremierDateYear' + j);
+							var newPremierDateDay = wrapper.one('#<portlet:namespace />seasonPremierDateDay' + j);
+							var newPremierDateMonth = wrapper.one('#<portlet:namespace />seasonPremierDateMonth' + j);
+							var newPremierDateYear = wrapper.one('#<portlet:namespace />seasonPremierDateYear' + j);
 							
 							// set values to the custom hidden fields
 							newPremierDateDay.val(premierDateDay.val());
 							newPremierDateMonth.val(premierDateMonth.val());
 							newPremierDateYear.val(premierDateYear.val());
 							
-							//alert(newPremierDateDay.val() + ' ' + newPremierDateMonth.val() + ' ' + newPremierDateYear.val());
-							
+							alert(newPremierDateDay.val() + ' ' + newPremierDateMonth.val() + ' ' + newPremierDateYear.val());
 						}
 					}
 				}

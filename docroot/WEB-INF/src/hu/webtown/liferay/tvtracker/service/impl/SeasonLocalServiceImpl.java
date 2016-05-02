@@ -549,42 +549,27 @@ public class SeasonLocalServiceImpl extends SeasonLocalServiceBaseImpl {
 		
 		if(Validator.isNull(title)){
 			
-			throw new SeasonTitleException();
+			throw new SeasonTitleException("The season's title is mandatory!");
 		}
 		
 		if(Validator.isNull(premierDate)){
 			
-			throw new SeasonPremierDateException();
+			throw new SeasonPremierDateException("The season's premier date is mandatory!");
 		}
 		
 		if(seasonNumber < 1){
 			
-			throw new SeasonNumberException();
+			throw new SeasonNumberException("The season's number must be a positive integer number!");
 		}
 		
 		if(Validator.isNull(description)){
 			
-			throw new SeasonDescriptionException();
+			throw new SeasonDescriptionException("The season's description is mandatory!");
 		}
 		
-		if(Validator.isNull(imageUrl) /*|| !Validator.isUrl(imageUrl)*/){
+		if(Validator.isNull(imageUrl) || Validator.isNull(imageUuid) || Validator.isNull(imageTitle) || Validator.isNull(imageVersion)){
 			
-			throw new SeasonImageException();
-		}
-		
-		if(Validator.isNull(imageUuid)){
-			
-			throw new SeasonImageException();
-		}
-
-		if(Validator.isNull(imageTitle)){
-			
-			throw new SeasonImageException();
-		}
-		
-		if(Validator.isNull(imageVersion)){
-			
-			throw new SeasonImageException();
+			throw new SeasonImageException("The season's image musn't be null!");
 		}
 		
 	}
