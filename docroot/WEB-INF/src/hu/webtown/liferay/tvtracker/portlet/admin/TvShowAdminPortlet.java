@@ -75,20 +75,20 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			/*******/// Tv Show ///***********************************************************************/
 			/*********************************************************************************************/
 			
-			int premierDateDay = ParamUtil.getInteger(actionRequest, "premierDateDay", 0);
-			int premierDateMonth = ParamUtil.getInteger(actionRequest, "premierDateMonth", 0);
-			int premierDateYear = ParamUtil.getInteger(actionRequest, "premierDateYear", 0);
+			int premierDateDay = ParamUtil.getInteger(actionRequest, "premierDateDay");
+			int premierDateMonth = ParamUtil.getInteger(actionRequest, "premierDateMonth");
+			int premierDateYear = ParamUtil.getInteger(actionRequest, "premierDateYear");
 			
 			calendar.set(premierDateYear, premierDateMonth, premierDateDay);
 			
 			Date tvShowPremierDate = calendar.getTime();
-			String tvShowTitle = ParamUtil.getString(actionRequest, "title", "");
-			String tvShowDescription = ParamUtil.getString(actionRequest, "description", "");
+			String tvShowTitle = ParamUtil.getString(actionRequest, "title");
+			String tvShowDescription = ParamUtil.getString(actionRequest, "description");
 			
-			String tvShowImageUrl = ParamUtil.getString(actionRequest, "imageUrl", "");
-			String tvShowImageUuid = ParamUtil.getString(actionRequest, "imageUuid", "");
-			String tvShowImageTitle = ParamUtil.getString(actionRequest, "imageTitle", "");
-			String tvShowImageVersion = ParamUtil.getString(actionRequest, "imageVersion", "");
+			String tvShowImageUrl = ParamUtil.getString(actionRequest, "imageUrl");
+			String tvShowImageUuid = ParamUtil.getString(actionRequest, "imageUuid");
+			String tvShowImageTitle = ParamUtil.getString(actionRequest, "imageTitle");
+			String tvShowImageVersion = ParamUtil.getString(actionRequest, "imageVersion");
 			
 			/* add tvshow */
 			TvShow tvShow = TvShowLocalServiceUtil.addTvShow(

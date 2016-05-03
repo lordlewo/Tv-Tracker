@@ -46,12 +46,8 @@ Delete Episodes:
 	<div id="member-fields">
 		<div class="lfr-form-row lfr-form-row-inline">
 			<div class="row-fields" style="display: flex;">
-				<aui:input name="firstName" label="First Name" />
-				<aui:input name="lastName" label="Last Name" />
-				<aui:select name="gender" label="Gender">
-					<aui:option value="male" label="Male"></aui:option>
-					<aui:option value="female" label="Female"></aui:option>
-				</aui:select>
+				<liferay-util:include page="/html/tvtracker/t.jsp" servletContext="<%= application %>" >
+				</liferay-util:include>
 			</div>
 		</div>
 	</div>
@@ -59,6 +55,10 @@ Delete Episodes:
 	<aui:button type="submit"/>
 
 </aui:form>
+
+<portlet:renderURL var="autoURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
+	<portlet:param name="mvcPath" value="/html/tvtracker/t.jsp" /> 
+</portlet:renderURL>
 
 <aui:script use="liferay-auto-fields">
  
@@ -68,6 +68,7 @@ Delete Episodes:
 			fieldIndexes: '<portlet:namespace />rowIndexes',
 			sortable: true,
 			sortableHandle: '.row-fields',
+			url: '<%= autoURL.toString() %>'
 		}
 	).render();
 

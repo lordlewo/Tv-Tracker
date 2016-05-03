@@ -65,7 +65,6 @@
 		return counterUtil;
 	})()();
 	
-	
 </script>
 
 <portlet:renderURL var="viewURL">
@@ -75,7 +74,7 @@
 <portlet:actionURL name="<%= actionUrlName %>" var="add_edit_actionURL"/>
 
 <aui:container>
-	<aui:form name="editform" action="<%= add_edit_actionURL %>" method="post">
+	<aui:form name="editForm" action="<%= add_edit_actionURL %>" method="post">
 		
 		<%-- form bean --%>
 		
@@ -109,9 +108,9 @@
 					<%
 						String blankImageUrl = renderResponse.encodeURL(renderRequest.getContextPath() + "/img/no-image.png");
 					
-						String imageSrc = (tvShow != null) ? tvShow.getImageUrl() : blankImageUrl;
+						String tvShowCover = (action.equalsIgnoreCase("update") && tvShow != null) ? tvShow.getImageUrl() : blankImageUrl;
 					%>
-					<img id="<portlet:namespace/>img" src="<%=imageSrc%>" />
+					<img id="<portlet:namespace/>img" src="<%= tvShowCover %>" />
 				</aui:col>
 				<aui:col span="5">
 					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image"> 
@@ -302,6 +301,7 @@
 		
 		// some variable reference from the newly added autofields content for the callback method _166_selectDocumentLibrary
 		var seasonCoverImage = null;
+		var visibleSeasonImageTitle = null;
 		
 		var seasonImageTitle = null;
 		var seasonImageUrl = null;
@@ -319,17 +319,18 @@
 			witchPopUp = true;
 			
 			
-			var wrapper = event.currentTarget.ancestor().ancestor();
+			var wrapper = event.currentTarget.ancestor().ancestor().ancestor();
 			seasonCoverImage = wrapper.one('img');
 			
 			for(var i = 0; i < idx.get(); i++){
 				
-				var inputFilter = '#<portlet:namespace />seasonImageTitle' + i;
+				var inputFilter = '#<portlet:namespace />visibleSeasonImageTitle' + i;
 				
-				seasonImageTitle = wrapper.one(inputFilter);
+				visibleSeasonImageTitle = wrapper.one(inputFilter);
 				
-				if(seasonImageTitle != null){
+				if(visibleSeasonImageTitle != null){
 					
+					seasonImageTitle = wrapper.one('#<portlet:namespace />seasonImageTitle' + i);
 					seasonImageUrl = wrapper.one('#<portlet:namespace />seasonImageUrl' + i);
 					seasonImageUuid = wrapper.one('#<portlet:namespace />seasonImageUuid' + i);
 					seasonImageVersion = wrapper.one('#<portlet:namespace />seasonImageVersion' + i);
@@ -361,6 +362,7 @@
 
 			}else{
 				seasonCoverImage.attr('src', url);
+				visibleSeasonImageTitle.val(fileName);
 				
 				seasonImageTitle.val(fileName);
 				seasonImageUrl.val(url);
@@ -393,6 +395,8 @@
 	
 		// onclick listener to the Save submit button
 	 	A.one('#<portlet:namespace />Save').on('click', submitClick);
+		
+		
 	 	function submitClick(){
 	 		
 	 		// get all rows
@@ -409,38 +413,110 @@
 				
 				// if not hided - (hide -> if minus button clicked, the row still in the DOM, but that row already is irrelevant)
 				if( !autofieldsRow.hasClass('hide') ){
-										
-					// specify the serial number of the date's values 
-					for(var j = 0; j < rowsNum; j++){
-						
-						// get date's values holder from the row
-						var wrapperId = '#<portlet:namespace/>seasonPremierDateWrapper' + j;
-						
-						var wrapper = autofieldsRow.one(wrapperId);
-						
-						// if founded
-						if(wrapper != null) {
-							
-							// get infos from the wrapper
-							var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
-							var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
-							var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
-							
-							// locate the custom fields
-							var newPremierDateDay = wrapper.one('#<portlet:namespace />seasonPremierDateDay' + j);
-							var newPremierDateMonth = wrapper.one('#<portlet:namespace />seasonPremierDateMonth' + j);
-							var newPremierDateYear = wrapper.one('#<portlet:namespace />seasonPremierDateYear' + j);
-							
-							// set values to the custom hidden fields
-							newPremierDateDay.val(premierDateDay.val());
-							newPremierDateMonth.val(premierDateMonth.val());
-							newPremierDateYear.val(premierDateYear.val());
-							
-							alert(newPremierDateDay.val() + ' ' + newPremierDateMonth.val() + ' ' + newPremierDateYear.val());
-						}
-					}
+
+					fillSeasonTitleHiddenFields(autofieldsRow, i);
+					fillSeasonNumberHiddenFields(autofieldsRow, i);
+					fillSeasonPremierDateHiddenFields(autofieldsRow, i);
+					fillSeasonDescriptionHiddenFields(autofieldsRow, i);
+
 				}
 			}
+			forceValidation();
 	 	}
+	 	
+	 	function fillSeasonPremierDateHiddenFields(currentRow, index) {
+	 		
+	 		// get the date's wrapper from the row
+			var wrapperId = '#<portlet:namespace/>seasonPremierDateWrapper' + index;
+			var wrapper   = currentRow.one(wrapperId);
+			
+			// if founded
+			if(wrapper != null) {
+				
+				// get values from the wrapper
+				var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
+				var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
+				var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
+				
+				// locate the hidden fields
+				var seasonPremierDateDay = wrapper.one('#<portlet:namespace />seasonPremierDateDay' + index);
+				var seasonPremierDateMonth = wrapper.one('#<portlet:namespace />seasonPremierDateMonth' + index);
+				var seasonPremierDateYear = wrapper.one('#<portlet:namespace />seasonPremierDateYear' + index);
+				
+				// set values to the hidden fields
+				seasonPremierDateDay.val(premierDateDay.val());
+				seasonPremierDateMonth.val(premierDateMonth.val());
+				seasonPremierDateYear.val(premierDateYear.val());
+				
+				//alert(seasonPremierDateDay.val() + ' ' + seasonPremierDateMonth.val() + ' ' + seasonPremierDateYear.val());
+			}
+	 	}
+	 	
+		function fillSeasonTitleHiddenFields(currentRow, index) {
+	 		
+	 		// get the title's wrapper from the row
+			var wrapperId = '#<portlet:namespace />seasonTitleWrapper' + index;
+			var wrapper   = currentRow.one(wrapperId);
+			
+			// if founded
+			if(wrapper != null) {
+				
+				// get value from the wrapper
+				var visibleSeasonTitle = wrapper.one('#<portlet:namespace />visibleSeasonTitle' + index);
+				
+				// locate the hidden field
+				var seasonTitle = wrapper.one('#<portlet:namespace />seasonTitle' + index);
+
+				// set values to the hidden field
+				seasonTitle.val(visibleSeasonTitle.val());
+			}
+	 	}
+		
+		function fillSeasonNumberHiddenFields(currentRow, index) {
+	 		
+	 		// get the number's wrapper from the row
+			var wrapperId = '#<portlet:namespace/>seasonNumberWrapper' + index;
+			var wrapper   = currentRow.one(wrapperId);
+			
+			// if founded
+			if(wrapper != null) {
+				
+				// get value from the wrapper
+				var visibleSeasonNumber = wrapper.one('#<portlet:namespace />visibleSeasonNumber' + index);
+				
+				// locate the hidden field
+				var seasonNumber = wrapper.one('#<portlet:namespace />seasonNumber' + index);
+
+				// set values to the hidden field
+				seasonNumber.val(visibleSeasonNumber.val());
+			}
+	 	}
+		
+		function fillSeasonDescriptionHiddenFields(currentRow, index) {
+	 		
+	 		// get the number's wrapper from the row
+			var wrapperId = '#<portlet:namespace/>seasonDescriptionWrapper' + index;
+			var wrapper   = currentRow.one(wrapperId);
+			
+			// if founded
+			if(wrapper != null) {
+				
+				// get value from the wrapper
+				var visibleSeasonDescription = wrapper.one('#<portlet:namespace />visibleSeasonDescription' + index);
+				
+				// locate the hidden field
+				var seasonDescription = wrapper.one('#<portlet:namespace />seasonDescription' + index);
+
+				// set values to the hidden field
+				seasonDescription.val(visibleSeasonDescription.val());
+			}
+	 	}
+		
+		function forceValidation(){
+			A.all('.field').each(function(currentNode, currentNodeIndex, nodeList) {
+	 			currentNode.focus();
+	 		});
+		}
+	 	
 	</aui:script>
 </aui:container>

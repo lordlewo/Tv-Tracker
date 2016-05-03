@@ -144,9 +144,9 @@
 						    			.append(seasonTitle);
 					    %>
 					    
-				    		<aui:option value="<%= String.valueOf(seasonId) %>" selected="<%= selected %>">
-				    			"<%= sbLabel %>"
-				    		</aui:option>
+						    		<aui:option value="<%= String.valueOf(seasonId) %>" selected="<%= selected %>">
+						    			"<%= sbLabel %>"
+						    		</aui:option>
 					    
 					    <%
 					    		}
@@ -180,7 +180,11 @@
 	
 	<%-- portlet urls for the popup --%>
 	
-	<liferay-portlet:renderURL var="selectCoverURL" portletName="<%= PortletKeys.DYNAMIC_DATA_MAPPING %>" windowState="<%= LiferayWindowState.POP_UP.toString() %>" portletMode="<%= PortletMode.VIEW.toString() %>">
+	<liferay-portlet:renderURL 
+				var="selectCoverURL" 
+				portletName="<%= PortletKeys.DYNAMIC_DATA_MAPPING %>" 
+				windowState="<%= LiferayWindowState.POP_UP.toString() %>" 
+				portletMode="<%= PortletMode.VIEW.toString() %>">
 		<portlet:param name="struts_action" value="/dynamic_data_mapping/select_document_library"/>
 	</liferay-portlet:renderURL>
 	
