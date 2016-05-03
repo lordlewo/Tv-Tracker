@@ -9,3 +9,11 @@
 		<aui:option value="female" label="Female"></aui:option>
 	</aui:select>
 </div>
+
+<aui:script use="aui-base">
+	
+	A.all('input').each(function(currentNode, index, nodeList) {
+		currentNode.focus();
+	});
+
+</aui:script>

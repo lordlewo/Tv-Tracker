@@ -111,7 +111,7 @@ public class TvShowAdminPortlet extends MVCPortlet {
 				int seasonPremierDateMonth = ParamUtil.getInteger(actionRequest, "seasonPremierDateMonth" + rowIndex);
 				int seasonPremierDateYear = ParamUtil.getInteger(actionRequest, "seasonPremierDateYear" + rowIndex);
 				
-				calendar.set(seasonPremierDateDay, seasonPremierDateMonth, seasonPremierDateYear);
+				calendar.set(seasonPremierDateYear, seasonPremierDateMonth, seasonPremierDateDay);
 				
 				Date seasonPremierDate = calendar.getTime();
 				String seasonTitle = ParamUtil.getString(actionRequest, "seasonTitle" + rowIndex);
@@ -188,7 +188,7 @@ public class TvShowAdminPortlet extends MVCPortlet {
 				int seasonPremierDateMonth = ParamUtil.getInteger(actionRequest, "seasonPremierDateMonth" + rowIndex);
 				int seasonPremierDateYear = ParamUtil.getInteger(actionRequest, "seasonPremierDateYear" + rowIndex);
 				
-				calendar.set(seasonPremierDateDay, seasonPremierDateMonth, seasonPremierDateYear);
+				calendar.set(seasonPremierDateYear, seasonPremierDateMonth, seasonPremierDateDay);
 				
 				Date seasonPremierDate = calendar.getTime();
 				String seasonTitle = ParamUtil.getString(actionRequest, "seasonTitle" + rowIndex);

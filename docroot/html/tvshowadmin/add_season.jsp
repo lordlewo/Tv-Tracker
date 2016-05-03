@@ -44,18 +44,16 @@
 		
 		<aui:row>
 			<div id="<portlet:namespace/>seasonImageWrapper">
-				<aui:input name="imageTitle" type="text" readOnly="true" label="Image" title="Image" required="true"> 
-					<aui:validator name="required" errorMessage="Please select the season's cover." />
-				</aui:input>
+				<aui:input name="imageTitle" type="text" readOnly="true" label="Image" title="Image" />
 				
 				<aui:button cssClass="seasonCover" name="selectSeasonImageButton" value="Select" icon="icon-folder-open"/>
 				
 				<%-- hidden inputs --%>
 				<div id="<portlet:namespace/>hiddenSeasonImageFieldsWrapper">
-					<aui:input name="seasonImageTitle"   type="hidden" cssClass=""/>
-					<aui:input name="seasonImageUrl"     type="hidden" cssClass=""/>
-					<aui:input name="seasonImageUuid"    type="hidden" cssClass=""/>
-					<aui:input name="seasonImageVersion" type="hidden" cssClass=""/>
+					<aui:input name="imageTitle"   type="hidden" cssClass=""/>
+					<aui:input name="imageUrl"     type="hidden" cssClass=""/>
+					<aui:input name="imageUuid"    type="hidden" cssClass=""/>
+					<aui:input name="imageVersion" type="hidden" cssClass=""/>
 				</div>
 			</div>
 		</aui:row>	
@@ -64,8 +62,7 @@
 	<aui:col span="3">
 		<aui:row>
 			<div id="<portlet:namespace/>seasonTitleWrapper">
-				<aui:input name="title" type="text" title="Season Title" label="Season Title" required="true">
-					<aui:validator name="required" errorMessage="Please enter the season's name."/>
+				<aui:input name="title" type="text" title="Season Title" label="Season Title" >
 					<p><span id="<portlet:namespace/>titleCounter"></span> character(s) remaining</p>
 				</aui:input>
 				
@@ -78,10 +75,8 @@
 		
 		<aui:row>
 			<div id="<portlet:namespace/>seasonNumberWrapper">
-				<aui:input name="seasonNumber" title="Season Number" label="Season Number" model="<%= Season.class %>" required="true" min="1">
-					<aui:validator name="required" errorMessage="Please enter the season number." />
-					<aui:validator name="number" errorMessage="Please enter a valid season number." />
-					<aui:validator name="min" errorMessage="The season number must be a positive integer." > '1' </aui:validator>
+				<aui:input name="seasonNumber" title="Season Number" label="Season Number" model="<%= Season.class %>" >
+					<aui:validator name="required" />
 				</aui:input>
 				
 				<%-- hidden input --%>
@@ -93,10 +88,7 @@
 	
 		<aui:row>
 			<div id="<portlet:namespace/>seasonPremierDateWrapper">
-				<aui:input name="premierDate" title="Season Premier Date" label="Season Premier Date" model="<%= Season.class %>" required="true">
-					<aui:validator name="required" errorMessage="Please enter the season's premier date."/>
-					<aui:validator name="date" errorMessage="Please enter the season's premier date in correct form (dd/mm/yy)."/>
-				</aui:input>
+				<aui:input name="premierDate" title="Season Premier Date" label="Season Premier Date" model="<%= Season.class %>" />
 				
 				<%-- hidden inputs --%>
 				<div id="<portlet:namespace/>hiddenSeasonPremierDateFieldsWrapper">
@@ -111,8 +103,7 @@
 	<aui:col span="4">
 		<aui:row>
 			<div id="<portlet:namespace/>seasonDescriptionWrapper">
-				<aui:input name="description" title="Season Description" label="Season Description" type="textarea" required="true" cssClass="tvShowAdminAddSeasonDescriptionTextArea" >
-					<aui:validator name="required" errorMessage="Please enter the season's description." />
+				<aui:input name="description" title="Season Description" label="Season Description" type="textarea" cssClass="tvShowAdminAddSeasonDescriptionTextArea" >
 					<p><span id="<portlet:namespace/>descriptionCounter"></span> character(s) remaining</p>
 				</aui:input>
 				
@@ -125,7 +116,7 @@
 	</aui:col>
 </aui:row>
 
-<aui:script use="aui-base,aui-char-counter,aui-node">
+<aui:script use="aui-base,aui-char-counter,liferay-form,aui-node">
 	
 	var index = idx.get(); // get current id
 	
@@ -183,20 +174,21 @@
 	var seasonImageWrapperId = modifyTagAttr('seasonImageWrapper', 'id', 'seasonImageWrapper', index);
 	
 	// season image title
-	var visibleSeasonImageTitleId = modifyTagAttr('imageTitle', 'id', 'visibleSeasonImageTitle', index, seasonImageWrapperId);
+	var visibleSeasonImageTitleName = modifyTagAttr('imageTitle', 'name', 'visibleSeasonImageTitle', index, seasonImageWrapperId);
+	var visibleSeasonImageTitleId   = modifyTagAttr('imageTitle', 'id'  , 'visibleSeasonImageTitle', index, seasonImageWrapperId);
 	
 	// hidden season image fields wrapper
 	var hiddenSeasonImageFieldsWrapperId = modifyTagAttr('hiddenSeasonImageFieldsWrapper', 'id', 'hiddenSeasonImageFieldsWrapper', index, seasonImageWrapperId);
 	
 	// hidden season image fields
- 	var seasonImageTitleName   = modifyTagAttr('seasonImageTitle'  , 'name', 'seasonImageTitle'  , index, hiddenSeasonImageFieldsWrapperId);
- 	var seasonImageUrlName     = modifyTagAttr('seasonImageUrl'    , 'name', 'seasonImageUrl'    , index, hiddenSeasonImageFieldsWrapperId);
- 	var seasonImageUuidName    = modifyTagAttr('seasonImageUuid'   , 'name', 'seasonImageUuid'   , index, hiddenSeasonImageFieldsWrapperId);
- 	var seasonImageVersionName = modifyTagAttr('seasonImageVersion', 'name', 'seasonImageVersion', index, hiddenSeasonImageFieldsWrapperId);
-	var seasonImageTitleId     = modifyTagAttr('seasonImageTitle'  , 'id'  , 'seasonImageTitle'  , index, hiddenSeasonImageFieldsWrapperId);
-	var seasonImageUrlId       = modifyTagAttr('seasonImageUrl'    , 'id'  , 'seasonImageUrl'    , index, hiddenSeasonImageFieldsWrapperId);
-	var seasonImageUuidId      = modifyTagAttr('seasonImageUuid'   , 'id'  , 'seasonImageUuid'   , index, hiddenSeasonImageFieldsWrapperId);
-	var seasonImageVersionId   = modifyTagAttr('seasonImageVersion', 'id'  , 'seasonImageVersion', index, hiddenSeasonImageFieldsWrapperId);
+ 	var seasonImageTitleName   = modifyTagAttr('imageTitle'  , 'name', 'seasonImageTitle'  , index, hiddenSeasonImageFieldsWrapperId);
+ 	var seasonImageUrlName     = modifyTagAttr('imageUrl'    , 'name', 'seasonImageUrl'    , index, hiddenSeasonImageFieldsWrapperId);
+ 	var seasonImageUuidName    = modifyTagAttr('imageUuid'   , 'name', 'seasonImageUuid'   , index, hiddenSeasonImageFieldsWrapperId);
+ 	var seasonImageVersionName = modifyTagAttr('imageVersion', 'name', 'seasonImageVersion', index, hiddenSeasonImageFieldsWrapperId);
+	var seasonImageTitleId     = modifyTagAttr('imageTitle'  , 'id'  , 'seasonImageTitle'  , index, hiddenSeasonImageFieldsWrapperId);
+	var seasonImageUrlId       = modifyTagAttr('imageUrl'    , 'id'  , 'seasonImageUrl'    , index, hiddenSeasonImageFieldsWrapperId);
+	var seasonImageUuidId      = modifyTagAttr('imageUuid'   , 'id'  , 'seasonImageUuid'   , index, hiddenSeasonImageFieldsWrapperId);
+	var seasonImageVersionId   = modifyTagAttr('imageVersion', 'id'  , 'seasonImageVersion', index, hiddenSeasonImageFieldsWrapperId);
 	
 	/**************************** season title ************************************/
 	
@@ -204,7 +196,8 @@
 	var seasonTitleWrapperId = modifyTagAttr('seasonTitleWrapper', 'id', 'seasonTitleWrapper', index);
 	
 	// season title
-	var visibleSeasonTitleId = modifyTagAttr('title', 'id', 'visibleSeasonTitle', index, seasonTitleWrapperId);
+	var visibleSeasonTitleName = modifyTagAttr('title', 'name', 'visibleSeasonTitle', index, seasonTitleWrapperId);
+	var visibleSeasonTitleId   = modifyTagAttr('title', 'id'  , 'visibleSeasonTitle', index, seasonTitleWrapperId);
 	
 	// hidden season title wrapper
 	var hiddenSeasonTitleWrapperId = modifyTagAttr('hiddenSeasonTitleWrapper', 'id', 'hiddenSeasonTitleWrapper', index, seasonTitleWrapperId);
@@ -219,7 +212,8 @@
 	var seasonNumberWrapperId = modifyTagAttr('seasonNumberWrapper', 'id', 'seasonNumberWrapper', index);
 	
 	// season number
-	var visibleSeasonNumberId = modifyTagAttr('seasonNumber', 'id', 'visibleSeasonNumber', index, seasonNumberWrapperId);
+	var visibleSeasonNumberName = modifyTagAttr('seasonNumber', 'name', 'visibleSeasonNumber', index, seasonNumberWrapperId);
+	var visibleSeasonNumberId   = modifyTagAttr('seasonNumber', 'id'  , 'visibleSeasonNumber', index, seasonNumberWrapperId);
 	
 	// hidden season number wrapper
 	var hiddenSeasonNumberWrapperId = modifyTagAttr('hiddenSeasonNumberWrapper', 'id', 'hiddenSeasonNumberWrapper', index, seasonNumberWrapperId);
@@ -257,7 +251,8 @@
 	var seasonDescriptionWrapperId = modifyTagAttr('seasonDescriptionWrapper', 'id', 'seasonDescriptionWrapper', index);
 	
 	// season description
-	var visibleSeasonDescriptionId = modifyTagAttr('description', 'id', 'visibleSeasonDescription', index, seasonDescriptionWrapperId);
+	var visibleSeasonDescriptionName = modifyTagAttr('description', 'name', 'visibleSeasonDescription', index, seasonDescriptionWrapperId);
+	var visibleSeasonDescriptionId   = modifyTagAttr('description', 'id'  , 'visibleSeasonDescription', index, seasonDescriptionWrapperId);
 	
 	// hidden season description wrapper
 	var hiddenSeasonDescriptionWrapperId = modifyTagAttr('hiddenSeasonDescriptionWrapper', 'id', 'hiddenSeasonDescriptionWrapper', index, seasonDescriptionWrapperId);
@@ -282,7 +277,57 @@
 	
 	// attach cc to the counter <span>-s
 	createCharCounterr(seasonDescriptionCounterId, visibleSeasonDescriptionId, 500);
-
+	
+	/* --------------------------- form validation ------------------------------- */
+	
+	Liferay.Form.register({
+        id: '<portlet:namespace/>editForm',
+        fieldRules: [
+			{
+			    body: '',
+			    custom: false,
+			    errorMessage: 'Please, select the season cover!',
+			    fieldName: visibleSeasonImageTitleName,
+			    validatorName:'required'
+			},
+			{
+			    body: '',
+			    custom: false,
+			    errorMessage: 'Please, enter the season name!',
+			    fieldName: visibleSeasonTitleName,
+			    validatorName:'required'
+			},
+			{
+			    body: '',
+			    custom: false,
+			    errorMessage: 'Please, enter the season number!',
+			    fieldName: visibleSeasonNumberName,
+			    validatorName:'required'
+			},
+	        {
+		        body: '',
+		        custom: false,
+		        errorMessage: 'Please, enter a valid number!',
+		        fieldName: visibleSeasonNumberName,
+		        validatorName:'number'
+	        },
+	        {
+		        body: '1',
+		        custom: false,
+		        errorMessage: 'Please enter a positive integer number!',
+		        fieldName: visibleSeasonNumberName,
+		        validatorName:'min'
+	        },
+	        {
+			    body: '',
+			    custom: false,
+			    errorMessage: 'Please, enter the season description!',
+			    fieldName: visibleSeasonDescriptionName,
+			    validatorName:'required'
+			},
+		]     
+	});
+	
 	/*-************************** modify input tags *****************************-*/
 	
 	idx.inc(); // increment current id

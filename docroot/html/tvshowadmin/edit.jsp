@@ -113,9 +113,9 @@
 					<img id="<portlet:namespace/>img" src="<%= tvShowCover %>" />
 				</aui:col>
 				<aui:col span="5">
-					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image"> 
-						<aui:validator name="required" errorMessage="Please select the tv show's cover." />
-					</aui:input> 
+					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image" >
+						<aui:validator name="required" errorMessage="Please, select the tvshow cover!"/>
+					</aui:input>
 					<br/>
 					<aui:button name="selectButton" value="Select" icon="icon-folder-open"/>
 				</aui:col>
@@ -137,19 +137,16 @@
 				<aui:fieldset>
 					<div id="counterContainer">
 						<aui:input name="title" type="text" title="Title" label="Title">
-							<aui:validator name="required" errorMessage="Please enter the tv show's name."/>
+							<aui:validator name="required" errorMessage="Please, enter the tvshow name!"/>
 							<p><span id="titleCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
 					
-					<aui:input name="premierDate" title="Premier Date" label="Premier Date" >
-						<aui:validator name="required" errorMessage="Please enter the tv show's premier date." />
-						<aui:validator name="date" errorMessage="Please enter the tv show's premier date in correct form (dd/mm/yy)." />
-					</aui:input>
+					<aui:input name="premierDate" title="Premier Date" label="Premier Date" />
 					
 					<div id="counterContainer">
-						<aui:input name="description" type="textarea" title="Description" label="Description"  cssClass="tvShowAdminDescriptionTextArea" >
-							<aui:validator name="required" errorMessage="Please enter the tvshow's description." />
+						<aui:input name="description" type="textarea" title="Description" label="Description" cssClass="tvShowAdminDescriptionTextArea" >
+							<aui:validator name="required" errorMessage="Please, enter the tvshow description!" />
 							<p><span id="descriptionCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
@@ -235,7 +232,7 @@
 		<portlet:param name="mvcPath" value="/html/tvshowadmin/add_season.jsp" /> 
 	</portlet:renderURL>
 	
-	<aui:script use="aui-char-counter,liferay-auto-fields,aui-base,liferay-util-window,aui-io-plugin-deprecated,aui-dialog-iframe-deprecated">
+	<aui:script use="aui-base,liferay-auto-fields,aui-char-counter,aui-form-validator,liferay-util-window,aui-io-plugin-deprecated,aui-dialog-iframe-deprecated">
 
 		var witchPopUp = null; // false = tv show ; true = season ;
 	
@@ -413,15 +410,15 @@
 				
 				// if not hided - (hide -> if minus button clicked, the row still in the DOM, but that row already is irrelevant)
 				if( !autofieldsRow.hasClass('hide') ){
-
+					
 					fillSeasonTitleHiddenFields(autofieldsRow, i);
 					fillSeasonNumberHiddenFields(autofieldsRow, i);
 					fillSeasonPremierDateHiddenFields(autofieldsRow, i);
 					fillSeasonDescriptionHiddenFields(autofieldsRow, i);
-
+					
 				}
 			}
-			forceValidation();
+
 	 	}
 	 	
 	 	function fillSeasonPremierDateHiddenFields(currentRow, index) {
@@ -447,8 +444,6 @@
 				seasonPremierDateDay.val(premierDateDay.val());
 				seasonPremierDateMonth.val(premierDateMonth.val());
 				seasonPremierDateYear.val(premierDateYear.val());
-				
-				//alert(seasonPremierDateDay.val() + ' ' + seasonPremierDateMonth.val() + ' ' + seasonPremierDateYear.val());
 			}
 	 	}
 	 	
@@ -511,12 +506,6 @@
 				seasonDescription.val(visibleSeasonDescription.val());
 			}
 	 	}
-		
-		function forceValidation(){
-			A.all('.field').each(function(currentNode, currentNodeIndex, nodeList) {
-	 			currentNode.focus();
-	 		});
-		}
-	 	
+
 	</aui:script>
 </aui:container>

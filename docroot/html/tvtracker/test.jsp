@@ -60,7 +60,7 @@ Delete Episodes:
 	<portlet:param name="mvcPath" value="/html/tvtracker/t.jsp" /> 
 </portlet:renderURL>
 
-<aui:script use="liferay-auto-fields">
+<aui:script use="liferay-auto-fields,aui-form-validator">
  
 	new Liferay.AutoFields(
 		{
@@ -71,5 +71,22 @@ Delete Episodes:
 			url: '<%= autoURL.toString() %>'
 		}
 	).render();
+	
+	new A.FormValidator(
+		{
+			boundingBox: '#<portlet:namespace />fm',
+			rules: {
+				<portlet:namespace />firstName : {
+					required : true
+				},
+				<portlet:namespace />lastName : {
+					required : true
+				}
+			}
+		});
+	
+	A.all('input').each(function(currentNode, index, nodeList) {
+		currentNode.focus();
+	});
 
 </aui:script>
