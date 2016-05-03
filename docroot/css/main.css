@@ -89,3 +89,45 @@
 	padding: 10px; 
 	text-align: justify;
 }
+
+/********************************************************************/
+/************** Admin ***********************************************/
+/********************************************************************/
+
+/* tv sow admin */
+
+.tvShowAdmin, .episodeAdmin {
+	margin-right: 20px; 
+	margin-left: 20px;
+}
+
+.tvShowAdminCoverSelectionRow, .episodeAdminCoverSelectionRow {
+	margin: 30px 20px 30px 20px;
+}
+
+.tvShowAdminRow, .episodeAdminRow {
+	margin-left: 20px;
+}
+
+.tvShowAdminAssetCategories {
+	margin-bottom: 30px;
+}
+
+textarea.tvShowAdminDescriptionTextArea, textarea.episodeAdminDescriptionTextArea {
+	width: 600px; 
+	height: 200px;
+}
+
+.tvShowAdminAddSeasonRow {
+	padding-top: 20px;
+}
+
+.tvShowAdminAddSeasonCoverImage {
+	margin-bottom: 20px;
+}
+
+textarea.tvShowAdminAddSeasonDescriptionTextArea {
+	width: 400px; 
+	height: 200px;
+}
+

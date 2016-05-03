@@ -70,7 +70,7 @@
 		
 		<%-- Episode cover selection --%>
 		
-		<aui:row style="margin: 30px 20px 0px 20px;"> 
+		<aui:row cssClass="episodeAdminCoverSelectionRow"> 
 			<aui:field-wrapper label="Cover">
 				<aui:col span="4" >
 					<%
@@ -92,8 +92,8 @@
 	
 		<%-- episode title, airdate, description filling and season choosing--%>
 		
-		<aui:row>
-			<aui:col span="12" style="margin-bottom: 30px; margin-top: 30px; margin-left: 20px;">
+		<aui:row cssClass="episodeAdminRow">
+			<aui:col span="12">
 				
 				<aui:fieldset> 
 					<div id="counterContainer">
@@ -155,7 +155,7 @@
 					</aui:select>
 					
 					<div id="counterContainer">
-						<aui:input name="description" type="textarea" title="Description" label="Description"  style="width: 600px; height: 200px;">
+						<aui:input name="description" type="textarea" title="Description" label="Description" cssClass="episodeAdminDescriptionTextArea">
 							<aui:validator name="required" errorMessage="Please enter the tvshow's description." />
 							<p><span id="descriptionCounter"></span> character(s) remaining</p>
 						</aui:input>
@@ -168,7 +168,7 @@
 		<%-- submit/cancel buttons --%>
 		
 		<aui:row>
-			<aui:col span="12" style="margin-left: 20px;">
+			<aui:col span="12" cssClass="episodeAdminRow">
 				<aui:button-row >
 					<aui:button name="Save" type="submit" />
 					<aui:button name="Cancel" type="cancel" href="<%= viewURL %>" />

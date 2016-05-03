@@ -102,7 +102,7 @@
 		
 		<%-- tv show cover selection --%>
 	
-		<aui:row style="margin: 30px 20px 30px 20px;"> 
+		<aui:row cssClass="tvShowAdminCoverSelectionRow"> 
 			<aui:field-wrapper label="Cover">
 				<aui:col span="4" >
 					<%
@@ -125,9 +125,9 @@
 		
 		<%-- tv show categories, title, premier and description fill --%>
 		
-		<aui:row style="margin-left: 20px;">
-			<aui:col span="12">
-				<div style="margin-bottom: 30px;">
+		<aui:row cssClass="tvShowAdminRow">
+			<aui:col span="11">
+				<div class="tvShowAdminAssetCategories">
 					<liferay-ui:asset-categories-error />
 					<liferay-ui:panel defaultState="open" extended="false" id="tvShowCategorizationPanel" persistState="true" title="Categorization">
 						<aui:input name="categories" type="assetCategories" />
@@ -148,7 +148,7 @@
 					</aui:input>
 					
 					<div id="counterContainer">
-						<aui:input name="description" type="textarea" title="Description" label="Description"  style="width: 600px; height: 200px;">
+						<aui:input name="description" type="textarea" title="Description" label="Description"  cssClass="tvShowAdminDescriptionTextArea" >
 							<aui:validator name="required" errorMessage="Please enter the tvshow's description." />
 							<p><span id="descriptionCounter"></span> character(s) remaining</p>
 						</aui:input>
@@ -160,7 +160,7 @@
 		
 		<%-- tv show seasons, autofields --%>
 		
-		<aui:row style="margin-left: 20px;">
+		<aui:row cssClass="tvShowAdminRow">
 			<aui:field-wrapper label="Add Seasons to the Tv Show:">
 				<div id="season-fields">
 					<c:choose>
@@ -209,7 +209,7 @@
 		
 		<%-- submit/cancel buttons --%>
 		
-		<aui:row style="margin-left: 20px;">
+		<aui:row cssClass="tvShowAdminRow">
 			<aui:col span="12">
 				<aui:button-row >
 					<aui:button name="Save" type="submit"/>

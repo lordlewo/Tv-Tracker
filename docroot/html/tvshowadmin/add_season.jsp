@@ -26,7 +26,7 @@
 	}
 %>
 
-<aui:row style="padding-top: 20px;">
+<aui:row cssClass="tvShowAdminAddSeasonRow">
 
 	<aui:model-context model="<%= Season.class %>" bean="<%= season %>" />
 	
@@ -39,7 +39,7 @@
 
 				String seasonCover = (action.equalsIgnoreCase("update") && season != null) ? season.getImageUrl() : blankImageUrl;
 			%>
-			<img id="<portlet:namespace/>img" src="<%= seasonCover %>" />
+			<img id="<portlet:namespace/>img" src="<%= seasonCover %>" class="tvShowAdminAddSeasonCoverImage"/>
 		</aui:row>
 		
 		<aui:row>
@@ -111,7 +111,7 @@
 	<aui:col span="4">
 		<aui:row>
 			<div id="<portlet:namespace/>seasonDescriptionWrapper">
-				<aui:input name="description" title="Season Description" label="Season Description" type="textarea" style="width: 400px; height: 200px;" required="true">
+				<aui:input name="description" title="Season Description" label="Season Description" type="textarea" required="true" cssClass="tvShowAdminAddSeasonDescriptionTextArea" >
 					<aui:validator name="required" errorMessage="Please enter the season's description." />
 					<p><span id="<portlet:namespace/>descriptionCounter"></span> character(s) remaining</p>
 				</aui:input>

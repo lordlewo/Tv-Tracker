@@ -105,7 +105,7 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			
 			for(int rowIndex : rowIndexes){
 				
-				calendar = getCal(serviceContext);
+				calendar.clear();
 				
 				int seasonPremierDateDay = ParamUtil.getInteger(actionRequest, "seasonPremierDateDay" + rowIndex);
 				int seasonPremierDateMonth = ParamUtil.getInteger(actionRequest, "seasonPremierDateMonth" + rowIndex);
@@ -182,7 +182,7 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			
 			for(int rowIndex : rowIndexes) {
 				
-				calendar = getCal(serviceContext);
+				calendar.clear();
 				
 				int seasonPremierDateDay = ParamUtil.getInteger(actionRequest, "seasonPremierDateDay" + rowIndex);
 				int seasonPremierDateMonth = ParamUtil.getInteger(actionRequest, "seasonPremierDateMonth" + rowIndex);

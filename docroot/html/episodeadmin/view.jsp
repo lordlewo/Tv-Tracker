@@ -22,7 +22,7 @@
 	String keywords = ParamUtil.getString(renderRequest, "keywords");
 %>
 
-<aui:container style="margin-right: 20px; margin-left: 20px;">
+<aui:container cssClass="episodeAdmin">
 		
 	<aui:row>
 		<aui:col span="12">
