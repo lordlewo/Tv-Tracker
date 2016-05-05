@@ -50,6 +50,16 @@
 		function inc(){
 			_counter++;
 		}
+		
+		function getAndIncr(){
+			
+			return _counter++;
+		}
+		
+		function incrAndGet(){
+			
+			return ++_counter
+		}
 	
 		function counterUtil(){
 			
@@ -113,9 +123,7 @@
 					<img id="<portlet:namespace/>img" src="<%= tvShowCover %>" />
 				</aui:col>
 				<aui:col span="5">
-					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image" >
-						<aui:validator name="required" errorMessage="Please, select the tvshow cover!"/>
-					</aui:input>
+					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image" required="true" />
 					<br/>
 					<aui:button name="selectButton" value="Select" icon="icon-folder-open"/>
 				</aui:col>
@@ -136,17 +144,15 @@
 
 				<aui:fieldset>
 					<div id="counterContainer">
-						<aui:input name="title" type="text" title="Title" label="Title">
-							<aui:validator name="required" errorMessage="Please, enter the tvshow name!"/>
+						<aui:input name="title" type="text" title="Title" label="Title" required="true" >
 							<p><span id="titleCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
 					
-					<aui:input name="premierDate" title="Premier Date" label="Premier Date" />
+					<aui:input name="premierDate" title="Premier Date" label="Premier Date" required="true" />
 					
 					<div id="counterContainer">
-						<aui:input name="description" type="textarea" title="Description" label="Description" cssClass="tvShowAdminDescriptionTextArea" >
-							<aui:validator name="required" errorMessage="Please, enter the tvshow description!" />
+						<aui:input name="description" type="textarea" title="Description" label="Description" required="true" cssClass="tvShowAdminDescriptionTextArea" >
 							<p><span id="descriptionCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
@@ -294,6 +300,11 @@
 		
 		autoFields.render();
 		
+		autoFields.on('clone', function(guid, originalRow, row){
+			
+			//alert('hej');
+		});
+		
 		/************************** season Cover select ******************************/
 		
 		// some variable reference from the newly added autofields content for the callback method _166_selectDocumentLibrary
@@ -418,33 +429,6 @@
 					
 				}
 			}
-
-	 	}
-	 	
-	 	function fillSeasonPremierDateHiddenFields(currentRow, index) {
-	 		
-	 		// get the date's wrapper from the row
-			var wrapperId = '#<portlet:namespace/>seasonPremierDateWrapper' + index;
-			var wrapper   = currentRow.one(wrapperId);
-			
-			// if founded
-			if(wrapper != null) {
-				
-				// get values from the wrapper
-				var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
-				var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
-				var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
-				
-				// locate the hidden fields
-				var seasonPremierDateDay = wrapper.one('#<portlet:namespace />seasonPremierDateDay' + index);
-				var seasonPremierDateMonth = wrapper.one('#<portlet:namespace />seasonPremierDateMonth' + index);
-				var seasonPremierDateYear = wrapper.one('#<portlet:namespace />seasonPremierDateYear' + index);
-				
-				// set values to the hidden fields
-				seasonPremierDateDay.val(premierDateDay.val());
-				seasonPremierDateMonth.val(premierDateMonth.val());
-				seasonPremierDateYear.val(premierDateYear.val());
-			}
 	 	}
 	 	
 		function fillSeasonTitleHiddenFields(currentRow, index) {
@@ -453,18 +437,15 @@
 			var wrapperId = '#<portlet:namespace />seasonTitleWrapper' + index;
 			var wrapper   = currentRow.one(wrapperId);
 			
-			// if founded
-			if(wrapper != null) {
 				
-				// get value from the wrapper
-				var visibleSeasonTitle = wrapper.one('#<portlet:namespace />visibleSeasonTitle' + index);
-				
-				// locate the hidden field
-				var seasonTitle = wrapper.one('#<portlet:namespace />seasonTitle' + index);
+			// get value from the wrapper
+			var visibleSeasonTitle = wrapper.one('#<portlet:namespace />visibleSeasonTitle' + index);
+			
+			// locate the hidden field
+			var seasonTitle = wrapper.one('#<portlet:namespace />seasonTitle' + index);
 
-				// set values to the hidden field
-				seasonTitle.val(visibleSeasonTitle.val());
-			}
+			// set values to the hidden field
+			seasonTitle.val(visibleSeasonTitle.val());
 	 	}
 		
 		function fillSeasonNumberHiddenFields(currentRow, index) {
@@ -472,6 +453,7 @@
 	 		// get the number's wrapper from the row
 			var wrapperId = '#<portlet:namespace/>seasonNumberWrapper' + index;
 			var wrapper   = currentRow.one(wrapperId);
+			
 			
 			// if founded
 			if(wrapper != null) {
@@ -486,26 +468,129 @@
 				seasonNumber.val(visibleSeasonNumber.val());
 			}
 	 	}
+
+	 	function fillSeasonPremierDateHiddenFields(currentRow, index) {
+	 		
+	 		// get the date's wrapper from the row
+			var wrapperId = '#<portlet:namespace/>seasonPremierDateWrapper' + index;
+			var wrapper   = currentRow.one(wrapperId);
+
+				
+			// get values from the wrapper
+			var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
+			var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
+			var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
+			
+			// locate the hidden fields
+			var seasonPremierDateDay = wrapper.one('#<portlet:namespace />seasonPremierDateDay' + index);
+			var seasonPremierDateMonth = wrapper.one('#<portlet:namespace />seasonPremierDateMonth' + index);
+			var seasonPremierDateYear = wrapper.one('#<portlet:namespace />seasonPremierDateYear' + index);
+			
+			// set values to the hidden fields
+			seasonPremierDateDay.val(premierDateDay.val());
+			seasonPremierDateMonth.val(premierDateMonth.val());
+			seasonPremierDateYear.val(premierDateYear.val());
+			
+	 	}
 		
 		function fillSeasonDescriptionHiddenFields(currentRow, index) {
 	 		
 	 		// get the number's wrapper from the row
 			var wrapperId = '#<portlet:namespace/>seasonDescriptionWrapper' + index;
 			var wrapper   = currentRow.one(wrapperId);
-			
-			// if founded
-			if(wrapper != null) {
-				
-				// get value from the wrapper
-				var visibleSeasonDescription = wrapper.one('#<portlet:namespace />visibleSeasonDescription' + index);
-				
-				// locate the hidden field
-				var seasonDescription = wrapper.one('#<portlet:namespace />seasonDescription' + index);
 
-				// set values to the hidden field
-				seasonDescription.val(visibleSeasonDescription.val());
-			}
+				
+			// get value from the wrapper
+			var visibleSeasonDescription = wrapper.one('#<portlet:namespace />visibleSeasonDescription' + index);
+			
+			// locate the hidden field
+			var seasonDescription = wrapper.one('#<portlet:namespace />seasonDescription' + index);
+
+			// set values to the hidden field
+			seasonDescription.val(visibleSeasonDescription.val());
 	 	}
 
+		/* --------------------------- form validation ------------------------------- */
+		
+		Liferay.Form.register({
+	        id: '<portlet:namespace/>editForm',
+	        fieldRules: [
+				//tvshow
+	            {
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, select the tv show cover!',
+				    fieldName: '<portlet:namespace/>imageTitle',
+				    validatorName:'required'
+				},
+				{
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the tv show name!',
+				    fieldName: '<portlet:namespace/>title',
+				    validatorName:'required'
+				},
+		        {
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the tv show description!',
+				    fieldName: '<portlet:namespace/>description',
+				    validatorName:'required'
+		        },
+				//seasons
+				{
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, select the season cover!',
+				    fieldName: '<portlet:namespace/>visibleSeasonImageTitle',
+				    validatorName:'required'
+				},
+				{
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the season name!',
+				    fieldName: '<portlet:namespace/>visibleSeasonTitle',
+				    validatorName:'required'
+				},
+				{
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the season number!',
+				    fieldName: '<portlet:namespace/>visibleSeasonNumber',
+				    validatorName:'required'
+				},
+		        {
+			        body: '',
+			        custom: false,
+			        errorMessage: 'Please, enter a valid number!',
+			        fieldName: '<portlet:namespace/>visibleSeasonNumber',
+			        validatorName:'number'
+		        },
+		        {
+			        body: '1',
+			        custom: false,
+			        errorMessage: 'Please enter a positive integer number!',
+			        fieldName: '<portlet:namespace/>visibleSeasonNumber',
+			        validatorName:'min'
+		        },
+		        {
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the season description!',
+				    fieldName: '<portlet:namespace/>visibleSeasonDescription',
+				    validatorName:'required'
+				},
+				//both
+		        {
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the premier date!',
+				    fieldName: '<portlet:namespace/>premierDate',
+				    validatorName:'required'
+				},
+			]     
+		});
+		
+		
 	</aui:script>
 </aui:container>

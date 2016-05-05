@@ -44,7 +44,7 @@
 		
 		<aui:row>
 			<div id="<portlet:namespace/>seasonImageWrapper">
-				<aui:input name="imageTitle" type="text" readOnly="true" label="Image" title="Image" />
+				<aui:input name="imageTitle" type="text" readOnly="true" label="Image" title="Image" required="true"/>
 				
 				<aui:button cssClass="seasonCover" name="selectSeasonImageButton" value="Select" icon="icon-folder-open"/>
 				
@@ -62,7 +62,7 @@
 	<aui:col span="3">
 		<aui:row>
 			<div id="<portlet:namespace/>seasonTitleWrapper">
-				<aui:input name="title" type="text" title="Season Title" label="Season Title" >
+				<aui:input name="title" type="text" title="Season Title" label="Season Title" required="true">
 					<p><span id="<portlet:namespace/>titleCounter"></span> character(s) remaining</p>
 				</aui:input>
 				
@@ -75,9 +75,7 @@
 		
 		<aui:row>
 			<div id="<portlet:namespace/>seasonNumberWrapper">
-				<aui:input name="seasonNumber" title="Season Number" label="Season Number" model="<%= Season.class %>" >
-					<aui:validator name="required" />
-				</aui:input>
+				<aui:input name="seasonNumber" title="Season Number" label="Season Number" model="<%= Season.class %>" required="true"/>
 				
 				<%-- hidden input --%>
 				<div id="<portlet:namespace/>hiddenSeasonNumberWrapper">
@@ -88,7 +86,7 @@
 	
 		<aui:row>
 			<div id="<portlet:namespace/>seasonPremierDateWrapper">
-				<aui:input name="premierDate" title="Season Premier Date" label="Season Premier Date" model="<%= Season.class %>" />
+				<aui:input name="premierDate" title="Season Premier Date" label="Season Premier Date" model="<%= Season.class %>" required="true"/>
 				
 				<%-- hidden inputs --%>
 				<div id="<portlet:namespace/>hiddenSeasonPremierDateFieldsWrapper">
@@ -103,7 +101,7 @@
 	<aui:col span="4">
 		<aui:row>
 			<div id="<portlet:namespace/>seasonDescriptionWrapper">
-				<aui:input name="description" title="Season Description" label="Season Description" type="textarea" cssClass="tvShowAdminAddSeasonDescriptionTextArea" >
+				<aui:input name="description" title="Season Description" label="Season Description" type="textarea" required="true" cssClass="tvShowAdminAddSeasonDescriptionTextArea" >
 					<p><span id="<portlet:namespace/>descriptionCounter"></span> character(s) remaining</p>
 				</aui:input>
 				
@@ -143,7 +141,7 @@
 		// init some var
 		
 		var namespace = '<portlet:namespace />';
-		var _index = (index == undefined) ? "" : index; 
+		var _index = (index == undefined) ? '' : index; 
 		
 		var _tagSelectorById = '#' + namespace + tagId;
 		var _newAttrValue = namespace + newAttrValue + _index;
@@ -174,7 +172,7 @@
 	var seasonImageWrapperId = modifyTagAttr('seasonImageWrapper', 'id', 'seasonImageWrapper', index);
 	
 	// season image title
-	var visibleSeasonImageTitleName = modifyTagAttr('imageTitle', 'name', 'visibleSeasonImageTitle', index, seasonImageWrapperId);
+	var visibleSeasonImageTitleName = modifyTagAttr('imageTitle', 'name', 'visibleSeasonImageTitle', '', seasonImageWrapperId);
 	var visibleSeasonImageTitleId   = modifyTagAttr('imageTitle', 'id'  , 'visibleSeasonImageTitle', index, seasonImageWrapperId);
 	
 	// hidden season image fields wrapper
@@ -196,7 +194,7 @@
 	var seasonTitleWrapperId = modifyTagAttr('seasonTitleWrapper', 'id', 'seasonTitleWrapper', index);
 	
 	// season title
-	var visibleSeasonTitleName = modifyTagAttr('title', 'name', 'visibleSeasonTitle', index, seasonTitleWrapperId);
+	var visibleSeasonTitleName = modifyTagAttr('title', 'name', 'visibleSeasonTitle', '', seasonTitleWrapperId);
 	var visibleSeasonTitleId   = modifyTagAttr('title', 'id'  , 'visibleSeasonTitle', index, seasonTitleWrapperId);
 	
 	// hidden season title wrapper
@@ -212,7 +210,7 @@
 	var seasonNumberWrapperId = modifyTagAttr('seasonNumberWrapper', 'id', 'seasonNumberWrapper', index);
 	
 	// season number
-	var visibleSeasonNumberName = modifyTagAttr('seasonNumber', 'name', 'visibleSeasonNumber', index, seasonNumberWrapperId);
+	var visibleSeasonNumberName = modifyTagAttr('seasonNumber', 'name', 'visibleSeasonNumber', '', seasonNumberWrapperId);
 	var visibleSeasonNumberId   = modifyTagAttr('seasonNumber', 'id'  , 'visibleSeasonNumber', index, seasonNumberWrapperId);
 	
 	// hidden season number wrapper
@@ -251,7 +249,7 @@
 	var seasonDescriptionWrapperId = modifyTagAttr('seasonDescriptionWrapper', 'id', 'seasonDescriptionWrapper', index);
 	
 	// season description
-	var visibleSeasonDescriptionName = modifyTagAttr('description', 'name', 'visibleSeasonDescription', index, seasonDescriptionWrapperId);
+	var visibleSeasonDescriptionName = modifyTagAttr('description', 'name', 'visibleSeasonDescription', '', seasonDescriptionWrapperId);
 	var visibleSeasonDescriptionId   = modifyTagAttr('description', 'id'  , 'visibleSeasonDescription', index, seasonDescriptionWrapperId);
 	
 	// hidden season description wrapper
@@ -277,56 +275,6 @@
 	
 	// attach cc to the counter <span>-s
 	createCharCounterr(seasonDescriptionCounterId, visibleSeasonDescriptionId, 500);
-	
-	/* --------------------------- form validation ------------------------------- */
-	
-	Liferay.Form.register({
-        id: '<portlet:namespace/>editForm',
-        fieldRules: [
-			{
-			    body: '',
-			    custom: false,
-			    errorMessage: 'Please, select the season cover!',
-			    fieldName: visibleSeasonImageTitleName,
-			    validatorName:'required'
-			},
-			{
-			    body: '',
-			    custom: false,
-			    errorMessage: 'Please, enter the season name!',
-			    fieldName: visibleSeasonTitleName,
-			    validatorName:'required'
-			},
-			{
-			    body: '',
-			    custom: false,
-			    errorMessage: 'Please, enter the season number!',
-			    fieldName: visibleSeasonNumberName,
-			    validatorName:'required'
-			},
-	        {
-		        body: '',
-		        custom: false,
-		        errorMessage: 'Please, enter a valid number!',
-		        fieldName: visibleSeasonNumberName,
-		        validatorName:'number'
-	        },
-	        {
-		        body: '1',
-		        custom: false,
-		        errorMessage: 'Please enter a positive integer number!',
-		        fieldName: visibleSeasonNumberName,
-		        validatorName:'min'
-	        },
-	        {
-			    body: '',
-			    custom: false,
-			    errorMessage: 'Please, enter the season description!',
-			    fieldName: visibleSeasonDescriptionName,
-			    validatorName:'required'
-			},
-		]     
-	});
 	
 	/*-************************** modify input tags *****************************-*/
 	
