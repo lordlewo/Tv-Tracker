@@ -1,5 +1,21 @@
 <%@ include file="/html/init.jsp"  %>
 
+<liferay-ui:success key="add-tvshow-successful" 			 message="TvShow creating was successful!"/>
+<liferay-ui:success key="add-tvshow-with-season-successful"  message="TvShow creating with season was successful!"/>
+<liferay-ui:success key="add-tvshow-with-seasons-successful" message="TvShow creating with seasons was successful!"/>
+
+<liferay-ui:success key="update-tvshow-successful" 			 	message="TvShow editing was successful!"/>
+<liferay-ui:success key="update-tvshow-with-season-successful"  message="TvShow editing with season was successful!"/>
+<liferay-ui:success key="update-tvshow-with-seasons-successful" message="TvShow editing with seasons was successful!"/>
+
+<liferay-ui:success key="delete-tvshow-successful" 			    message="TvShow removing was successful!"/>
+<liferay-ui:success key="delete-tvshow-with-season-successful"  message="TvShow removing with season was successful!"/>
+<liferay-ui:success key="delete-tvshow-with-seasons-successful" message="TvShow removing with seasons was successful!"/>
+
+<liferay-ui:error key="delete-tvshow-unsuccessful" 			    message="TvShow removing was unsuccessful!"/>
+<liferay-ui:error key="delete-tvshow-with-season-unsuccessful"  message="TvShow removing with season was unsuccessful!"/>
+<liferay-ui:error key="delete-tvshow-with-seasons-unsuccessful" message="TvShow removing with seasons was unsuccessful!"/>
+
 <%
 
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);

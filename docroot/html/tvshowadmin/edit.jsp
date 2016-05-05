@@ -1,5 +1,14 @@
 <%@ include file="/html/init.jsp" %>
 
+<liferay-ui:error key="add-tvshow-unsuccessful" 			 message="TvShow creating was unsuccessful!"/>
+<liferay-ui:error key="add-tvshow-with-season-unsuccessful"  message="TvShow creating with season was unsuccessful!"/>
+<liferay-ui:error key="add-tvshow-with-seasons-unsuccessful" message="TvShow creating with seasons was unsuccessful!"/>
+
+<liferay-ui:error key="update-tvshow-unsuccessful" 			 	message="TvShow editing was unsuccessful!"/>
+<liferay-ui:error key="update-tvshow-with-season-unsuccessful"  message="TvShow editing with season was unsuccessful!"/>
+<liferay-ui:error key="update-tvshow-with-seasons-unsuccessful" message="TvShow editing with seasons was unsuccessful!"/>
+
+
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	
@@ -510,7 +519,7 @@
 			seasonDescription.val(visibleSeasonDescription.val());
 	 	}
 
-		/* --------------------------- form validation ------------------------------- */
+		/************************** Form Validation *********************************/
 		
 		Liferay.Form.register({
 	        id: '<portlet:namespace/>editForm',
@@ -587,10 +596,9 @@
 				    errorMessage: 'Please, enter the premier date!',
 				    fieldName: '<portlet:namespace/>premierDate',
 				    validatorName:'required'
-				},
+				}
 			]     
 		});
-		
 		
 	</aui:script>
 </aui:container>

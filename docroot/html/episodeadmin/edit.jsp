@@ -41,7 +41,7 @@
 <portlet:actionURL name="<%= actionUrlName %>" var="add_edit_actionURL" />
 
 <aui:container>
-	<aui:form name="editform" action="<%= add_edit_actionURL %>" method="post">
+	<aui:form name="editForm" action="<%= add_edit_actionURL %>" method="post">
 	
 		<%-- form bean --%>
 		
@@ -81,9 +81,7 @@
 				</aui:col>
 				
 				<aui:col span="5">
-					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image"> 
-						<aui:validator name="required" errorMessage="Please select episode's cover." />
-					</aui:input> 
+					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image" required="true"/> 
 					<br/>
 					<aui:button name="selectButton" value="Select" icon="icon-folder-open"/>
 				</aui:col>
@@ -97,24 +95,14 @@
 				
 				<aui:fieldset> 
 					<div id="counterContainer">
-						<aui:input name="title" type="text" title="Title" label="Title">
-							<aui:validator name="required" errorMessage="Please enter the episode's name."/>
+						<aui:input name="title" type="text" title="Title" label="Title" required="true">
 							<p><span id="titleCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
 					
-					<aui:input name="episodeNumber" title="Episode Number" label="Episode Number" >
-						<aui:validator name="required" errorMessage="Please enter the episde's number." />
-						<aui:validator name="number" errorMessage="Please enter valid episode number."/>
-						<aui:validator name="min" errorMessage="Please enter a positive number." >
-							'1'
-						</aui:validator>
-					</aui:input>
+					<aui:input name="episodeNumber" title="Episode Number" label="Episode Number" required="true"/>
 					
-					<aui:input name="airDate" title="Air Date" label="Air DateTime">
-						<aui:validator name="required" errorMessage="Please enter the episode's air date." />
-						<aui:validator name="date" errorMessage="Please enter the episode's air date in correct format (dd/mm/yy)." />
-					</aui:input>
+					<aui:input name="airDate" title="Air Date" label="Air DateTime" required="true"/>
 					
 					<aui:select label="Choose Season" id="seasonChoose" name="seasonId" showEmptyOption="true" required="true" >
 					    <%
@@ -155,8 +143,7 @@
 					</aui:select>
 					
 					<div id="counterContainer">
-						<aui:input name="description" type="textarea" title="Description" label="Description" cssClass="episodeAdminDescriptionTextArea">
-							<aui:validator name="required" errorMessage="Please enter the tvshow's description." />
+						<aui:input name="description" type="textarea" title="Description" label="Description" required="true" cssClass="episodeAdminDescriptionTextArea">
 							<p><span id="descriptionCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
@@ -259,6 +246,77 @@
 		
 		createCharCounter('#titleCounter', '#<portlet:namespace />title', 75);
 		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', 500);
+		
+		/************************** Form Validation *********************************/
+		
+		Liferay.Form.register({
+	        id: '<portlet:namespace/>editForm',
+	        fieldRules: [
+	            {
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, select the episode cover!',
+				    fieldName: '<portlet:namespace/>imageTitle',
+				    validatorName:'required'
+				},
+				{
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the episode name!',
+				    fieldName: '<portlet:namespace/>title',
+				    validatorName:'required'
+				},
+				{
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the episode number!',
+				    fieldName: '<portlet:namespace/>episodeNumber',
+				    validatorName:'required'
+				},
+		        {
+			        body: '',
+			        custom: false,
+			        errorMessage: 'Please, enter a valid number!',
+			        fieldName: '<portlet:namespace/>episodeNumber',
+			        validatorName:'number'
+		        },
+		        {
+			        body: '1',
+			        custom: false,
+			        errorMessage: 'Please enter a positive integer number!',
+			        fieldName: '<portlet:namespace/>episodeNumber',
+			        validatorName:'min'
+		        },
+		        {
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the air date!',
+				    fieldName: '<portlet:namespace/>airDate',
+				    validatorName:'required'
+				},
+				{
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the air date time!',
+				    fieldName: '<portlet:namespace/>airDateTime',
+				    validatorName:'required'
+				},
+				{
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, select the season!',
+				    fieldName: '<portlet:namespace/>seasonId',
+				    validatorName:'required'
+				},
+		        {
+				    body: '',
+				    custom: false,
+				    errorMessage: 'Please, enter the episode description!',
+				    fieldName: '<portlet:namespace/>description',
+				    validatorName:'required'
+		        }
+			]     
+		});
 	
 	</aui:script>
 	
