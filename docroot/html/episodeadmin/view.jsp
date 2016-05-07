@@ -1,5 +1,13 @@
 <%@ include file="/html/init.jsp"  %>
 
+<liferay-ui:success key="add-episode-successful" message="Episode creating was successful!"/>
+
+<liferay-ui:success key="update-episode-successful" message="Episode editing was successful!"/>
+
+<liferay-ui:success key="delete-episode-successful" message="Episode removing was successful!"/>
+
+<liferay-ui:error key="delete-episode-unsuccessful" message="Episode removing was unsuccessful!"/>
+
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	long groupId = serviceContext.getScopeGroupId();

@@ -1,8 +1,12 @@
 <%@ include file="/html/init.jsp" %>
 
-<liferay-ui:error key="add-tvshow-unsuccessful" 			 message="TvShow creating was unsuccessful!"/>
-<liferay-ui:error key="add-tvshow-with-season-unsuccessful"  message="TvShow creating with season was unsuccessful!"/>
-<liferay-ui:error key="add-tvshow-with-seasons-unsuccessful" message="TvShow creating with seasons was unsuccessful!"/>
+<liferay-ui:success key="add-tvshow-successful" 			 	message="TvShow creating was successful!"/>
+<liferay-ui:success key="add-tvshow-with-season-successful"  	message="TvShow creating with season was successful!"/>
+<liferay-ui:success key="add-tvshow-with-seasons-successful" 	message="TvShow creating with seasons was successful!"/>
+
+<liferay-ui:error key="add-tvshow-unsuccessful" 			 	message="TvShow creating was unsuccessful!"/>
+<liferay-ui:error key="add-tvshow-with-season-unsuccessful"  	message="TvShow creating with season was unsuccessful!"/>
+<liferay-ui:error key="add-tvshow-with-seasons-unsuccessful" 	message="TvShow creating with seasons was unsuccessful!"/>
 
 <liferay-ui:error key="update-tvshow-unsuccessful" 			 	message="TvShow editing was unsuccessful!"/>
 <liferay-ui:error key="update-tvshow-with-season-unsuccessful"  message="TvShow editing with season was unsuccessful!"/>
@@ -44,7 +48,7 @@
 
 	/******************* Counter Clojure *****************************/
 	
-	var idx = (function (){
+	var idx = (function () {
 		
 		var _counter = 0;
 		
@@ -56,18 +60,16 @@
 			_counter = val;
 		}
 		
-		function inc(){
+		function incr(){
 			_counter++;
 		}
 		
 		function getAndIncr(){
-			
 			return _counter++;
 		}
 		
 		function incrAndGet(){
-			
-			return ++_counter
+			return ++_counter;
 		}
 	
 		function counterUtil(){
@@ -76,12 +78,40 @@
 			
 			idx.get = get;
 			idx.set = set;
-			idx.inc = inc;
+			idx.incr = incr;
+			idx.getAndIncr = getAndIncr;
+			idx.incrAndGet = incrAndGet;
 			
 			return idx;
 		}
 	
 		return counterUtil;
+	})()();
+	
+	var fvUtil = (function () {
+		
+		var _fv = null;
+		
+		function get(){
+			return _fv;
+		}
+		
+		function set(fv){
+			_fv = fv;
+		}
+		
+		function init(){
+			
+			var fvUtil = {};
+			
+			fvUtil.get = get;
+			fvUtil.set = set;
+			
+			return fvUtil;
+		}
+		
+		return init;
+		
 	})()();
 	
 </script>
@@ -132,7 +162,7 @@
 					<img id="<portlet:namespace/>img" src="<%= tvShowCover %>" />
 				</aui:col>
 				<aui:col span="5">
-					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image" required="true" />
+					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image" />
 					<br/>
 					<aui:button name="selectButton" value="Select" icon="icon-folder-open"/>
 				</aui:col>
@@ -153,15 +183,15 @@
 
 				<aui:fieldset>
 					<div id="counterContainer">
-						<aui:input name="title" type="text" title="Title" label="Title" required="true" >
+						<aui:input name="title" type="text" title="Title" label="Title" >
 							<p><span id="titleCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
 					
-					<aui:input name="premierDate" title="Premier Date" label="Premier Date" required="true" />
+					<aui:input name="premierDate" title="Premier Date" label="Premier Date" />
 					
 					<div id="counterContainer">
-						<aui:input name="description" type="textarea" title="Description" label="Description" required="true" cssClass="tvShowAdminDescriptionTextArea" >
+						<aui:input name="description" type="textarea" title="Description" label="Description" cssClass="tvShowAdminDescriptionTextArea" >
 							<p><span id="descriptionCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
@@ -281,7 +311,7 @@
 			return popup;
 		}
 
-		/************************** tvShow Cover select ******************************/
+		/************************** TvShow Cover Select ******************************/
 		
 		A.one('#<portlet:namespace/>selectButton').on('click', tvShowSelect);
 		function tvShowSelect(event){
@@ -309,12 +339,51 @@
 		
 		autoFields.render();
 		
-		autoFields.on('clone', function(guid, originalRow, row){
+		// autofields addrow callback - with this should have to do
+		autoFields.on('clone', function(datas){
 			
-			//alert('hej');
+			var guid = datas.guid;
+			var originalRow = datas.originalRow;
+			var row = datas.row;
+			
+			var rules = fv.get('rules');
+			var key = null;
+			
+			key = '<portlet:namespace/>visibleSeasonImageTitle' + (guid - 1);
+			rules[key] = {
+				required : true
+			};
+			
+			key = '<portlet:namespace/>visibleSeasonTitle' + (guid - 1);
+			rules[key] = {
+				required : true
+			};
+			
+			key = '<portlet:namespace/>visibleSeasonNumber' + (guid - 1);
+			rules[key] = {
+				required : true,
+				number : true,
+				min : 1
+			};
+			
+			key = '<portlet:namespace/>premierDate';
+			rules[key] = {
+				required : true
+			};
+			
+			key = '<portlet:namespace/>visibleSeasonDescription' + (guid - 1);
+			rules[key] = {
+				required : true
+			};
+			
+			
+			fv.set('rules', rules);
+			
+			
+			fv.validate();
 		});
 		
-		/************************** season Cover select ******************************/
+		/************************** Season Cover Select ******************************/
 		
 		// some variable reference from the newly added autofields content for the callback method _166_selectDocumentLibrary
 		var seasonCoverImage = null;
@@ -367,6 +436,7 @@
 		/****************** Callback function for Cover selection *******************/
 		
 		// set the appropriate values for the html tags (with js) and hide the popup
+		// the function name is determined
 		_166_selectDocumentLibrary = function(url, id, groupId, fileName, version){
 			if(!witchPopUp){
 				A.one("#<portlet:namespace/>imageUrl").val(url);
@@ -391,7 +461,7 @@
 			}
         }
 		
-		/********************* validation - char counter ****************************/
+		/********************* Validation - Char Counter ****************************/
 		
 		function createCharCounter(cc_counter, cc_input, cc_maxlength){
 			
@@ -408,7 +478,7 @@
 		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', 500);
 		
 
-		/******** Autofields: setting own hidden season premier date values *********/
+		/******** Autofields: setting the own hidden season premier date values *****/
 	
 		// onclick listener to the Save submit button
 	 	A.one('#<portlet:namespace />Save').on('click', submitClick);
@@ -446,15 +516,16 @@
 			var wrapperId = '#<portlet:namespace />seasonTitleWrapper' + index;
 			var wrapper   = currentRow.one(wrapperId);
 			
+			if (wrapper != null) {
+				// get value from the wrapper
+				var visibleSeasonTitle = wrapper.one('#<portlet:namespace />visibleSeasonTitle' + index);
 				
-			// get value from the wrapper
-			var visibleSeasonTitle = wrapper.one('#<portlet:namespace />visibleSeasonTitle' + index);
-			
-			// locate the hidden field
-			var seasonTitle = wrapper.one('#<portlet:namespace />seasonTitle' + index);
-
-			// set values to the hidden field
-			seasonTitle.val(visibleSeasonTitle.val());
+				// locate the hidden field
+				var seasonTitle = wrapper.one('#<portlet:namespace />seasonTitle' + index);
+	
+				// set values to the hidden field
+				seasonTitle.val(visibleSeasonTitle.val());
+			}
 	 	}
 		
 		function fillSeasonNumberHiddenFields(currentRow, index) {
@@ -463,12 +534,9 @@
 			var wrapperId = '#<portlet:namespace/>seasonNumberWrapper' + index;
 			var wrapper   = currentRow.one(wrapperId);
 			
-			
-			// if founded
 			if(wrapper != null) {
-				
 				// get value from the wrapper
-				var visibleSeasonNumber = wrapper.one('#<portlet:namespace />visibleSeasonNumber' + index);
+				var visibleSeasonNumber = wrapper.one('#<portlet:namespace />seasonNumber');
 				
 				// locate the hidden field
 				var seasonNumber = wrapper.one('#<portlet:namespace />seasonNumber' + index);
@@ -484,22 +552,22 @@
 			var wrapperId = '#<portlet:namespace/>seasonPremierDateWrapper' + index;
 			var wrapper   = currentRow.one(wrapperId);
 
+			if(wrapper != null) {
+				// get values from the wrapper
+				var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
+				var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
+				var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
 				
-			// get values from the wrapper
-			var premierDateDay = wrapper.one('#<portlet:namespace />premierDateDay');
-			var premierDateMonth = wrapper.one('#<portlet:namespace />premierDateMonth');
-			var premierDateYear = wrapper.one('#<portlet:namespace />premierDateYear');
-			
-			// locate the hidden fields
-			var seasonPremierDateDay = wrapper.one('#<portlet:namespace />seasonPremierDateDay' + index);
-			var seasonPremierDateMonth = wrapper.one('#<portlet:namespace />seasonPremierDateMonth' + index);
-			var seasonPremierDateYear = wrapper.one('#<portlet:namespace />seasonPremierDateYear' + index);
-			
-			// set values to the hidden fields
-			seasonPremierDateDay.val(premierDateDay.val());
-			seasonPremierDateMonth.val(premierDateMonth.val());
-			seasonPremierDateYear.val(premierDateYear.val());
-			
+				// locate the hidden fields
+				var seasonPremierDateDay = wrapper.one('#<portlet:namespace />seasonPremierDateDay' + index);
+				var seasonPremierDateMonth = wrapper.one('#<portlet:namespace />seasonPremierDateMonth' + index);
+				var seasonPremierDateYear = wrapper.one('#<portlet:namespace />seasonPremierDateYear' + index);
+				
+				// set values to the hidden fields
+				seasonPremierDateDay.val(premierDateDay.val());
+				seasonPremierDateMonth.val(premierDateMonth.val());
+				seasonPremierDateYear.val(premierDateYear.val());
+			}			
 	 	}
 		
 		function fillSeasonDescriptionHiddenFields(currentRow, index) {
@@ -508,7 +576,7 @@
 			var wrapperId = '#<portlet:namespace/>seasonDescriptionWrapper' + index;
 			var wrapper   = currentRow.one(wrapperId);
 
-				
+			if(wrapper != null) {	
 			// get value from the wrapper
 			var visibleSeasonDescription = wrapper.one('#<portlet:namespace />visibleSeasonDescription' + index);
 			
@@ -517,88 +585,80 @@
 
 			// set values to the hidden field
 			seasonDescription.val(visibleSeasonDescription.val());
+			}
 	 	}
 
 		/************************** Form Validation *********************************/
+
+
+		if (fvUtil.get() == null){
+			
+			var fvConfig = {
+				boundingBox: '#<portlet:namespace/>editForm'
+			}
+			
+			var fv = new A.FormValidator(fvConfig);
+			
+			var rules = fv.get('rules');
+			var key = null;
+			
+			
+			// tv show input validation
+			rules['<portlet:namespace/>imageTitle'] = {
+				required : true
+			}
+			
+			rules['<portlet:namespace/>title'] = {
+				required : true
+			}
+			
+			rules['<portlet:namespace/>premierDate'] = {
+				required : true
+			}
+			
+			rules['<portlet:namespace/>description'] = {
+				required : true
+			}
+			
+			
+			// season input validation
+			for(var i = 0; i < idx.get(); i++) {
+			
+				key = '<portlet:namespace/>visibleSeasonImageTitle' + i;
+				rules[key] = {
+					required : true
+				};
+				
+				key = '<portlet:namespace/>visibleSeasonTitle' + i;
+				rules[key] = {
+					required : true
+				};
+				
+				key = '<portlet:namespace/>visibleSeasonNumber' + i;
+				rules[key] = {
+					required : true,
+					number : true,
+					min : 1
+				};
+				
+				key = '<portlet:namespace/>premierDate';
+				rules[key] = {
+					required : true
+				};
+				
+				key = '<portlet:namespace/>visibleSeasonDescription' + i;
+				rules[key] = {
+					required : true
+				};
+			
+			}	
 		
-		Liferay.Form.register({
-	        id: '<portlet:namespace/>editForm',
-	        fieldRules: [
-				//tvshow
-	            {
-				    body: '',
-				    custom: false,
-				    errorMessage: 'Please, select the tv show cover!',
-				    fieldName: '<portlet:namespace/>imageTitle',
-				    validatorName:'required'
-				},
-				{
-				    body: '',
-				    custom: false,
-				    errorMessage: 'Please, enter the tv show name!',
-				    fieldName: '<portlet:namespace/>title',
-				    validatorName:'required'
-				},
-		        {
-				    body: '',
-				    custom: false,
-				    errorMessage: 'Please, enter the tv show description!',
-				    fieldName: '<portlet:namespace/>description',
-				    validatorName:'required'
-		        },
-				//seasons
-				{
-				    body: '',
-				    custom: false,
-				    errorMessage: 'Please, select the season cover!',
-				    fieldName: '<portlet:namespace/>visibleSeasonImageTitle',
-				    validatorName:'required'
-				},
-				{
-				    body: '',
-				    custom: false,
-				    errorMessage: 'Please, enter the season name!',
-				    fieldName: '<portlet:namespace/>visibleSeasonTitle',
-				    validatorName:'required'
-				},
-				{
-				    body: '',
-				    custom: false,
-				    errorMessage: 'Please, enter the season number!',
-				    fieldName: '<portlet:namespace/>visibleSeasonNumber',
-				    validatorName:'required'
-				},
-		        {
-			        body: '',
-			        custom: false,
-			        errorMessage: 'Please, enter a valid number!',
-			        fieldName: '<portlet:namespace/>visibleSeasonNumber',
-			        validatorName:'number'
-		        },
-		        {
-			        body: '1',
-			        custom: false,
-			        errorMessage: 'Please enter a positive integer number!',
-			        fieldName: '<portlet:namespace/>visibleSeasonNumber',
-			        validatorName:'min'
-		        },
-		        {
-				    body: '',
-				    custom: false,
-				    errorMessage: 'Please, enter the season description!',
-				    fieldName: '<portlet:namespace/>visibleSeasonDescription',
-				    validatorName:'required'
-				},
-				//both
-		        {
-				    body: '',
-				    custom: false,
-				    errorMessage: 'Please, enter the premier date!',
-				    fieldName: '<portlet:namespace/>premierDate',
-				    validatorName:'required'
-				}
-			]     
-		});
+			
+			fv.set('rules', rules);
+			
+			fvUtil.set(fv);
+		}
+		
 		
 	</aui:script>
 </aui:container>

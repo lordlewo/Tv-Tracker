@@ -12,7 +12,7 @@
 	
 	List<Season> permissionCheckedSeasons = new ArrayList<Season>();
 	
-	// permisssion checking in scriplet
+	// permisssion checking 
 	
 	for(Season season : seasons){
 		

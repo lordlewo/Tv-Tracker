@@ -1,12 +1,18 @@
 <%@ include file="/html/init.jsp"  %>
 
-<liferay-ui:success key="add-tvshow-successful" 			 message="TvShow creating was successful!"/>
-<liferay-ui:success key="add-tvshow-with-season-successful"  message="TvShow creating with season was successful!"/>
-<liferay-ui:success key="add-tvshow-with-seasons-successful" message="TvShow creating with seasons was successful!"/>
+<liferay-ui:success key="add-tvshow-successful" 			 	message="TvShow creating was successful!"/>
+<liferay-ui:success key="add-tvshow-with-season-successful"  	message="TvShow creating with season was successful!"/>
+<liferay-ui:success key="add-tvshow-with-seasons-successful" 	message="TvShow creating with seasons was successful!"/>
 
 <liferay-ui:success key="update-tvshow-successful" 			 	message="TvShow editing was successful!"/>
 <liferay-ui:success key="update-tvshow-with-season-successful"  message="TvShow editing with season was successful!"/>
 <liferay-ui:success key="update-tvshow-with-seasons-successful" message="TvShow editing with seasons was successful!"/>
+
+<liferay-ui:success key="create-season-successful" 			    message="Season creating was successful!"/>
+<liferay-ui:success key="create-seasons-successful" 			message="Seasons creating was successful!"/>
+
+<liferay-ui:success key="delete-season-successful" 			    message="Season removing was successful!"/>
+<liferay-ui:success key="delete-seasons-successful" 			message="Seasons removing was successful!"/>
 
 <liferay-ui:success key="delete-tvshow-successful" 			    message="TvShow removing was successful!"/>
 <liferay-ui:success key="delete-tvshow-with-season-successful"  message="TvShow removing with season was successful!"/>

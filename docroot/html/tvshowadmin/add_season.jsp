@@ -44,7 +44,7 @@
 		
 		<aui:row>
 			<div id="<portlet:namespace/>seasonImageWrapper">
-				<aui:input name="imageTitle" type="text" readOnly="true" label="Image" title="Image" required="true"/>
+				<aui:input name="imageTitle" type="text" readOnly="true" label="Image" title="Image" />
 				
 				<aui:button cssClass="seasonCover" name="selectSeasonImageButton" value="Select" icon="icon-folder-open"/>
 				
@@ -62,7 +62,8 @@
 	<aui:col span="3">
 		<aui:row>
 			<div id="<portlet:namespace/>seasonTitleWrapper">
-				<aui:input name="title" type="text" title="Season Title" label="Season Title" required="true">
+					
+				<aui:input name="title" type="text" title="Season Title" label="Season Title">
 					<p><span id="<portlet:namespace/>titleCounter"></span> character(s) remaining</p>
 				</aui:input>
 				
@@ -75,7 +76,7 @@
 		
 		<aui:row>
 			<div id="<portlet:namespace/>seasonNumberWrapper">
-				<aui:input name="seasonNumber" title="Season Number" label="Season Number" model="<%= Season.class %>" required="true"/>
+				<aui:input name="seasonNumber" title="Season Number" label="Season Number" model="<%= Season.class %>" />
 				
 				<%-- hidden input --%>
 				<div id="<portlet:namespace/>hiddenSeasonNumberWrapper">
@@ -86,7 +87,7 @@
 	
 		<aui:row>
 			<div id="<portlet:namespace/>seasonPremierDateWrapper">
-				<aui:input name="premierDate" title="Season Premier Date" label="Season Premier Date" model="<%= Season.class %>" required="true"/>
+				<aui:input name="premierDate" title="Season Premier Date" label="Season Premier Date" model="<%= Season.class %>" />
 				
 				<%-- hidden inputs --%>
 				<div id="<portlet:namespace/>hiddenSeasonPremierDateFieldsWrapper">
@@ -101,7 +102,7 @@
 	<aui:col span="4">
 		<aui:row>
 			<div id="<portlet:namespace/>seasonDescriptionWrapper">
-				<aui:input name="description" title="Season Description" label="Season Description" type="textarea" required="true" cssClass="tvShowAdminAddSeasonDescriptionTextArea" >
+				<aui:input name="description" title="Season Description" label="Season Description" type="textarea" cssClass="tvShowAdminAddSeasonDescriptionTextArea" >
 					<p><span id="<portlet:namespace/>descriptionCounter"></span> character(s) remaining</p>
 				</aui:input>
 				
@@ -172,7 +173,7 @@
 	var seasonImageWrapperId = modifyTagAttr('seasonImageWrapper', 'id', 'seasonImageWrapper', index);
 	
 	// season image title
-	var visibleSeasonImageTitleName = modifyTagAttr('imageTitle', 'name', 'visibleSeasonImageTitle', '', seasonImageWrapperId);
+	var visibleSeasonImageTitleName = modifyTagAttr('imageTitle', 'name', 'visibleSeasonImageTitle', index, seasonImageWrapperId);
 	var visibleSeasonImageTitleId   = modifyTagAttr('imageTitle', 'id'  , 'visibleSeasonImageTitle', index, seasonImageWrapperId);
 	
 	// hidden season image fields wrapper
@@ -194,8 +195,11 @@
 	var seasonTitleWrapperId = modifyTagAttr('seasonTitleWrapper', 'id', 'seasonTitleWrapper', index);
 	
 	// season title
-	var visibleSeasonTitleName = modifyTagAttr('title', 'name', 'visibleSeasonTitle', '', seasonTitleWrapperId);
+	var visibleSeasonTitleName = modifyTagAttr('title', 'name', 'visibleSeasonTitle', index, seasonTitleWrapperId);
 	var visibleSeasonTitleId   = modifyTagAttr('title', 'id'  , 'visibleSeasonTitle', index, seasonTitleWrapperId);
+	
+	// season title label
+	var visibleSeasonTitleLabel = A.one('#' + seasonTitleWrapperId).one('label').attr('for', visibleSeasonTitleId);
 	
 	// hidden season title wrapper
 	var hiddenSeasonTitleWrapperId = modifyTagAttr('hiddenSeasonTitleWrapper', 'id', 'hiddenSeasonTitleWrapper', index, seasonTitleWrapperId);
@@ -210,7 +214,7 @@
 	var seasonNumberWrapperId = modifyTagAttr('seasonNumberWrapper', 'id', 'seasonNumberWrapper', index);
 	
 	// season number
-	var visibleSeasonNumberName = modifyTagAttr('seasonNumber', 'name', 'visibleSeasonNumber', '', seasonNumberWrapperId);
+	var visibleSeasonNumberName = modifyTagAttr('seasonNumber', 'name', 'visibleSeasonNumber', index, seasonNumberWrapperId);
 	var visibleSeasonNumberId   = modifyTagAttr('seasonNumber', 'id'  , 'visibleSeasonNumber', index, seasonNumberWrapperId);
 	
 	// hidden season number wrapper
@@ -249,7 +253,7 @@
 	var seasonDescriptionWrapperId = modifyTagAttr('seasonDescriptionWrapper', 'id', 'seasonDescriptionWrapper', index);
 	
 	// season description
-	var visibleSeasonDescriptionName = modifyTagAttr('description', 'name', 'visibleSeasonDescription', '', seasonDescriptionWrapperId);
+	var visibleSeasonDescriptionName = modifyTagAttr('description', 'name', 'visibleSeasonDescription', index, seasonDescriptionWrapperId);
 	var visibleSeasonDescriptionId   = modifyTagAttr('description', 'id'  , 'visibleSeasonDescription', index, seasonDescriptionWrapperId);
 	
 	// hidden season description wrapper
@@ -258,6 +262,8 @@
 	// hidden season description
 	var seasonDescriptionName = modifyTagAttr('seasonDescription', 'name', 'seasonDescription', index, hiddenSeasonDescriptionWrapperId);
 	var seasonDescriptionId   = modifyTagAttr('seasonDescription', 'id'  , 'seasonDescription', index, hiddenSeasonDescriptionWrapperId);
+	
+	/*-************************** modify input tags *****************************-*/
 	
 	/* --------------------------- char counters ------------------------------- */
 	
@@ -276,8 +282,9 @@
 	// attach cc to the counter <span>-s
 	createCharCounterr(seasonDescriptionCounterId, visibleSeasonDescriptionId, 500);
 	
-	/*-************************** modify input tags *****************************-*/
 	
-	idx.inc(); // increment current id
+	
+	/*-----------------------------------*/
+	idx.incr(); // increment current id
 	
 </aui:script>

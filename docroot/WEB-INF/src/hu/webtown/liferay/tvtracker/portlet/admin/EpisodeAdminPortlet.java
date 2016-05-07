@@ -4,11 +4,14 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
+import hu.webtown.liferay.tvtracker.model.Episode;
 import hu.webtown.liferay.tvtracker.service.EpisodeLocalServiceUtil;
 
 import java.util.Calendar;
@@ -89,22 +92,42 @@ public class EpisodeAdminPortlet extends MVCPortlet {
 		
 			
 			/* add episode */
-			EpisodeLocalServiceUtil.addEpisode(
+			Episode createdEpisode = EpisodeLocalServiceUtil.addEpisode(
 				seasonId, title, airDate, episodeNumber, description, 
 				imageUrl, imageUuid, imageTitle, imageVersion, serviceContext
 			);
 			
+			
+			long episodeId = createdEpisode.getEpisodeId();
+			
+			// logging
+			if (_logger.isDebugEnabled()) {
+				_logger.debug("Episode: (id: " + episodeId + ", title: " + title + ") creating was successful!");
+			}
+				
+			// feedback
+			SessionMessages.add(actionRequest, "add-episode-successful");
+				
+			// nav
 			actionResponse.setRenderParameter("mvcPath", "/html/episodeadmin/view.jsp");
 			
 		} catch (PortalException | SystemException e) {
 			
-			_logger.error("EpisodeAdminPortlet -> addEpisode method!", e);
+			// logging
+			if (_logger.isErrorEnabled()){
+				_logger.error("Problem occurred in EpisodeAdminPortlet#addEpisode method!", e);
+			}
 			
+			// feedback
+			SessionErrors.add(actionRequest, "add-episode-unsuccessful");
+			
+			// nav
+			actionResponse.setRenderParameter("mvcPath", "/html/episodeadmin/edit.jsp");
 		}
 		
 	}
 	
-	public void updateEpisode(ActionRequest actionRequest, ActionResponse actionResponse) throws PortalException, SystemException {
+	public void updateEpisode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		
 		try {
 			
@@ -135,23 +158,41 @@ public class EpisodeAdminPortlet extends MVCPortlet {
 			
 			long episodeId = ParamUtil.getLong(actionRequest, "episodeId");
 			long seasonId = ParamUtil.getLong(actionRequest, "seasonId");
-		
+			
 			
 			/* edit episode */
 			EpisodeLocalServiceUtil.updateEpisode(
 					seasonId, episodeId, title, airDate, episodeNumber, description, 
 					imageUrl, imageUuid, imageTitle, imageVersion, serviceContext);
 			
+			
+			// logging
+			if (_logger.isDebugEnabled()) {
+				_logger.debug("Episode: (id: " + episodeId + ", title: " + title + ") updating was successful!");
+			}
+			
+			// feedback
+			SessionMessages.add(actionRequest, "update-episode-successful");
+			
+			// nav
 			actionResponse.setRenderParameter("mvcPath", "/html/episodeadmin/view.jsp");
 			
 		} catch (PortalException | SystemException e) {
 			
-			_logger.error("EpisodeAdminPortlet -> updateEpisode method!", e);
+			// logging
+			if (_logger.isErrorEnabled()) {
+				_logger.error("Problem occurred in EpisodeAdminPortlet#updateEpisode method!", e);
+			}
 			
+			// feedback
+			SessionErrors.add(actionRequest, "update-episode-unsuccessful");
+			
+			// nav
+			actionResponse.setRenderParameter("mvcPath", "/html/episodeadmin/edit.jsp");
 		}	
 	}
 	
-	public void deleteEpisode(ActionRequest actionRequest, ActionResponse actionResponse) throws PortalException, SystemException {
+	public void deleteEpisode(ActionRequest actionRequest, ActionResponse actionResponse) {
 		
 		try {
 			
@@ -163,13 +204,30 @@ public class EpisodeAdminPortlet extends MVCPortlet {
 			/* delete episode */
 			EpisodeLocalServiceUtil.deleteEpisode(episodeId, serviceContext);
 			
+			
+			// logging
+			if (_logger.isDebugEnabled()) {
+				_logger.debug("Episode: (id: " + episodeId + ") deleting was successful!");
+			}
+			
+			// feedback
+			SessionMessages.add(actionRequest, "delete-episode-successful");
+			
+			// nav
 			actionResponse.setRenderParameter("mvcPath", "/html/episodeadmin/view.jsp");
 			
 		} catch (PortalException | SystemException e) {
 			
-			_logger.error("EpisodeAdminPortlet -> deleteEpisode method!", e);
+			// logging
+			if (_logger.isErrorEnabled()){
+				_logger.error("Problem occurred in EpisodeAdminPortlet#deleteEpisode method!", e);
+			}
+
+			// feedback
+			SessionErrors.add(actionRequest, "delete-episode-unsuccessful");
 			
+			// nav
+			actionResponse.setRenderParameter("mvcPath", "/html/episodeadmin/veiw.jsp");
 		}
 	}
-	
 }

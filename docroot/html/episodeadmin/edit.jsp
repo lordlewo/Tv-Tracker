@@ -1,5 +1,9 @@
 <%@ include file="/html/init.jsp" %>
 
+<liferay-ui:error key="add-episode-unsuccessful" message="Episode creating was unsuccessful!"/>
+
+<liferay-ui:error key="update-episode-unsuccessful" message="Episode editing was unsuccessful!"/>
+
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	
@@ -204,7 +208,7 @@
 			return popup;
 		}
 		
-		/************************** Episode Cover select ******************************/
+		/************************** Episode Cover Select ******************************/
 		
 		var episodeCoverSelectPopUp = null;
 		
@@ -217,7 +221,7 @@
 			episodeCoverSelectPopUp.titleNode.html("Select Episode Cover");
 	    }
 		
-		/******************* Callback function for Cover selection ********************/
+		/******************* Callback function for Cover Selection ********************/
 		
 		// set the appropriate values for the html tags (with js) and hide the popup
 		_166_selectDocumentLibrary = function(url, id, groupId, fileName, version){
@@ -231,7 +235,7 @@
 			episodeCoverSelectPopUp.hide();
         }
 		
-		/********************* validation - char counter ****************************/
+		/********************* Validation - Char Counter ****************************/
 		
 		function createCharCounter(cc_counter, cc_input, cc_maxlength){
 			

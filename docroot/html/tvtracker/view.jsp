@@ -52,7 +52,7 @@
 						);
 			
 				
-				// permisssion checking in scriplet
+				// permisssion checking 
 				
 				for(TvShow tvShow : tvShows){
 					

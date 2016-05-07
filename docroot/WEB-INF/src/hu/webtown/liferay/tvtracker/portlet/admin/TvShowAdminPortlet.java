@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.service.ServiceContext;
@@ -64,7 +65,6 @@ public class TvShowAdminPortlet extends MVCPortlet {
 		return calendar;
 	}
 	
-	
 	public void addTvShow(ActionRequest actionRequest, ActionResponse actionResponse) {
 		
 		int[] rowIndexes = {};
@@ -95,12 +95,22 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			String tvShowImageTitle = ParamUtil.getString(actionRequest, "imageTitle");
 			String tvShowImageVersion = ParamUtil.getString(actionRequest, "imageVersion");
 			
+			
 			/* add tvshow */
-			TvShow tvShow = TvShowLocalServiceUtil.addTvShow(
+			TvShow createdTvShow = TvShowLocalServiceUtil.addTvShow(
 					tvShowTitle, tvShowPremierDate, tvShowDescription, 
 					tvShowImageUrl, tvShowImageUuid, tvShowImageTitle, tvShowImageVersion, serviceContext);
 			
-			long tvShowId = tvShow.getTvShowId();
+			
+			long tvShowId = createdTvShow.getTvShowId();
+			
+			// logging
+			if (_logger.isDebugEnabled()) {
+				_logger.debug("TvShow: (id: " + tvShowId + ", title: " + tvShowTitle + ") creating was successful!");
+			}
+			
+			// feedback
+			SessionMessages.add(actionRequest, "add-tvshow-successful");
 			
 			/*********************************************************************************************/
 			/*******/// Seasons ///***********************************************************************/
@@ -128,53 +138,50 @@ public class TvShowAdminPortlet extends MVCPortlet {
 				String seasonImageTitle = ParamUtil.getString(actionRequest, "seasonImageTitle" + rowIndex);
 				String seasonImageVersion = ParamUtil.getString(actionRequest, "seasonImageVersion" + rowIndex);
 				
-				/* add seasons */
-				SeasonLocalServiceUtil.addSeason(
+				
+				/* add season */
+				Season createdSeason = SeasonLocalServiceUtil.addSeason(
 						tvShowId, seasonTitle, seasonPremierDate, seasonNumber, seasonDescription, 
 						seasonImageUrl, seasonImageUuid, seasonImageTitle, seasonImageVersion, serviceContext);
+				
+				
+				long seasonId = createdSeason.getSeasonId();
+				
+				// logging
+				if (_logger.isDebugEnabled()) {
+					_logger.debug("Season: (id: " + seasonId + ", title: " + seasonTitle + ") creating was successful!");
+				}
 			}
 			
 			
-			// feedback
-			
-			if(rowIndexes.length == 0){
-				
-				SessionMessages.add(actionRequest, "add-tvshow-successful");
-				
-			} else if (rowIndexes.length == 1) {
-				
+			if (rowIndexes.length == 1) {
 				SessionMessages.add(actionRequest, "add-tvshow-with-season-successful");
-				
 			} else {
-				
 				SessionMessages.add(actionRequest, "add-tvshow-with-seasons-successful");
-				
 			}
 			
-
+			// nav
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/view.jsp");
+			
 		} catch (PortalException | SystemException e) {
 			
-			_logger.error("TvShowAdminPortlet -> addTvShow method!", e);
-			
+			// logging
+			if (_logger.isErrorEnabled()) {
+				_logger.error("Problem occurred in TvShowAdminPortlet#addTvShow method!", e);
+			}
 			
 			// feedback
-			
-			if(rowIndexes.length == 0){
-				
-				SessionMessages.add(actionRequest, "add-tvshow-unsuccessful");
-				
+			if (rowIndexes.length == 0){
+				SessionErrors.add(actionRequest, "add-tvshow-unsuccessful");
 			} else if (rowIndexes.length == 1) {
-				
-				SessionMessages.add(actionRequest, "add-tvshow-with-season-unsuccessful");
-				
+				SessionErrors.add(actionRequest, "add-tvshow-with-season-unsuccessful");
 			} else {
-				
-				SessionMessages.add(actionRequest, "add-tvshow-with-seasons-unsuccessful");
-				
+				SessionErrors.add(actionRequest, "add-tvshow-with-seasons-unsuccessful");
 			}
-
+			
+			// nav
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/edit.jsp");
 		}
-		
 	}
 	
 	public void updateTvShow(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -182,7 +189,11 @@ public class TvShowAdminPortlet extends MVCPortlet {
 		int[] rowIndexes = {};
 		int rowIndex = 0;
 		
-		Set<Long> updatedSeasons = Collections.emptySet();
+		List<Season> currentSeasons = Collections.emptyList();
+		
+		Set<Long> createdSeasonIds = Collections.emptySet();
+		Set<Long> updatedSeasonIds = Collections.emptySet();
+		Set<Long> deletedSeasonIds = Collections.emptySet();
 		
 		try {
 			
@@ -211,17 +222,27 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			
 			long tvShowId = ParamUtil.getLong(actionRequest, "tvShowId");
 			
+			
 			/* edit tvshow */
-			TvShow tvShow = TvShowLocalServiceUtil.updateTvShow(
+			TvShow updatedTvShow = TvShowLocalServiceUtil.updateTvShow(
 					tvShowId, tvShowTitle, tvShowPremierDate, tvShowDescription, 
 					tvShowImageUrl, tvShowImageUuid, tvShowImageTitle, tvShowImageVersion, serviceContext);
+			
+			
+			// logging
+			if (_logger.isDebugEnabled()) {
+				_logger.debug("TvShow: (id: " + tvShowId + ", title: " + tvShowTitle + ") updating was successful!");
+			}
 			
 			/*********************************************************************************************/
 			/*******/// Seasons ///***********************************************************************/
 			/*********************************************************************************************/
 			
-			List<Season> seasons = SeasonLocalServiceUtil.getSeasons(tvShowId, serviceContext);
-			updatedSeasons = new HashSet<Long>();
+			currentSeasons = SeasonLocalServiceUtil.getSeasons(tvShowId, serviceContext);
+			
+			createdSeasonIds = new HashSet<Long>();
+			updatedSeasonIds = new HashSet<Long>();
+			deletedSeasonIds = new HashSet<Long>();
 			
 			rowIndexes = ParamUtil.getIntegerValues(actionRequest, "rowIndexes");
 			
@@ -245,88 +266,111 @@ public class TvShowAdminPortlet extends MVCPortlet {
 				String seasonImageTitle = ParamUtil.getString(actionRequest, "seasonImageTitle" + rowIndex);
 				String seasonImageVersion = ParamUtil.getString(actionRequest, "seasonImageVersion" + rowIndex);
 				
-				
 				long seasonId = ParamUtil.getLong(actionRequest, "seasonId" + rowIndex, 0);
 				
+				
 				if(seasonId > 0) {
-											
-					// edit season
-
-					Season _season = SeasonLocalServiceUtil.updateSeason(
+					
+					
+					/* edit season */
+					Season updatedSeason = SeasonLocalServiceUtil.updateSeason(
 							tvShowId, seasonId, seasonTitle, seasonPremierDate, seasonNumber, seasonDescription, 
 							seasonImageUrl, seasonImageUuid, seasonImageTitle, seasonImageVersion, serviceContext);
 					
-					updatedSeasons.add(seasonId);
 					
-					System.out.println("updated: " + seasonTitle);
+					updatedSeasonIds.add(seasonId);
+					
+					// logging
+					if (_logger.isDebugEnabled()) {
+						_logger.debug("Season: (id: " + seasonId + ", title: " + seasonTitle + ") updating was successful!");
+					}
 						
 				} else { 
 					
-					// add season
-				
-					SeasonLocalServiceUtil.addSeason(
+					
+					/* create season */
+					Season createdSeason = SeasonLocalServiceUtil.addSeason(
 							tvShowId, seasonTitle, seasonPremierDate, seasonNumber, seasonDescription, 
 							seasonImageUrl, seasonImageUuid, seasonImageTitle, seasonImageVersion, serviceContext);
 					
-					System.out.println("added: " + seasonTitle);
+					
+					long _seasonId = createdSeason.getSeasonId();
+					
+					createdSeasonIds.add(_seasonId);
+					
+					// logging
+					if (_logger.isDebugEnabled()) {
+						_logger.debug("Season: (id: " + _seasonId + ", title: " + seasonTitle + ") creating was successful!");
+					}
 					
 				}
 			}
 			
-			for (Season season : seasons) {
+			for (Season curSeason : currentSeasons) {
 				
-				long _seasonId = season.getSeasonId();
+				long seasonId = curSeason.getSeasonId();
+				String seasonTitle = curSeason.getTitle();
 				
-				if(!updatedSeasons.contains(_seasonId)){
+				if(!updatedSeasonIds.contains(seasonId)){
 					
-					SeasonLocalServiceUtil.deleteSeason(_seasonId, serviceContext);
 					
-					System.out.println("deleted: " + season.getTitle());
+					/* delete season */
+					Season deletedSeason = SeasonLocalServiceUtil.deleteSeason(seasonId, serviceContext);
+					
+					
+					deletedSeasonIds.add(seasonId);
+					
+					// logging
+					if (_logger.isDebugEnabled()) {
+						_logger.debug("Season: (id: " + seasonId + ", title: " + seasonTitle + ") deleting was successful!");
+					}
 				}
-				
 			}
 			
 			
 			// feedback
-			
-			if(updatedSeasons.size() == 0){
-				
+			if (updatedSeasonIds.size() == 0){
 				SessionMessages.add(actionRequest, "update-tvshow-successful");
-				
-			} else if (updatedSeasons.size() == 1) {
-				
+			} else if (updatedSeasonIds.size() == 1) {
 				SessionMessages.add(actionRequest, "update-tvshow-with-season-successful");
-				
 			} else {
-				
 				SessionMessages.add(actionRequest, "update-tvshow-with-seasons-successful");
-				
 			}
 			
+			if (createdSeasonIds.size() == 1) {
+				SessionMessages.add(actionRequest, "create-season-successful");
+			} else if (createdSeasonIds.size() > 1) {
+				SessionMessages.add(actionRequest, "create-seasons-successful");
+			}
+			
+			if (deletedSeasonIds.size() == 1) {
+				SessionMessages.add(actionRequest, "delete-season-successful");
+			} else if (deletedSeasonIds.size() > 1) {
+				SessionMessages.add(actionRequest, "delete-seasons-successful");
+			}
+			
+			// nav
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/view.jsp");
 			
 		} catch (PortalException | SystemException e) {
 			
-			_logger.error("TvShowAdminPortlet -> updateTvShow method!", e);
-			
-			
-			// feedback
-			
-			if(updatedSeasons.size() == 0){
-				
-				SessionMessages.add(actionRequest, "update-tvshow-unsuccessful");
-				
-			} else if (updatedSeasons.size() == 1) {
-				
-				SessionMessages.add(actionRequest, "update-tvshow-with-season-unsuccessful");
-				
-			} else {
-				
-				SessionMessages.add(actionRequest, "update-tvshow-with-seasons-unsuccessful");
-				
+			// logging
+			if (_logger.isErrorEnabled()) {
+				_logger.error("Problem occured in TvShowAdminPortlet#updateTvShow method!", e);
 			}
 			
+			// feedback
+			if (updatedSeasonIds.size() == 0){
+				SessionErrors.add(actionRequest, "update-tvshow-unsuccessful");
+			} else if (updatedSeasonIds.size() == 1) {
+				SessionErrors.add(actionRequest, "update-tvshow-with-season-unsuccessful");				
+			} else {
+				SessionErrors.add(actionRequest, "update-tvshow-with-seasons-unsuccessful");
+			}
+			
+			// nav
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/edit.jsp");
 		}
-		
 	}
 	
 	public void deleteTvShow(ActionRequest actionRequest, ActionResponse actionResponse) {
@@ -343,49 +387,47 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			
 			
 			/* delete tvshow with seasons */
-			TvShowLocalServiceUtil.deleteTvShowWithSeasons(tvShowId, serviceContext);
+			TvShow deletedTvShow = TvShowLocalServiceUtil.deleteTvShowWithSeasons(tvShowId, serviceContext);
 			
+			
+			String tvShowTitle = deletedTvShow.getTitle();
+			
+			// logging
+			if (_logger.isDebugEnabled()) {
+				_logger.debug("TvShow: (id: " + tvShowId + ", title: " + tvShowTitle + ") deleting with seasons was successful!");
+			}
 			
 			// feedback
-			
-			if(seasonCount == 0){
-				
+			if (seasonCount == 0){
 				SessionMessages.add(actionRequest, "delete-tvshow-successful");
-				
 			} else if (seasonCount == 1) {
-				
 				SessionMessages.add(actionRequest, "delete-tvshow-with-season-successful");
-				
 			} else {
-				
 				SessionMessages.add(actionRequest, "delete-tvshow-with-seasons-successful");
-				
 			}
 
+			// nav
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/view.jsp");
 			
 		} catch (PortalException | SystemException e) {
 			
-			_logger.error("TvShowAdminPortlet -> deleteTvShow method!", e);
-			
-			
-			// feedback
-			
-			if(seasonCount == 0){
-				
-				SessionMessages.add(actionRequest, "delete-tvshow-unsuccessful");
-				
-			} else if (seasonCount == 1) {
-				
-				SessionMessages.add(actionRequest, "delete-tvshow-with-season-unsuccessful");
-				
-			} else {
-				
-				SessionMessages.add(actionRequest, "delete-tvshow-with-seasons-unsuccessful");
-				
+			// logging
+			if (_logger.isErrorEnabled()) {
+				_logger.error("Problem occurred in TvShowAdminPortlet#deleteTvShow method!", e);
 			}
 			
+			// feedback
+			if(seasonCount == 0){				
+				SessionErrors.add(actionRequest, "delete-tvshow-unsuccessful");
+			} else if (seasonCount == 1) {
+				SessionErrors.add(actionRequest, "delete-tvshow-with-season-unsuccessful");
+			} else {
+				SessionErrors.add(actionRequest, "delete-tvshow-with-seasons-unsuccessful");
+			}
+			
+			// nav
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/view.jsp");
 		}
-		
 	}
 
 }
