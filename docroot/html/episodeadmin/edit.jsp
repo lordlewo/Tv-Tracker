@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.model.ModelHintsUtil"%>
 <%@ include file="/html/init.jsp" %>
 
 <liferay-ui:error key="add-episode-unsuccessful" message="Episode creating was unsuccessful!"/>
@@ -7,6 +8,11 @@
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	
+	// model hints
+	String EpisodeModel = Episode.class.getName();
+	int episodeTitleMaxLength = Integer.parseInt(ModelHintsUtil.getHints(EpisodeModel, "title").get("max-length"));
+	int episodeDescriptionMaxLength = Integer.parseInt(ModelHintsUtil.getHints(EpisodeModel, "description").get("max-length"));
+
 	long episodeId = ParamUtil.getLong(renderRequest, "episodeId"); // episodeId = 0 if there aren't any episodeId attribute in the reqest
 	String action = ParamUtil.getString(renderRequest, "action");
 
@@ -85,7 +91,7 @@
 				</aui:col>
 				
 				<aui:col span="5">
-					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image" required="true"/> 
+					<aui:input name="imageTitle" type="text" readonly="true" label="Image" title="Image"/> 
 					<br/>
 					<aui:button name="selectButton" value="Select" icon="icon-folder-open"/>
 				</aui:col>
@@ -99,16 +105,16 @@
 				
 				<aui:fieldset> 
 					<div id="counterContainer">
-						<aui:input name="title" type="text" title="Title" label="Title" required="true">
+						<aui:input name="title" type="text" title="Title" label="Title" >
 							<p><span id="titleCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
 					
-					<aui:input name="episodeNumber" title="Episode Number" label="Episode Number" required="true"/>
+					<aui:input name="episodeNumber" title="Episode Number" label="Episode Number" />
 					
-					<aui:input name="airDate" title="Air Date" label="Air DateTime" required="true"/>
+					<aui:input name="airDate" title="Air Date" label="Air DateTime" />
 					
-					<aui:select label="Choose Season" id="seasonChoose" name="seasonId" showEmptyOption="true" required="true" >
+					<aui:select label="Choose Season" id="seasonChoose" name="seasonId" showEmptyOption="true" >
 					    <%
 					    
 					    	OrderByComparator orderByComparator = ComparatorUtil.getTvShowOrderByComparator("title", "asc");
@@ -147,7 +153,7 @@
 					</aui:select>
 					
 					<div id="counterContainer">
-						<aui:input name="description" type="textarea" title="Description" label="Description" required="true" cssClass="episodeAdminDescriptionTextArea">
+						<aui:input name="description" type="textarea" title="Description" label="Description" cssClass="episodeAdminDescriptionTextArea">
 							<p><span id="descriptionCounter"></span> character(s) remaining</p>
 						</aui:input>
 					</div>
@@ -248,8 +254,8 @@
 			return new A.CharCounter(ccConfig);
 		}
 		
-		createCharCounter('#titleCounter', '#<portlet:namespace />title', 75);
-		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', 500);
+		createCharCounter('#titleCounter', '#<portlet:namespace />title', <%= episodeTitleMaxLength %>);
+		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', <%= episodeDescriptionMaxLength %>);
 		
 		/************************** Form Validation *********************************/
 		

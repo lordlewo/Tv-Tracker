@@ -1,3 +1,5 @@
+<%@page import="com.liferay.portal.model.ModelHintsUtil"%>
+<%@page import="com.liferay.portal.model.ModelHintsConstants"%>
 <%@ include file="/html/init.jsp" %>
 
 <liferay-ui:success key="add-tvshow-successful" 			 	message="TvShow creating was successful!"/>
@@ -18,6 +20,13 @@
 	
 	long tvShowId = ParamUtil.getLong(renderRequest, "tvShowId");
 	String action = ParamUtil.getString(renderRequest, "action");
+	
+	//model hints
+	
+	String tvShowModel = TvShow.class.getName();
+	int tvShowTitleMaxLength = Integer.parseInt(ModelHintsUtil.getHints(tvShowModel, "title").get("max-length"));
+	int tvShowDescriptionMaxLength = Integer.parseInt(ModelHintsUtil.getHints(tvShowModel, "description").get("max-length"));
+
 	
 	String actionUrlName = null;
 	String headerName = null;
@@ -353,11 +362,17 @@
 			rules[key] = {
 				required : true
 			};
+			fieldStrings[key] = {
+				required : 'Please, select the season cover!'
+			}
 			
 			key = '<portlet:namespace/>visibleSeasonTitle' + (guid - 1);
 			rules[key] = {
 				required : true
 			};
+			fieldStrings[key] = {
+				required : 'Please, enter the season title!'
+			}
 			
 			key = '<portlet:namespace/>visibleSeasonNumber' + (guid - 1);
 			rules[key] = {
@@ -365,16 +380,27 @@
 				number : true,
 				min : 1
 			};
+			fieldStrings[key] = {
+				required : 'Please, enter the season number!',
+				number: 'Please, enter a valid number!',
+				min: 'Please enter a positive integer number!'
+			}
 			
 			key = '<portlet:namespace/>premierDate';
 			rules[key] = {
 				required : true
 			};
+			fieldStrings[key] = {
+				required : 'Please, enter the premier date!'
+			}
 			
 			key = '<portlet:namespace/>visibleSeasonDescription' + (guid - 1);
 			rules[key] = {
 				required : true
 			};
+			fieldStrings[key] = {
+				required : 'Please, enter the season description!'
+			}
 			
 			
 			fv.set('rules', rules);
@@ -474,8 +500,8 @@
 			return new A.CharCounter(ccConfig);
 		}
 		
-		createCharCounter('#titleCounter', '#<portlet:namespace />title', 75);
-		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', 500);
+		createCharCounter('#titleCounter', '#<portlet:namespace />title', <%= tvShowTitleMaxLength %>);
+		createCharCounter('#descriptionCounter', '#<portlet:namespace />description', <%= tvShowDescriptionMaxLength %>);
 		
 
 		/******** Autofields: setting the own hidden season premier date values *****/
@@ -600,24 +626,41 @@
 			var fv = new A.FormValidator(fvConfig);
 			
 			var rules = fv.get('rules');
+			var fieldStrings = fv.get('fieldStrings');
 			var key = null;
 			
 			
 			// tv show input validation
-			rules['<portlet:namespace/>imageTitle'] = {
+			key = '<portlet:namespace/>imageTitle';
+			rules[key] = {
 				required : true
 			}
-			
-			rules['<portlet:namespace/>title'] = {
-				required : true
+			fieldStrings[key] = {
+				required : 'Please, select the tv show cover!'
 			}
 			
-			rules['<portlet:namespace/>premierDate'] = {
+			key = '<portlet:namespace/>title';
+			rules[key] = {
 				required : true
 			}
+			fieldStrings[key] = {
+				required : 'Please, enter the tv show title!'
+			}
 			
-			rules['<portlet:namespace/>description'] = {
+			key = '<portlet:namespace/>premierDate';
+			rules[key] = {
 				required : true
+			}
+			fieldStrings[key] = {
+				required : 'Please, enter the premier date!'
+			}
+			
+			key = '<portlet:namespace/>description'
+			rules[key] = {
+				required : true
+			}
+			fieldStrings[key] = {
+				required : 'Please, enter the tv show description!'
 			}
 			
 			
@@ -628,11 +671,17 @@
 				rules[key] = {
 					required : true
 				};
+				fieldStrings[key] = {
+					required : 'Please, select the season cover!'
+				}
 				
 				key = '<portlet:namespace/>visibleSeasonTitle' + i;
 				rules[key] = {
 					required : true
 				};
+				fieldStrings[key] = {
+					required : 'Please, enter the season title!'
+				}
 				
 				key = '<portlet:namespace/>visibleSeasonNumber' + i;
 				rules[key] = {
@@ -640,16 +689,27 @@
 					number : true,
 					min : 1
 				};
+				fieldStrings[key] = {
+					required : 'Please, enter the season number!',
+					number: 'Please, enter a valid number!',
+					min: 'Please enter a positive integer number!'
+				}
 				
 				key = '<portlet:namespace/>premierDate';
 				rules[key] = {
 					required : true
 				};
+				fieldStrings[key] = {
+					required : 'Please, enter the premier date!'
+				}
 				
 				key = '<portlet:namespace/>visibleSeasonDescription' + i;
 				rules[key] = {
 					required : true
 				};
+				fieldStrings[key] = {
+					required : 'Please, enter the season description!'
+				}
 			
 			}	
 		

@@ -1,7 +1,13 @@
+<%@page import="com.liferay.portal.model.ModelHintsUtil"%>
 <%@ include file="/html/init.jsp"  %>
 
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(request);
+
+	// model hints
+	String SeasonModel = Season.class.getName();
+	int seasonTitleMaxLength = Integer.parseInt(ModelHintsUtil.getHints(SeasonModel, "title").get("max-length"));
+	int seasonDescriptionMaxLength = Integer.parseInt(ModelHintsUtil.getHints(SeasonModel, "description").get("max-length"));
 
 	long tvShowId = ParamUtil.getLong(request, WebKeys.TVSHOW_ID, 0);
 	long seasonId = ParamUtil.getLong(request, WebKeys.SEASON_ID, 0);
@@ -272,7 +278,7 @@
 	var seasonTitleCounterId = modifyTagAttr('titleCounter', 'id', 'seasonTitleCounter', index);
 	
 	// attach cc to the counter <span>-s
-	createCharCounterr(seasonTitleCounterId, visibleSeasonTitleId, 75);
+	createCharCounterr(seasonTitleCounterId, visibleSeasonTitleId, <%= seasonTitleMaxLength %>);
 	
 	
 							// description char counter //
@@ -280,7 +286,7 @@
 	var seasonDescriptionCounterId = modifyTagAttr('descriptionCounter', 'id', 'seasonDescriptionCounter', index);
 	
 	// attach cc to the counter <span>-s
-	createCharCounterr(seasonDescriptionCounterId, visibleSeasonDescriptionId, 500);
+	createCharCounterr(seasonDescriptionCounterId, visibleSeasonDescriptionId,  <%= seasonDescriptionMaxLength %>);
 	
 	
 	

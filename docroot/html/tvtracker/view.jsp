@@ -44,13 +44,7 @@
 		
 			if(keywords == null || keywords.isEmpty()){
 				
-				List<TvShow> tvShows = TvShowLocalServiceUtil.getTvShows(
-							serviceContext, 
-							//searchContainer.getStart(), 
-							//searchContainer.getEnd(), 
-						    searchContainer.getOrderByComparator()
-						);
-			
+				List<TvShow> tvShows = TvShowLocalServiceUtil.getTvShows(serviceContext, searchContainer.getOrderByComparator());
 				
 				// permisssion checking 
 				
