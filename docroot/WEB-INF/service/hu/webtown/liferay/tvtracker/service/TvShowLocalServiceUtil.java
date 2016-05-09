@@ -310,6 +310,32 @@ public class TvShowLocalServiceUtil {
 				   .getTvShows(serviceContext, start, end, orderByComparator);
 	}
 
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		int premierYear, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTvShows(premierYear, start, end);
+	}
+
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		com.liferay.portal.service.ServiceContext serviceContext,
+		int premierYear, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTvShows(serviceContext, premierYear, start, end);
+	}
+
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		int premierYear)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTvShows(premierYear);
+	}
+
+	public static java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		com.liferay.portal.service.ServiceContext serviceContext,
+		int premierYear)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getTvShows(serviceContext, premierYear);
+	}
+
 	public static int getTvShowsCount(
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException {

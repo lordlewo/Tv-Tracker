@@ -36,6 +36,7 @@ import hu.webtown.liferay.tvtracker.TvShowTitleException;
 import hu.webtown.liferay.tvtracker.model.Season;
 import hu.webtown.liferay.tvtracker.model.TvShow;
 import hu.webtown.liferay.tvtracker.service.base.TvShowLocalServiceBaseImpl;
+import hu.webtown.liferay.tvtracker.service.persistence.TvShowFinderUtil;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -286,6 +287,50 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		}
 		
 		
+		return tvShows;
+	}
+	
+	public List<TvShow> getTvShows(int premierYear, int start, int end) throws SystemException {
+		
+		// using of the finder method to retrive the requested entity instances
+		
+		List<TvShow> tvShows = TvShowFinderUtil.findByPremierYear(premierYear, start, end);
+
+		return tvShows;
+	}
+	
+	public List<TvShow> getTvShows(ServiceContext serviceContext, int premierYear, int start, int end) throws SystemException {
+		
+		// unbox and prepare the necessary parameters
+		
+		long groupId = serviceContext.getScopeGroupId();
+		
+		// using of the finder method to retrive the requested entity instances
+		
+		List<TvShow> tvShows = TvShowFinderUtil.findByG_P(groupId, premierYear, start, end);
+
+		return tvShows;
+	}
+	
+	public List<TvShow> getTvShows(int premierYear) throws SystemException {
+		
+		// using of the finder method to retrive the requested entity instances
+		
+		List<TvShow> tvShows = TvShowFinderUtil.findByPremierYear(premierYear);
+
+		return tvShows;
+	}
+	
+	public List<TvShow> getTvShows(ServiceContext serviceContext, int premierYear) throws SystemException {
+		
+		// unbox and prepare the necessary parameters
+		
+		long groupId = serviceContext.getScopeGroupId();
+		
+		// using of the finder method to retrive the requested entity instances
+		
+		List<TvShow> tvShows = TvShowFinderUtil.findByG_P(groupId, premierYear);
+
 		return tvShows;
 	}
 	

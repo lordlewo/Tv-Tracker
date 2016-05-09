@@ -280,6 +280,28 @@ public interface TvShowLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		int premierYear, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		com.liferay.portal.service.ServiceContext serviceContext,
+		int premierYear, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		int premierYear)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<hu.webtown.liferay.tvtracker.model.TvShow> getTvShows(
+		com.liferay.portal.service.ServiceContext serviceContext,
+		int premierYear)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getTvShowsCount(
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.SystemException;

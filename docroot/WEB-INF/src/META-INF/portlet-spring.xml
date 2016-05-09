@@ -10,4 +10,5 @@
 	<bean id="hu.webtown.liferay.tvtracker.service.TvShowLocalService" class="hu.webtown.liferay.tvtracker.service.impl.TvShowLocalServiceImpl" />
 	<bean id="hu.webtown.liferay.tvtracker.service.TvShowService" class="hu.webtown.liferay.tvtracker.service.impl.TvShowServiceImpl" />
 	<bean id="hu.webtown.liferay.tvtracker.service.persistence.TvShowPersistence" class="hu.webtown.liferay.tvtracker.service.persistence.TvShowPersistenceImpl" parent="basePersistence" />
+	<bean id="hu.webtown.liferay.tvtracker.service.persistence.TvShowFinder" class="hu.webtown.liferay.tvtracker.service.persistence.TvShowFinderImpl" parent="basePersistence" />
 </beans>

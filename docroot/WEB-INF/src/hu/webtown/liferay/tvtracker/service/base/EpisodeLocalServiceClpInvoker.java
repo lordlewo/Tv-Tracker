@@ -106,100 +106,100 @@ public class EpisodeLocalServiceClpInvoker {
 				"hu.webtown.liferay.tvtracker.model.Episode"
 			};
 
-		_methodName56 = "getBeanIdentifier";
+		_methodName58 = "getBeanIdentifier";
 
-		_methodParameterTypes56 = new String[] {  };
+		_methodParameterTypes58 = new String[] {  };
 
-		_methodName57 = "setBeanIdentifier";
+		_methodName59 = "setBeanIdentifier";
 
-		_methodParameterTypes57 = new String[] { "java.lang.String" };
-
-		_methodName62 = "getEpisodes";
-
-		_methodParameterTypes62 = new String[] {
-				"com.liferay.portal.service.ServiceContext"
-			};
-
-		_methodName63 = "getEpisodes";
-
-		_methodParameterTypes63 = new String[] {
-				"long", "com.liferay.portal.service.ServiceContext"
-			};
+		_methodParameterTypes59 = new String[] { "java.lang.String" };
 
 		_methodName64 = "getEpisodes";
 
 		_methodParameterTypes64 = new String[] {
-				"com.liferay.portal.service.ServiceContext", "int", "int"
+				"com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName65 = "getEpisodes";
 
 		_methodParameterTypes65 = new String[] {
-				"long", "com.liferay.portal.service.ServiceContext", "int",
-				"int"
+				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName66 = "getEpisodes";
 
 		_methodParameterTypes66 = new String[] {
-				"com.liferay.portal.service.ServiceContext",
-				"com.liferay.portal.kernel.util.OrderByComparator"
+				"com.liferay.portal.service.ServiceContext", "int", "int"
 			};
 
 		_methodName67 = "getEpisodes";
 
 		_methodParameterTypes67 = new String[] {
-				"long", "com.liferay.portal.service.ServiceContext",
-				"com.liferay.portal.kernel.util.OrderByComparator"
+				"long", "com.liferay.portal.service.ServiceContext", "int",
+				"int"
 			};
 
 		_methodName68 = "getEpisodes";
 
 		_methodParameterTypes68 = new String[] {
-				"com.liferay.portal.service.ServiceContext", "int", "int",
+				"com.liferay.portal.service.ServiceContext",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
 		_methodName69 = "getEpisodes";
 
 		_methodParameterTypes69 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName70 = "getEpisodes";
+
+		_methodParameterTypes70 = new String[] {
+				"com.liferay.portal.service.ServiceContext", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName71 = "getEpisodes";
+
+		_methodParameterTypes71 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext", "int",
 				"int", "com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName70 = "getEpisodesCount";
+		_methodName72 = "getEpisodesCount";
 
-		_methodParameterTypes70 = new String[] {
+		_methodParameterTypes72 = new String[] {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName71 = "getEpisodesCount";
+		_methodName73 = "getEpisodesCount";
 
-		_methodParameterTypes71 = new String[] {
+		_methodParameterTypes73 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName72 = "addEpisode";
+		_methodName74 = "addEpisode";
 
-		_methodParameterTypes72 = new String[] {
+		_methodParameterTypes74 = new String[] {
 				"long", "java.lang.String", "java.util.Date", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName73 = "updateEpisode";
+		_methodName75 = "updateEpisode";
 
-		_methodParameterTypes73 = new String[] {
+		_methodParameterTypes75 = new String[] {
 				"long", "long", "java.lang.String", "java.util.Date", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName74 = "deleteEpisode";
+		_methodName76 = "deleteEpisode";
 
-		_methodParameterTypes74 = new String[] {
+		_methodParameterTypes76 = new String[] {
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -293,67 +293,67 @@ public class EpisodeLocalServiceClpInvoker {
 			return EpisodeLocalServiceUtil.updateEpisode((hu.webtown.liferay.tvtracker.model.Episode)arguments[0]);
 		}
 
-		if (_methodName56.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			EpisodeLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName62.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
-			return EpisodeLocalServiceUtil.getEpisodes((com.liferay.portal.service.ServiceContext)arguments[0]);
-		}
-
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
-			return EpisodeLocalServiceUtil.getEpisodes(((Long)arguments[0]).longValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[1]);
-		}
-
 		if (_methodName64.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
-			return EpisodeLocalServiceUtil.getEpisodes((com.liferay.portal.service.ServiceContext)arguments[0],
-				((Integer)arguments[1]).intValue(),
-				((Integer)arguments[2]).intValue());
+			return EpisodeLocalServiceUtil.getEpisodes((com.liferay.portal.service.ServiceContext)arguments[0]);
 		}
 
 		if (_methodName65.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodes(((Long)arguments[0]).longValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[1],
-				((Integer)arguments[2]).intValue(),
-				((Integer)arguments[3]).intValue());
+				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
 		if (_methodName66.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodes((com.liferay.portal.service.ServiceContext)arguments[0],
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[1]);
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName67.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodes(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1],
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[2]);
+				((Integer)arguments[2]).intValue(),
+				((Integer)arguments[3]).intValue());
 		}
 
 		if (_methodName68.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+			return EpisodeLocalServiceUtil.getEpisodes((com.liferay.portal.service.ServiceContext)arguments[0],
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[1]);
+		}
+
+		if (_methodName69.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+			return EpisodeLocalServiceUtil.getEpisodes(((Long)arguments[0]).longValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[1],
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[2]);
+		}
+
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodes((com.liferay.portal.service.ServiceContext)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
 		}
 
-		if (_methodName69.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+		if (_methodName71.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodes(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1],
 				((Integer)arguments[2]).intValue(),
@@ -361,19 +361,19 @@ public class EpisodeLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4]);
 		}
 
-		if (_methodName70.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
+		if (_methodName72.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodesCount((com.liferay.portal.service.ServiceContext)arguments[0]);
 		}
 
-		if (_methodName71.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes71, parameterTypes)) {
+		if (_methodName73.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
 			return EpisodeLocalServiceUtil.getEpisodesCount(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
 
-		if (_methodName72.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes72, parameterTypes)) {
+		if (_methodName74.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
 			return EpisodeLocalServiceUtil.addEpisode(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.util.Date)arguments[2],
 				((Integer)arguments[3]).intValue(),
@@ -383,8 +383,8 @@ public class EpisodeLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[9]);
 		}
 
-		if (_methodName73.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes73, parameterTypes)) {
+		if (_methodName75.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes75, parameterTypes)) {
 			return EpisodeLocalServiceUtil.updateEpisode(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.util.Date)arguments[3],
@@ -395,8 +395,8 @@ public class EpisodeLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[10]);
 		}
 
-		if (_methodName74.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes74, parameterTypes)) {
+		if (_methodName76.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes76, parameterTypes)) {
 			return EpisodeLocalServiceUtil.deleteEpisode(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
 		}
@@ -436,14 +436,10 @@ public class EpisodeLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName56;
-	private String[] _methodParameterTypes56;
-	private String _methodName57;
-	private String[] _methodParameterTypes57;
-	private String _methodName62;
-	private String[] _methodParameterTypes62;
-	private String _methodName63;
-	private String[] _methodParameterTypes63;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
 	private String _methodName64;
 	private String[] _methodParameterTypes64;
 	private String _methodName65;
@@ -466,4 +462,8 @@ public class EpisodeLocalServiceClpInvoker {
 	private String[] _methodParameterTypes73;
 	private String _methodName74;
 	private String[] _methodParameterTypes74;
+	private String _methodName75;
+	private String[] _methodParameterTypes75;
+	private String _methodName76;
+	private String[] _methodParameterTypes76;
 }

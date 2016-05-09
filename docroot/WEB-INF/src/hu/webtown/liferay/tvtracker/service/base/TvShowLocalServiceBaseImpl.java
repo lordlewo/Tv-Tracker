@@ -38,6 +38,7 @@ import hu.webtown.liferay.tvtracker.model.TvShow;
 import hu.webtown.liferay.tvtracker.service.TvShowLocalService;
 import hu.webtown.liferay.tvtracker.service.persistence.EpisodePersistence;
 import hu.webtown.liferay.tvtracker.service.persistence.SeasonPersistence;
+import hu.webtown.liferay.tvtracker.service.persistence.TvShowFinder;
 import hu.webtown.liferay.tvtracker.service.persistence.TvShowPersistence;
 
 import java.io.Serializable;
@@ -447,6 +448,24 @@ public abstract class TvShowLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the tv show finder.
+	 *
+	 * @return the tv show finder
+	 */
+	public TvShowFinder getTvShowFinder() {
+		return tvShowFinder;
+	}
+
+	/**
+	 * Sets the tv show finder.
+	 *
+	 * @param tvShowFinder the tv show finder
+	 */
+	public void setTvShowFinder(TvShowFinder tvShowFinder) {
+		this.tvShowFinder = tvShowFinder;
+	}
+
+	/**
 	 * Returns the counter local service.
 	 *
 	 * @return the counter local service
@@ -735,6 +754,8 @@ public abstract class TvShowLocalServiceBaseImpl extends BaseLocalServiceImpl
 	protected hu.webtown.liferay.tvtracker.service.TvShowService tvShowService;
 	@BeanReference(type = TvShowPersistence.class)
 	protected TvShowPersistence tvShowPersistence;
+	@BeanReference(type = TvShowFinder.class)
+	protected TvShowFinder tvShowFinder;
 	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
 	protected com.liferay.counter.service.CounterLocalService counterLocalService;
 	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)

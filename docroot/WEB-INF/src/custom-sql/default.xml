@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+	<sql id="hu.webtown.liferay.tvtracker.service.persistence.TvShowFinder.findByPremierYear">
+	
+		SELECT TvT_TvShow.* 
+		FROM TvT_TvShow 
+		WHERE 
+			(YEAR(TvT_TvShow.premierDate) LIKE ?)
+			
+	</sql>
+	
+	<sql id="hu.webtown.liferay.tvtracker.service.persistence.TvShowFinder.findByG_P">
+	
+		SELECT TvT_TvShow.* 
+		FROM TvT_TvShow 
+		WHERE 
+			(TvT_TvShow.groupId == ?) AND 
+			(YEAR(TvT_TvShow.premierDate) LIKE ?)
+			
+	</sql>
+</custom-sql>
