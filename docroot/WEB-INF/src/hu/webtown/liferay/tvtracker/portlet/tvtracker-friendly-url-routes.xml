@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE routes PUBLIC "-//Liferay//DTD Friendly URL Routes 6.2.0//EN" "http://www.liferay.com/dtd/liferay-friendly-url-routes_6_2_0.dtd">
+
+<routes>
+	<route>
+		<pattern>/{tvShowId}/detail</pattern>
+		<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
+		<implicit-parameter name="mvcPath">/html/tvtracker/detail/tvshow_detail.jsp</implicit-parameter>
+	</route>
+	<route>
+		<pattern>/{seasonId}/detail</pattern>
+		<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
+		<implicit-parameter name="mvcPath">/html/tvtracker/detail/season_detail.jsp</implicit-parameter>
+	</route>
+</routes>
