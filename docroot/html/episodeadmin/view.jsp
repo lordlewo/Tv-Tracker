@@ -8,6 +8,10 @@
 
 <liferay-ui:error key="delete-episode-unsuccessful" message="Episode removing was unsuccessful!"/>
 
+<%!
+	private static Log _log = LogFactoryUtil.getLog("episode admin ajjaj");
+%>
+
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	long groupId = serviceContext.getScopeGroupId();
@@ -19,13 +23,8 @@
 	String orderByType = ParamUtil.getString(request, "orderByType", "asc");
 	
 	OrderByComparator orderByComparator = ComparatorUtil.getEpisodeOrderByComparator(orderByCol, orderByType);
-
-	// get episodes count
 	
-	int totalCount = EpisodeLocalServiceUtil.getEpisodesCount(serviceContext);
-	
-	
-	// search /// TODO
+	// search
 	
 	String keywords = ParamUtil.getString(renderRequest, "keywords");
 %>
@@ -39,8 +38,7 @@
 				emptyResultsMessage="There aren't any Episodes!" 
 				orderByCol="<%= orderByCol %>" 
 				orderByType="<%= orderByType %>" 
-				orderByComparator="<%= orderByComparator %>" 
-				total="<%= totalCount %>" > 
+				orderByComparator="<%= orderByComparator %>" > 
 	 			
 				<liferay-ui:search-form 
 							page="/html/episodeadmin/search_form.jsp" 
@@ -49,14 +47,62 @@
 		
 				<liferay-ui:search-container-results>
 					<%
-						List<Episode> episodes = EpisodeLocalServiceUtil.getEpisodes(
-								serviceContext, 
-								searchContainer.getStart(), 
-								searchContainer.getEnd(), 
-								orderByComparator);
-					
-						//results.addAll(episodes);
-						searchContainer.setResults(episodes);
+						if(keywords == null || keywords.isEmpty()){
+							
+							List<Episode> episodes = EpisodeLocalServiceUtil.getEpisodes(serviceContext, searchContainer.getOrderByComparator());
+							
+							// permisssion checking 
+							
+							for(Episode episode : episodes){
+								
+								long episodeId = episode.getEpisodeId();
+								
+								if(EpisodePermission.contains(permissionChecker, episodeId, ActionKeys.VIEW)){
+									
+									((List<Episode>) results).add(episode);
+									
+								}
+							}
+						
+							pageContext.setAttribute("results", ListUtil.subList(results, searchContainer.getStart(), searchContainer.getEnd()));
+							searchContainer.setTotal(results.size());
+							
+						} else {
+							
+							SearchContext searchContext = SearchContextFactory.getInstance(request);
+							searchContext.setKeywords(keywords);
+					        searchContext.setAttribute("paginationType", "more");
+					        searchContext.setStart(searchContainer.getStart());
+					        searchContext.setEnd(searchContainer.getEnd());
+							
+					        Indexer indexer = IndexerRegistryUtil.getIndexer(TvShow.class);
+					        
+					        Hits hits = indexer.search(searchContext); 
+			
+					        List<Episode> episodes = new ArrayList<Episode>();
+					        
+					        for (int i = 0; i < hits.getDocs().length; i++) {
+				                Document doc = hits.doc(i);
+			
+				                long episodeId = GetterUtil.getLong(doc.get(Field.ENTRY_CLASS_PK));
+			
+				                Episode episode = null;
+			
+				                try {
+				                	episode = EpisodeLocalServiceUtil.getEpisode(episodeId);
+				                } catch (PortalException pe) {
+				                        _log.error(pe.getLocalizedMessage());
+				                } catch (SystemException se) {
+				                        _log.error(se.getLocalizedMessage());
+				                }
+			
+				                episodes.add(episode);
+				        	}
+							
+					        pageContext.setAttribute("results", episodes);
+							searchContainer.setTotal(episodes.size());
+					        
+						}
 					%>
 				</liferay-ui:search-container-results>
 			

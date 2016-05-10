@@ -22,6 +22,10 @@
 <liferay-ui:error key="delete-tvshow-with-season-unsuccessful"  message="TvShow removing with season was unsuccessful!"/>
 <liferay-ui:error key="delete-tvshow-with-seasons-unsuccessful" message="TvShow removing with seasons was unsuccessful!"/>
 
+<%!
+	private static Log _log = LogFactoryUtil.getLog("tv show admin ajjaj");
+%>
+
 <%
 
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
@@ -34,18 +38,8 @@
 	String orderByType = ParamUtil.getString(request, "orderByType", "asc");
 	
 	OrderByComparator orderByComparator = ComparatorUtil.getTvShowOrderByComparator(orderByCol, orderByType);
-	
-	
-	// get tvshows count
-	
-	int totalCount = TvShowLocalServiceUtil.getTvShowsCount(serviceContext);
-	List<TvShow> tvShows = TvShowLocalServiceUtil.getTvShows(serviceContext, orderByComparator);
-	
-	//tvShows = ListUtil.copy(tvShows);
-	//Collections.sort(tvShows, orderByComparator);
-	
-	
-	// search /// TODO
+
+	// search 
 	
 	String keywords = ParamUtil.getString(renderRequest, "keywords");
 	
@@ -60,12 +54,70 @@
 				emptyResultsMessage="There aren't any TvShow!" 
 				orderByCol="<%= orderByCol %>" 
 				orderByType="<%= orderByType %>" 
-				orderByComparator="<%= orderByComparator %>" 
-				total="<%= totalCount %>" > 
+				orderByComparator="<%= orderByComparator %>" > 
 	 
 				<liferay-ui:search-form page="/html/tvshowadmin/search_form.jsp" searchContainer="<%= searchContainer %>" servletContext="<%= application %>" />
 		
-				<liferay-ui:search-container-results results="<%= ListUtil.subList(tvShows, searchContainer.getStart(), searchContainer.getEnd()) %>" />
+				<liferay-ui:search-container-results>
+					<%
+						if(keywords == null || keywords.isEmpty()){
+							
+							List<TvShow> tvShows = TvShowLocalServiceUtil.getTvShows(serviceContext, searchContainer.getOrderByComparator());
+							
+							// permisssion checking 
+							
+							for(TvShow tvShow : tvShows){
+								
+								long tvShowId = tvShow.getTvShowId();
+								
+								if(TvShowPermission.contains(permissionChecker, tvShowId, ActionKeys.VIEW)){
+									
+									((List<TvShow>) results).add(tvShow);
+									
+								}
+							}
+						
+							pageContext.setAttribute("results", ListUtil.subList(results, searchContainer.getStart(), searchContainer.getEnd()));
+							searchContainer.setTotal(results.size());
+							
+						} else {
+							
+							SearchContext searchContext = SearchContextFactory.getInstance(request);
+							searchContext.setKeywords(keywords);
+					        searchContext.setAttribute("paginationType", "more");
+					        searchContext.setStart(searchContainer.getStart());
+					        searchContext.setEnd(searchContainer.getEnd());
+							
+					        Indexer indexer = IndexerRegistryUtil.getIndexer(TvShow.class);
+					        
+					        Hits hits = indexer.search(searchContext); 
+			
+					        List<TvShow> tvShows = new ArrayList<TvShow>();
+					        
+					        for (int i = 0; i < hits.getDocs().length; i++) {
+				                Document doc = hits.doc(i);
+			
+				                long tvShowId = GetterUtil.getLong(doc.get(Field.ENTRY_CLASS_PK));
+			
+				                TvShow tvShow = null;
+			
+				                try {
+				                	tvShow = TvShowLocalServiceUtil.getTvShow(tvShowId);
+				                } catch (PortalException pe) {
+				                        _log.error(pe.getLocalizedMessage());
+				                } catch (SystemException se) {
+				                        _log.error(se.getLocalizedMessage());
+				                }
+			
+				                tvShows.add(tvShow);
+				        	}
+							
+					        pageContext.setAttribute("results", tvShows);
+							searchContainer.setTotal(tvShows.size());
+					        
+						}
+					%>
+				</liferay-ui:search-container-results>
 			
 				<liferay-ui:search-container-row 
 							className="hu.webtown.liferay.tvtracker.model.TvShow" 

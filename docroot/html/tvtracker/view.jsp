@@ -1,7 +1,7 @@
 <%@ include file="/html/init.jsp" %>
 
 <%!
-	private static Log _log = LogFactoryUtil.getLog("ajjaj");
+	private static Log _log = LogFactoryUtil.getLog("tv tracker ajjaj");
 %>
 
 	<liferay-portlet:renderURL var="navigateToTestURL">
@@ -35,7 +35,6 @@
 			orderByCol="<%= orderByCol %>" 
 			orderByType="<%= orderByType %>" 
 			orderByComparator="<%= orderByComparator %>" >
-<%-- 			total="<%= TvShowLocalServiceUtil.getTvShowsCount(serviceContext) %>"  --%>
 			
 	<liferay-ui:search-form page="/html/tvtracker/search_form.jsp" searchContainer="<%= searchContainer %>" servletContext="<%= application %>" showAddButton="true"/>
 
