@@ -224,10 +224,12 @@ public abstract class TvShowLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the tv show
 	 * @throws PortalException if a tv show with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
+	 * @throws hu.webtown.liferay.tvtracker.NoSuchTvShowException
 	 */
 	@Override
 	public TvShow getTvShow(long tvShowId)
-		throws PortalException, SystemException {
+		throws PortalException, SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchTvShowException {
 		return tvShowPersistence.findByPrimaryKey(tvShowId);
 	}
 

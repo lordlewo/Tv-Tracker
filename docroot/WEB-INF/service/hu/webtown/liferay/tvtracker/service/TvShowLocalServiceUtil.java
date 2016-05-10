@@ -194,11 +194,13 @@ public class TvShowLocalServiceUtil {
 	* @return the tv show
 	* @throws PortalException if a tv show with the primary key could not be found
 	* @throws SystemException if a system exception occurred
+	* @throws hu.webtown.liferay.tvtracker.NoSuchTvShowException
 	*/
 	public static hu.webtown.liferay.tvtracker.model.TvShow getTvShow(
 		long tvShowId)
 		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+			com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchTvShowException {
 		return getService().getTvShow(tvShowId);
 	}
 

@@ -40,6 +40,7 @@ import hu.webtown.liferay.tvtracker.service.persistence.TvShowFinderUtil;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -60,13 +61,81 @@ import java.util.TimeZone;
  */
 public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 	
+	protected Calendar getCal(ServiceContext serviceContext){
+		
+		Calendar calendar = null;
+		
+		if(serviceContext != null) {
+		
+			Locale locale = serviceContext.getLocale();
+			TimeZone timeZone = serviceContext.getTimeZone();
+			
+			if (locale != null && timeZone != null){
+			
+				calendar = new GregorianCalendar(timeZone, locale);
+			
+			} else if (locale != null){
+				
+				calendar = new GregorianCalendar(locale);
+			
+			} else if (timeZone != null){
+				
+				calendar = new GregorianCalendar(timeZone);
+				
+			} else {
+				
+				calendar = new GregorianCalendar();
+				
+			}
+		} else {
+			
+			calendar = Calendar.getInstance();
+			
+		}
+		
+		return calendar;
+	}
+	
+	/*************************************************************************************************************************/
+	
+	public TvShow getTvShow(long tvShowId) throws SystemException, NoSuchTvShowException{
+		
+		// using of the finder method to retrive the requested entity instance
+		
+		TvShow tvShow = tvShowPersistence.findByPrimaryKey(tvShowId);
+		
+		
+		// producing and setting the necessary custom properties
+		
+		Calendar calendar = getCal(null);
+		
+		
+		// getting the premier year from the premier date
+		
+		Date premierDate = tvShow.getPremierDate();
+		calendar.setTime(premierDate);
+		
+		int premierYear = calendar.get(Calendar.YEAR);
+		tvShow.setPremierYear(premierYear);
+		
+		calendar.clear();
+		
+		
+		// getting the tvShow's season count
+		
+//		int seasonCount = seasonLocalService.getSeasonsCount(tvShowId, serviceContext);
+//		
+//		tvShow.setSeasonCount(seasonCount);
+		
+		
+		return tvShow;
+	}
+	
 	public TvShow getTvShow(long tvShowId, ServiceContext serviceContext) throws SystemException, NoSuchTvShowException{
 		
 		// unbox and prepare the necessary parameters
 		
 		long groupId = serviceContext.getScopeGroupId();
-		Locale currentLocale = serviceContext.getLocale();
-		TimeZone currentTimeZone = serviceContext.getTimeZone();
 		
 		// using of the finder method to retrive the requested entity instance
 		
@@ -75,25 +144,7 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// producing and setting the necessary custom properties
 		
-		Calendar calendar = null;
-		
-		if(currentLocale != null && currentTimeZone != null){
-		
-			calendar = Calendar.getInstance(currentTimeZone, currentLocale);
-			
-		} else if(currentLocale != null){
-			
-			calendar = Calendar.getInstance(currentLocale);
-			
-		} else if (currentTimeZone != null){
-			
-			calendar = Calendar.getInstance(currentTimeZone);
-			
-		} else {
-			
-			calendar = Calendar.getInstance();
-			
-		}
+		Calendar calendar = getCal(serviceContext);
 		
 		
 		// getting the premier year from the premier date
@@ -123,8 +174,6 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		// unbox and prepare the necessary parameters
 		
 		long groupId = serviceContext.getScopeGroupId();
-		Locale currentLocale = serviceContext.getLocale();
-		TimeZone currentTimeZone = serviceContext.getTimeZone();
 		
 		// using of the finder method to retrive the requested entity instances
 		
@@ -133,25 +182,7 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// producing and setting the necessary custom properties
 		
-		Calendar calendar = null;
-		
-		if(currentLocale != null && currentTimeZone != null){
-		
-			calendar = Calendar.getInstance(currentTimeZone, currentLocale);
-			
-		} else if(currentLocale != null){
-			
-			calendar = Calendar.getInstance(currentLocale);
-			
-		} else if (currentTimeZone != null){
-			
-			calendar = Calendar.getInstance(currentTimeZone);
-			
-		} else {
-			
-			calendar = Calendar.getInstance();
-			
-		}
+		Calendar calendar = getCal(serviceContext);
 		
 		
 		for (TvShow tvShow : tvShows) {
@@ -193,7 +224,7 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// producing and setting the necessary custom properties
 		
-		Calendar calendar = Calendar.getInstance();
+		Calendar calendar = getCal(serviceContext);
 		
 		for (TvShow tvShow : tvShows) {
 			
@@ -234,8 +265,6 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		// unbox and prepare the necessary parameters
 		
 		long groupId = serviceContext.getScopeGroupId();
-		Locale currentLocale = serviceContext.getLocale();
-		TimeZone currentTimeZone = serviceContext.getTimeZone();
 		
 		// using of the finder method to retrive the requested entity instances
 		
@@ -244,25 +273,7 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		
 		// producing and setting the necessary custom properties
 		
-		Calendar calendar = null;
-		
-		if(currentLocale != null && currentTimeZone != null){
-		
-			calendar = Calendar.getInstance(currentTimeZone, currentLocale);
-			
-		} else if(currentLocale != null){
-			
-			calendar = Calendar.getInstance(currentLocale);
-			
-		} else if (currentTimeZone != null){
-			
-			calendar = Calendar.getInstance(currentTimeZone);
-			
-		} else {
-			
-			calendar = Calendar.getInstance();
-			
-		}
+		Calendar calendar = getCal(serviceContext);
 		
 		
 		for (TvShow tvShow : tvShows) {
@@ -390,6 +401,12 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		tvShow.setImageTitle(imageTitle);
 		tvShow.setImageVersion(imageVersion);
 		
+		/**/
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(premierDate);
+		int premierYear = calendar.get(Calendar.YEAR);
+		tvShow.setPremierYear(premierYear);
+		/**/
 		
 		// persist the properly created instance
 		
@@ -492,6 +509,12 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 		tvShow.setImageTitle(imageTitle);
 		tvShow.setImageVersion(imageVersion);
 	
+		/**/
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(premierDate);
+		int premierYear = calendar.get(Calendar.YEAR);
+		tvShow.setPremierYear(premierYear);
+		/**/
 		
 		// persist the updated entity instance
 		

@@ -545,7 +545,8 @@ public class TvShowLocalServiceClp implements TvShowLocalService {
 	@Override
 	public hu.webtown.liferay.tvtracker.model.TvShow getTvShow(long tvShowId)
 		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+			com.liferay.portal.kernel.exception.SystemException,
+			hu.webtown.liferay.tvtracker.NoSuchTvShowException {
 		Object returnObj = null;
 
 		try {
@@ -561,6 +562,10 @@ public class TvShowLocalServiceClp implements TvShowLocalService {
 
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
 				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof hu.webtown.liferay.tvtracker.NoSuchTvShowException) {
+				throw (hu.webtown.liferay.tvtracker.NoSuchTvShowException)t;
 			}
 
 			if (t instanceof RuntimeException) {
