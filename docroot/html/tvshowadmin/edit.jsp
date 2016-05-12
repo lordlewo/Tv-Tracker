@@ -1,19 +1,5 @@
 <%@page import="com.liferay.portal.model.ModelHintsUtil"%>
-<%@page import="com.liferay.portal.model.ModelHintsConstants"%>
 <%@ include file="/html/init.jsp" %>
-
-<liferay-ui:success key="add-tvshow-successful" 			 	message="TvShow creating was successful!"/>
-<liferay-ui:success key="add-tvshow-with-season-successful"  	message="TvShow creating with season was successful!"/>
-<liferay-ui:success key="add-tvshow-with-seasons-successful" 	message="TvShow creating with seasons was successful!"/>
-
-<liferay-ui:error key="add-tvshow-unsuccessful" 			 	message="TvShow creating was unsuccessful!"/>
-<liferay-ui:error key="add-tvshow-with-season-unsuccessful"  	message="TvShow creating with season was unsuccessful!"/>
-<liferay-ui:error key="add-tvshow-with-seasons-unsuccessful" 	message="TvShow creating with seasons was unsuccessful!"/>
-
-<liferay-ui:error key="update-tvshow-unsuccessful" 			 	message="TvShow editing was unsuccessful!"/>
-<liferay-ui:error key="update-tvshow-with-season-unsuccessful"  message="TvShow editing with season was unsuccessful!"/>
-<liferay-ui:error key="update-tvshow-with-seasons-unsuccessful" message="TvShow editing with seasons was unsuccessful!"/>
-
 
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
@@ -517,30 +503,24 @@
 			
 	 		// get rows num
 	 		var rowsNum = autofieldsRows.size();
-			
+	 		
 	 		// iterate the rows
 			for(var i = 0; i < rowsNum; i++){
-				
-				// get current row in the cycle
-				var autofieldsRow = autofieldsRows.item(i);
-				
-				// if not hided - (hide -> if minus button clicked, the row still in the DOM, but that row already is irrelevant)
-				if( !autofieldsRow.hasClass('hide') ){
+
+				// copy values into the hidden fields
+				fillSeasonTitleHiddenFields(i);
+				fillSeasonNumberHiddenFields(i);
+				fillSeasonPremierDateHiddenFields(i);
+				fillSeasonDescriptionHiddenFields(i);
 					
-					fillSeasonTitleHiddenFields(autofieldsRow, i);
-					fillSeasonNumberHiddenFields(autofieldsRow, i);
-					fillSeasonPremierDateHiddenFields(autofieldsRow, i);
-					fillSeasonDescriptionHiddenFields(autofieldsRow, i);
-					
-				}
 			}
 	 	}
 	 	
-		function fillSeasonTitleHiddenFields(currentRow, index) {
+		function fillSeasonTitleHiddenFields(index) {
 	 		
 	 		// get the title's wrapper from the row
 			var wrapperId = '#<portlet:namespace />seasonTitleWrapper' + index;
-			var wrapper   = currentRow.one(wrapperId);
+			var wrapper   = A.one(wrapperId);
 			
 			if (wrapper != null) {
 				// get value from the wrapper
@@ -554,15 +534,15 @@
 			}
 	 	}
 		
-		function fillSeasonNumberHiddenFields(currentRow, index) {
+		function fillSeasonNumberHiddenFields(index) {
 	 		
 	 		// get the number's wrapper from the row
 			var wrapperId = '#<portlet:namespace/>seasonNumberWrapper' + index;
-			var wrapper   = currentRow.one(wrapperId);
+			var wrapper   = A.one(wrapperId);
 			
 			if(wrapper != null) {
 				// get value from the wrapper
-				var visibleSeasonNumber = wrapper.one('#<portlet:namespace />seasonNumber');
+				var visibleSeasonNumber = wrapper.one('#<portlet:namespace />visibleSeasonNumber' + index);
 				
 				// locate the hidden field
 				var seasonNumber = wrapper.one('#<portlet:namespace />seasonNumber' + index);
@@ -572,11 +552,11 @@
 			}
 	 	}
 
-	 	function fillSeasonPremierDateHiddenFields(currentRow, index) {
+	 	function fillSeasonPremierDateHiddenFields(index) {
 	 		
 	 		// get the date's wrapper from the row
 			var wrapperId = '#<portlet:namespace/>seasonPremierDateWrapper' + index;
-			var wrapper   = currentRow.one(wrapperId);
+			var wrapper   = A.one(wrapperId);
 
 			if(wrapper != null) {
 				// get values from the wrapper
@@ -596,21 +576,21 @@
 			}			
 	 	}
 		
-		function fillSeasonDescriptionHiddenFields(currentRow, index) {
+		function fillSeasonDescriptionHiddenFields(index) {
 	 		
 	 		// get the number's wrapper from the row
 			var wrapperId = '#<portlet:namespace/>seasonDescriptionWrapper' + index;
-			var wrapper   = currentRow.one(wrapperId);
+			var wrapper   = A.one(wrapperId);
 
 			if(wrapper != null) {	
-			// get value from the wrapper
-			var visibleSeasonDescription = wrapper.one('#<portlet:namespace />visibleSeasonDescription' + index);
-			
-			// locate the hidden field
-			var seasonDescription = wrapper.one('#<portlet:namespace />seasonDescription' + index);
-
-			// set values to the hidden field
-			seasonDescription.val(visibleSeasonDescription.val());
+				// get value from the wrapper
+				var visibleSeasonDescription = wrapper.one('#<portlet:namespace />visibleSeasonDescription' + index);
+				
+				// locate the hidden field
+				var seasonDescription = wrapper.one('#<portlet:namespace />seasonDescription' + index);
+	
+				// set values to the hidden field
+				seasonDescription.val(visibleSeasonDescription.val());
 			}
 	 	}
 

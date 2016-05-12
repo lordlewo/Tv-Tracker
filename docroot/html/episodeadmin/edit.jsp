@@ -1,10 +1,6 @@
 <%@page import="com.liferay.portal.model.ModelHintsUtil"%>
 <%@ include file="/html/init.jsp" %>
 
-<liferay-ui:error key="add-episode-unsuccessful" message="Episode creating was unsuccessful!"/>
-
-<liferay-ui:error key="update-episode-unsuccessful" message="Episode editing was unsuccessful!"/>
-
 <%
 	ServiceContext serviceContext = ServiceContextFactory.getInstance(renderRequest);
 	

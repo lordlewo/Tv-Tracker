@@ -1,12 +1,13 @@
 <%@ include file="/html/init.jsp"  %>
 
-<liferay-ui:success key="add-episode-successful" message="Episode creating was successful!"/>
+<liferay-ui:success key="add-episode-successful"   message="Episode creating was successful!"/>
+<liferay-ui:error   key="add-episode-unsuccessful" message="Episode creating was unsuccessful!"/>
 
-<liferay-ui:success key="update-episode-successful" message="Episode editing was successful!"/>
+<liferay-ui:success key="update-episode-successful"   message="Episode editing was successful!"/>
+<liferay-ui:error   key="update-episode-unsuccessful" message="Episode editing was unsuccessful!"/>
 
-<liferay-ui:success key="delete-episode-successful" message="Episode removing was successful!"/>
-
-<liferay-ui:error key="delete-episode-unsuccessful" message="Episode removing was unsuccessful!"/>
+<liferay-ui:success key="delete-episode-successful"   message="Episode removing was successful!"/>
+<liferay-ui:error   key="delete-episode-unsuccessful" message="Episode removing was unsuccessful!"/>
 
 <%!
 	private static Log _log = LogFactoryUtil.getLog("episode admin ajjaj");
@@ -75,7 +76,7 @@
 					        searchContext.setStart(searchContainer.getStart());
 					        searchContext.setEnd(searchContainer.getEnd());
 							
-					        Indexer indexer = IndexerRegistryUtil.getIndexer(TvShow.class);
+					        Indexer indexer = IndexerRegistryUtil.getIndexer(Episode.class);
 					        
 					        Hits hits = indexer.search(searchContext); 
 			

@@ -4,6 +4,7 @@ import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.BaseIndexer;
+import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Document;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.SearchContext;
@@ -225,5 +226,12 @@ public class EpisodeIndexer extends BaseIndexer {
 		
 		
 		SearchEngineUtil.updateDocuments(searchEngineId, companyId, documents, commitImmediately);
+	}
+	
+	@Override
+	public void postProcessSearchQuery(BooleanQuery searchQuery, SearchContext searchContext) throws Exception {
+		super.postProcessSearchQuery(searchQuery, searchContext);
+		
+		
 	}
 }

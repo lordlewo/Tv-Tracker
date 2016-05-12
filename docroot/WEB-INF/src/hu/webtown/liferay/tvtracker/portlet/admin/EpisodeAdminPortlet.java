@@ -122,7 +122,7 @@ public class EpisodeAdminPortlet extends MVCPortlet {
 			SessionErrors.add(actionRequest, "add-episode-unsuccessful");
 			
 			// nav
-			actionResponse.setRenderParameter("mvcPath", "/html/episodeadmin/edit.jsp");
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/view.jsp");
 		}
 		
 	}
@@ -188,7 +188,7 @@ public class EpisodeAdminPortlet extends MVCPortlet {
 			SessionErrors.add(actionRequest, "update-episode-unsuccessful");
 			
 			// nav
-			actionResponse.setRenderParameter("mvcPath", "/html/episodeadmin/edit.jsp");
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/view.jsp");
 		}	
 	}
 	

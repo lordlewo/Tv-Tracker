@@ -7,10 +7,10 @@ public class PortletKeys extends com.liferay.portal.util.PortletKeys {
 	
 	// "portlet.xml -> portlet-name" + "_WAR_" + "build.xml -> project.name" 
 	
-	public static final String TV_TRACKER = "tv-tracker_WAR_tv-tracker-porlet";
+	public static final String TV_TRACKER = "tvtracker_WAR_tvtrackerporlet";
 	
-	public static final String TVSHOW_ADMIN = "tvshow-admin_WAR_tv-tracker-porlet";
+	public static final String TVSHOW_ADMIN = "tvshowadmin_WAR_tvtrackerporlet";
 	
-	public static final String EPISODE_ADMIN = "episode-admin_WAR_tv-tracker-porlet";
+	public static final String EPISODE_ADMIN = "episodeadmin_WAR_tvtrackerporlet";
 
 }

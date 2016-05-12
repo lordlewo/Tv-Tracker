@@ -118,7 +118,9 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			
 			rowIndexes = ParamUtil.getIntegerValues(actionRequest, "rowIndexes");
 			
-			for(rowIndex = 0; rowIndex < rowIndexes.length; rowIndex++){
+			for(int i = 0; i < rowIndexes.length; i++){
+				
+				rowIndex = rowIndexes[i];
 				
 				calendar.clear();
 				
@@ -180,7 +182,7 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			}
 			
 			// nav
-			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/edit.jsp");
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/view.jsp");
 		}
 	}
 	
@@ -246,7 +248,9 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			
 			rowIndexes = ParamUtil.getIntegerValues(actionRequest, "rowIndexes");
 			
-			for(rowIndex = 0; rowIndex < rowIndexes.length; rowIndex++) {
+			for(int i = 0; i < rowIndexes.length; i++){
+				
+				rowIndex = rowIndexes[i];
 				
 				calendar.clear();
 				
@@ -369,7 +373,7 @@ public class TvShowAdminPortlet extends MVCPortlet {
 			}
 			
 			// nav
-			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/edit.jsp");
+			actionResponse.setRenderParameter("mvcPath", "/html/tvshowadmin/view.jsp");
 		}
 	}
 	
