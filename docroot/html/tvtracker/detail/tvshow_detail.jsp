@@ -70,8 +70,8 @@
 			<%-- 			<liferay-ui:header backURL="<%= viewURL %>" title="<%= tvShow.getTitle() %>"/> --%>
 			<h1> 
 				<a href="<%= viewURL %>" class="icon-arrow-left" style="text-decoration: none;" ></a> &nbsp;
-				<%= tvShow.getTitle() %> &nbsp; 
-				(<%= tvShow.getPremierYear() %>) 
+				<%= HtmlUtil.escape(tvShow.getTitle()) %> &nbsp; 
+				(<%= HtmlUtil.escape(String.valueOf(tvShow.getPremierYear())) %>) 
 			</h1>
 		</aui:row>
 		
@@ -105,7 +105,7 @@
 						<aui:row cssClass="tvShowDetailsTabRow">
 							<aui:col span="3"/>
 							<aui:col span="8" cssClass="tvShowDetailsRowTitle">
-								<h3> <%= tvShow.getTitle() %> </h3>
+								<h3> <%= HtmlUtil.escape(tvShow.getTitle()) %> </h3>
 							</aui:col>
 							<aui:col span="1"/>
 						</aui:row>
@@ -124,7 +124,7 @@
 								<strong>Genres:</strong>
 							</aui:col>
 							<aui:col span="8" cssClass="tvShowDetailsRowText">
-								<%= stringBuilder.toString() %>
+								<%= HtmlUtil.escape(stringBuilder.toString()) %>
 							</aui:col>
 						</aui:row>
 						
@@ -133,7 +133,7 @@
 								<strong>Number of Seasons:</strong>
 							</aui:col>
 							<aui:col span="8" cssClass="tvShowDetailsRowText">
-								<%= tvShow.getSeasonCount() %>
+								<%= HtmlUtil.escape(String.valueOf(tvShow.getSeasonCount())) %>
 							</aui:col>
 						</aui:row>
 						
@@ -142,7 +142,7 @@
 								<strong>Description:</strong>
 							</aui:col>
 							<aui:col span="8" cssClass="tvShowDetailsRowText tvShowDeatilsRowTextDetails">
-								<%= tvShow.getDescription() %>
+								<%= HtmlUtil.escape(tvShow.getDescription()) %>
 							</aui:col>
 						</aui:row>
 					</div>

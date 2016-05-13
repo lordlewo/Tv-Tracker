@@ -139,7 +139,7 @@
 					    %>
 					    
 						    		<aui:option value="<%= String.valueOf(seasonId) %>" selected="<%= selected %>">
-						    			"<%= sbLabel %>"
+						    			"<%= HtmlUtil.escape(sbLabel.toString()) %>"
 						    		</aui:option>
 					    
 					    <%

@@ -100,7 +100,7 @@
 		%>
 	</liferay-ui:search-container-results> 
 	
-		<liferay-ui:search-container-row className="hu.webtown.liferay.tvtracker.model.TvShow" modelVar="tvShow" keyProperty="tvShowId" >
+		<liferay-ui:search-container-row className="hu.webtown.liferay.tvtracker.model.TvShow" modelVar="tvShow" keyProperty="tvShowId" escapedModel="true">
 			
 			<%-- tvshow image --%>
 			
@@ -109,7 +109,7 @@
 			
 			<%-- tvshow title --%>
 			
-			<liferay-ui:search-container-column-text property="title" orderable="true" orderableProperty="title"/>
+			<liferay-ui:search-container-column-text property="title" orderable="true" orderableProperty="title" />
 			
 			
 			<%-- tvshow premier year --%>
@@ -124,7 +124,7 @@
 					long currentTvShowId = tvShow.getTvShowId();
 					int seasonsCount = SeasonLocalServiceUtil.getSeasonsCount(currentTvShowId, serviceContext);
 					
-					out.print(seasonsCount);
+					out.print(HtmlUtil.escape(String.valueOf(seasonsCount)));
 				%>
 			</liferay-ui:search-container-column-text>
 			

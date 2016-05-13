@@ -127,7 +127,8 @@
 							className="hu.webtown.liferay.tvtracker.model.TvShow" 
 							keyProperty="tvShowId" 
 							modelVar="tvShow" 
-							indexVar="idx" >
+							indexVar="idx" 
+							escapedModel="true" >
 					
 					<liferay-ui:search-container-column-text 
 								cssClass="searchContainerColumnClass" 

@@ -53,7 +53,7 @@
 				<aui:col span="6" >
 					<aui:row cssClass="seasonEpisodesTabRowTitle">
 						<aui:col span="11" >
-							<h5> <%= episode.getTitle() %> </h5> 
+							<h5> <%= HtmlUtil.escape(episode.getTitle()) %> </h5> 
 						</aui:col>
 					</aui:row>
 					
@@ -71,13 +71,13 @@
 							Episode:
 						</aui:col>
 						<aui:col span="9">
-							<%=season.getSeasonNumber()%>x<fmt:formatNumber value="<%=episode.getEpisodeNumber()%>" type="number" minIntegerDigits="2"/>  
+							<%= HtmlUtil.escape(String.valueOf(season.getSeasonNumber()))%>x<fmt:formatNumber value="<%=HtmlUtil.escape(String.valueOf(episode.getEpisodeNumber()))%>" type="number" minIntegerDigits="2"/>  
 						</aui:col>
 					</aui:row>
 					
 					<aui:row cssClass="seasonEpisodesTabRowDescription">
 						<aui:col span="11" cssClass="seasonEpisodesTabRowDescriptionText">
-							<%= episode.getDescription() %>
+							<%= HtmlUtil.escape(episode.getDescription()) %>
 						</aui:col>
 					</aui:row>
 					

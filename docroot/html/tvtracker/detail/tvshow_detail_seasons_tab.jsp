@@ -57,10 +57,10 @@
 					</c:choose>
 				</aui:col>
 				<aui:col span="3" cssClass="tvShowSeasonsTabRowText">
-					<%= season.getTitle() %>
+					<%= HtmlUtil.escape(season.getTitle()) %>
 				</aui:col>
 				<aui:col span="3" cssClass="tvShowSeasonsTabRowText">
-					<%= season.getEpisodeCount() %>
+					<%= HtmlUtil.escape(String.valueOf(season.getEpisodeCount())) %>
 				</aui:col>
 				<aui:col span="2" cssClass="tvShowSeasonsTabRowText">
 				
