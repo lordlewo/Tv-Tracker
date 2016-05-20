@@ -567,9 +567,9 @@ public class SeasonLocalServiceImpl extends SeasonLocalServiceBaseImpl {
 			throw new SeasonDescriptionException("The season's description is mandatory!");
 		}
 		
-		if(Validator.isNull(imageUrl) || Validator.isNull(imageUuid) || Validator.isNull(imageTitle) || Validator.isNull(imageVersion)){
+		if(imageUrl == null || imageUuid == null || imageTitle == null || imageVersion == null){
 			
-			throw new SeasonImageException("The season's image musn't be null!");
+			throw new SeasonImageException("The episode's image musn't be null!");
 		}
 		
 	}

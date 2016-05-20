@@ -700,9 +700,9 @@ public class TvShowLocalServiceImpl extends TvShowLocalServiceBaseImpl {
 			throw new TvShowDescriptionException("The tv show's description is mandatory!");
 		}
 		
-		if(Validator.isNull(imageUrl) || Validator.isNull(imageUuid) || Validator.isNull(imageTitle) || Validator.isNull(imageVersion)){
+		if(imageUrl == null || imageUuid == null || imageTitle == null || imageVersion == null){
 			
-			throw new TvShowImageException("The tv show's image is mandatory!");
+			throw new TvShowImageException("The tv show's image musn't be null!");
 		}
 		
 	}

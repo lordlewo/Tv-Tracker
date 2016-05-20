@@ -6,6 +6,9 @@
 	<portlet>
 		<portlet-name>tv-tracker</portlet-name>
 		<icon>/icon.png</icon>
+		<asset-renderer-factory>hu.webtown.liferay.tvtracker.asset.TvShowAssetRendererFactory</asset-renderer-factory>
+		<asset-renderer-factory>hu.webtown.liferay.tvtracker.asset.SeasonAssetRendererFactory</asset-renderer-factory>
+		<asset-renderer-factory>hu.webtown.liferay.tvtracker.asset.EpisodeAssetRenderFactory</asset-renderer-factory>
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>
 			/js/main.js

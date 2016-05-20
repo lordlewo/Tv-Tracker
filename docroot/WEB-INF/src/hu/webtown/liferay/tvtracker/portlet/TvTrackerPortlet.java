@@ -224,7 +224,7 @@ public class TvTrackerPortlet extends MVCPortlet {
 				cal.set(2015, 6, 25);
 				seasonNumber = 1;
 				description = "The show follows Elliot, who is a cyber-security tech by day and vigilante hacker by night. He has used his hacking skills for justice and to protect those he cares about, but has problems connecting to people in the real world due to social anxiety. He strongly believes that the world is being ruled by the 1% of the 1% and, that using money and debt, they have enslaved mankind and he wishes desperately to change this. He is recruited by the head of a highly secret hacking group to take down the";
-				imageUrl = "http://localhost:8080/documents/20181/23146/mrrobot.jpg/737f2fb8-049a-4e40-9d29-f2b76ad39bfd?t=1460376716000";
+				imageUrl = "";
 				
 				SeasonLocalServiceUtil.addSeason(tvshowId, title , cal.getTime(), seasonNumber, description, imageUrl, "test", "test", "test", serviceContext);
 
@@ -234,7 +234,7 @@ public class TvTrackerPortlet extends MVCPortlet {
 				cal.set(2015, 6, 25);
 				seasonNumber = 2;
 				description = "The show follows Elliot, who is a cyber-security tech by day and vigilante hacker by night. He has used his hacking skills for justice and to protect those he cares about, but has problems connecting to people in the real world due to social anxiety. He strongly believes that the world is being ruled by the 1% of the 1% and, that using money and debt, they have enslaved mankind and he wishes desperately to change this. He is recruited by the head of a highly secret hacking group to take down the";
-				imageUrl = "http://localhost:8080/documents/20181/23146/mrrobot.jpg/737f2fb8-049a-4e40-9d29-f2b76ad39bfd?t=1460376716000";
+				imageUrl = "";
 				
 				SeasonLocalServiceUtil.addSeason(tvshowId, title , cal.getTime(), seasonNumber, description, imageUrl, "test", "test", "test", serviceContext);
 
@@ -244,7 +244,7 @@ public class TvTrackerPortlet extends MVCPortlet {
 				cal.set(2010, 7, 25);
 				seasonNumber = 1;
 				description = "Sherlock is a British television crime drama that presents a contemporary adaptation of Sir Arthur Conan Doyle's Sherlock Holmes detective stories. Created by Steven Moffat and Mark Gatiss, it stars Benedict Cumberbatch as Sherlock Holmes and Martin Freeman as Doctor John Watson.";
-				imageUrl = "http://localhost:8080/documents/20181/23151/sherlock.jpg/3f5a5e93-aeb7-47ca-bb1b-8def9024aeaf?t=1460376741000";
+				imageUrl = "";
 				
 				SeasonLocalServiceUtil.addSeason(tvshowId, title , cal.getTime(), seasonNumber, description, imageUrl, "test", "test", "test", serviceContext);
 
@@ -254,7 +254,7 @@ public class TvTrackerPortlet extends MVCPortlet {
 				cal.set(2012, 1, 1);
 				seasonNumber = 1;
 				description = "Sherlock is a British television crime drama that presents a contemporary adaptation of Sir Arthur Conan Doyle's Sherlock Holmes detective stories. Created by Steven Moffat and Mark Gatiss, it stars Benedict Cumberbatch as Sherlock Holmes and Martin Freeman as Doctor John Watson.";
-				imageUrl = "http://localhost:8080/documents/20181/23151/sherlock.jpg/3f5a5e93-aeb7-47ca-bb1b-8def9024aeaf?t=1460376741000";
+				imageUrl = "";
 				
 				SeasonLocalServiceUtil.addSeason(tvshowId, title , cal.getTime(), seasonNumber, description, imageUrl, "test", "test", "test", serviceContext);
 

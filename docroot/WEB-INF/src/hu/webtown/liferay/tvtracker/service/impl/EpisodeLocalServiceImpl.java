@@ -34,6 +34,7 @@ import hu.webtown.liferay.tvtracker.EpisodeImageException;
 import hu.webtown.liferay.tvtracker.EpisodeNumberException;
 import hu.webtown.liferay.tvtracker.EpisodeTitleException;
 import hu.webtown.liferay.tvtracker.SeasonImageException;
+import hu.webtown.liferay.tvtracker.TvShowImageException;
 import hu.webtown.liferay.tvtracker.model.Episode;
 import hu.webtown.liferay.tvtracker.service.base.EpisodeLocalServiceBaseImpl;
 
@@ -446,9 +447,9 @@ public class EpisodeLocalServiceImpl extends EpisodeLocalServiceBaseImpl {
 			throw new EpisodeDescriptionException("The episode's description is mandatory!");
 		}
 		
-		if(Validator.isNull(imageUrl) || Validator.isNull(imageUuid) || Validator.isNull(imageTitle) || Validator.isNull(imageVersion)){
+		if(imageUrl == null || imageUuid == null || imageTitle == null || imageVersion == null){
 			
-			throw new SeasonImageException("The episode's image musn't be null!");
+			throw new EpisodeImageException("The episode's image musn't be null!");
 		}
 		
 	}
