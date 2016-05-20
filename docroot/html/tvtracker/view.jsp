@@ -1,3 +1,4 @@
+<%@page import="com.liferay.portal.kernel.language.LanguageUtil"%>
 <%@ include file="/html/init.jsp" %>
 
 <%!
@@ -27,11 +28,20 @@
 	
 	String keywords = ParamUtil.getString(renderRequest, "keywords");
 
+	// language.properties messages 
+	
+	String emptyMsg = LanguageUtil.get(pageContext, "tvtracker.searchcontainer.emptyresultmessage");
+	
+	String coverMsg = LanguageUtil.get(pageContext, "tvtracker.searchcontainer.cover");
+	String titleMsg = LanguageUtil.get(pageContext, "tvtracker.searchcontainer.title");
+	String premierYearMsg = LanguageUtil.get(pageContext, "tvtracker.searchcontainer.premieryear");
+	String seasonsMsg = LanguageUtil.get(pageContext, "tvtracker.searchcontainer.seasons");
+	String detailsMsg = LanguageUtil.get(pageContext, "tvtracker.searchcontainer.details");
 %>
 
 <liferay-ui:search-container 
 			delta="10" 
-			emptyResultsMessage="There are not any TvShows!" 
+			emptyResultsMessage="<%= emptyMsg %>" 
 			orderByCol="<%= orderByCol %>" 
 			orderByType="<%= orderByType %>" 
 			orderByComparator="<%= orderByComparator %>" >
@@ -104,22 +114,22 @@
 			
 			<%-- tvshow image --%>
 			
-			<liferay-ui:search-container-column-jsp name="Cover" path="/html/tvtracker/cover.jsp"  />
+			<liferay-ui:search-container-column-jsp path="/html/tvtracker/cover.jsp" name="<%= coverMsg %>"/>
 			
 			
 			<%-- tvshow title --%>
 			
-			<liferay-ui:search-container-column-text property="title" orderable="true" orderableProperty="title" />
+			<liferay-ui:search-container-column-text property="title" orderable="true" orderableProperty="title" name="<%= titleMsg %>"/>
 			
 			
 			<%-- tvshow premier year --%>
 			
-			<liferay-ui:search-container-column-text property="premierYear" name="Premier Year" orderable="true" orderableProperty="premierYear"/>
+			<liferay-ui:search-container-column-text property="premierYear" orderable="true" orderableProperty="premierYear" name="<%= premierYearMsg %>"/>
 			
 			
 			<%-- season count --%>
 			
-			<liferay-ui:search-container-column-text  name="Seasons" > 
+			<liferay-ui:search-container-column-text name="Seasons" > 
 				<%
 					long currentTvShowId = tvShow.getTvShowId();
 					int seasonsCount = SeasonLocalServiceUtil.getSeasonsCount(currentTvShowId, serviceContext);
@@ -138,7 +148,7 @@
 				<portlet:param name="selected_tab_tvshow" value="0" />
 			</portlet:renderURL>
 			
-			<liferay-ui:search-container-column-text name="Details">
+			<liferay-ui:search-container-column-text name="<%= detailsMsg %>">
 				<div style="text-align: center;"><h1><aui:a href="<%= detailsURL %>" cssClass="icon-arrow-right" style="text-decoration: none;" /></h1></div>		
 			</liferay-ui:search-container-column-text>
 			

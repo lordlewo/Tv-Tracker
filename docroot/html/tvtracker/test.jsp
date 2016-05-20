@@ -39,22 +39,26 @@ Add Episodes:
 Delete Episodes:
 <aui:button name="deleteEpisodeButton" value="Delete Episodes" onClick="<%= testDeleteEpisodeURL %>" />
 
-<portlet:actionURL name="testAuto" var="testAutoURL"/>
+<liferay-ui:message key="hu.webtown.liferay.test" />
+
+
+
+<%-- <portlet:actionURL name="testAuto" var="testAutoURL"/> --%>
  
-<aui:form name="fm" method="POST" action="<%=testAutoURL%>" >
+<%-- <aui:form name="fm" method="POST" action="<%=testAutoURL%>" > --%>
 
-	<div id="member-fields">
-		<div class="lfr-form-row lfr-form-row-inline">
-			<div class="row-fields" style="display: flex;">
-				<liferay-util:include page="/html/tvtracker/t.jsp" servletContext="<%= application %>" >
-				</liferay-util:include>
-			</div>
-		</div>
-	</div>
+<!-- 	<div id="member-fields"> -->
+<!-- 		<div class="lfr-form-row lfr-form-row-inline"> -->
+<!-- 			<div class="row-fields" style="display: flex;"> -->
+<%-- 				<liferay-util:include page="/html/tvtracker/t.jsp" servletContext="<%= application %>" > --%>
+<%-- 				</liferay-util:include> --%>
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
 	
-	<aui:button type="submit"/>
+<%-- 	<aui:button type="submit"/> --%>
 
-</aui:form>
+<%-- </aui:form> --%>
 
 <portlet:renderURL var="autoURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 	<portlet:param name="mvcPath" value="/html/tvtracker/t.jsp" /> 
@@ -62,7 +66,7 @@ Delete Episodes:
 
 <aui:script use="liferay-auto-fields,aui-form-validator">
  
-	new Liferay.AutoFields(
+	/*new Liferay.AutoFields(
 		{
 			contentBox: '#member-fields',
 			fieldIndexes: '<portlet:namespace />rowIndexes',
@@ -87,6 +91,6 @@ Delete Episodes:
 	
 	A.all('input').each(function(currentNode, index, nodeList) {
 		currentNode.focus();
-	});
+	});*/
 
 </aui:script>
